@@ -15,32 +15,11 @@
 
 #import "SDTModule.h"
 #import "NSString+SketchDevTools.h"
+#import "NSView+SketchDevTools.h"
 
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-
-
-
-@implementation NSView (SketchConsole)
-
--(NSView*)subviewWithID:(NSString*)viewID {
-    
-    for(NSUInteger i=0;i<self.subviews.count;i++) {
-        NSView* subView=(NSView*)self.subviews[i];
-        // if(subView.identifier==viewID)
-        if([subView.identifier isEqualToString:viewID])
-        {
-            return self.subviews[i];
-        }
-    }
-    
-    return nil;
-}
-
-
-
-@end
 
 
 
@@ -57,45 +36,6 @@
     dispatch_once(&onceToken, ^{
         
         [SDTSwizzle swizzleMethod:@selector(print:) withMethod:@selector(print:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
-        
-        /*
-        Class selfClass = [self class];
-        Class pluginClass = NSClassFromString(@"MSPlugin");
-        
-        // When swizzling a class method, use the following:
-        // Class class = object_getClass((id)self);
-        
-        SEL originalSelector = @selector(print:);
-        SEL swizzledSelector = @selector(print:);
-        
-        Method originalMethod = class_getInstanceMethod(pluginClass, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(selfClass, swizzledSelector);
-        
-        BOOL didAddMethod =
-        class_addMethod(selfClass,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
-        
-        // [SketchConsole printGlobal:[NSString stringWithFormat:@"MSPLUGIN - DID ADD METHOD: %d",didAddMethod]];
-        
-        
-        if (didAddMethod) {
-            class_replaceMethod(selfClass,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
-        } else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-
-        class_addMethod(pluginClass,
-                        NSSelectorFromString(@"MSPluginPrint"),
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-         */
-        
     });
     
 }
@@ -354,7 +294,7 @@
     }
     
     
-    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/AnnotationKit/temp/log.txt";
+    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/logs/framework_log.txt";
     
     NSString* log=[NSString stringWithContentsOfFile:logFilePath encoding:NSUTF8StringEncoding error:NULL];
     
@@ -373,7 +313,7 @@
     }
     
     
-    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/AnnotationKit/temp/log.txt";
+    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/logs/framework_dump.txt";
     
     [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:[s dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }

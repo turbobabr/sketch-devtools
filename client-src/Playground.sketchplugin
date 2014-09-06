@@ -13,3 +13,6 @@
  * WebStorm - Slow version
  * [NSTask launchedTaskWithLaunchPath:"/Applications/WebStorm.app/Contents/MacOS/webide" arguments:["--line","271","/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-qrcode/src/lib/QRCode.js"]];
  */
+
+
+print("Hello from New Playground! :)");

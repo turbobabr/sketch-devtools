@@ -10,6 +10,8 @@
 		5521794419B9410600E99E2D /* PluginsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5521794319B9410600E99E2D /* PluginsManager.xib */; };
 		5521794719B9413C00E99E2D /* PluginsManagerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5521794519B9413C00E99E2D /* PluginsManagerController.h */; };
 		5521794819B9413C00E99E2D /* PluginsManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5521794619B9413C00E99E2D /* PluginsManagerController.m */; };
+		5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */; };
+		5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */; };
 		5578CAAF19AC561B001E7C3B /* COSPreprocessorReplacement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */; };
 		5578CAB019AC561B001E7C3B /* COSPreprocessorReplacement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */; };
 		5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */; };
@@ -45,12 +47,14 @@
 		5521794319B9410600E99E2D /* PluginsManager.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PluginsManager.xib; sourceTree = "<group>"; };
 		5521794519B9413C00E99E2D /* PluginsManagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginsManagerController.h; sourceTree = "<group>"; };
 		5521794619B9413C00E99E2D /* PluginsManagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginsManagerController.m; sourceTree = "<group>"; };
+		5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+SketchDevTools.h"; path = "SketchConsole/NSView+SketchDevTools.h"; sourceTree = "<group>"; };
+		5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+SketchDevTools.m"; path = "SketchConsole/NSView+SketchDevTools.m"; sourceTree = "<group>"; };
 		5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSPreprocessorReplacement.h; sourceTree = "<group>"; };
 		5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSPreprocessorReplacement.m; sourceTree = "<group>"; };
 		5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTSwizzle.h; sourceTree = "<group>"; };
 		5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTSwizzle.m; sourceTree = "<group>"; };
-		557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SketchDevTools.h"; sourceTree = "<group>"; };
-		557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SketchDevTools.m"; sourceTree = "<group>"; };
+		557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SketchDevTools.h"; path = "SketchConsole/NSString+SketchDevTools.h"; sourceTree = "<group>"; };
+		557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SketchDevTools.m"; path = "SketchConsole/NSString+SketchDevTools.m"; sourceTree = "<group>"; };
 		559E2F9319A61E6E00774BED /* SketchConsole.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SketchConsole.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		559E2F9619A61E6E00774BED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		559E2F9919A61E6E00774BED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,9 +99,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5538100519BAB63E00D10D67 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */,
+				557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */,
+				5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */,
+				5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		559E2F8919A61E6E00774BED = {
 			isa = PBXGroup;
 			children = (
+				5538100519BAB63E00D10D67 /* Categories */,
 				55A173BB19AF00E500470090 /* Module */,
 				5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */,
 				5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */,
@@ -151,8 +167,6 @@
 				559E2F9D19A61E6E00774BED /* Supporting Files */,
 				5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */,
 				5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */,
-				557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */,
-				557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */,
 			);
 			path = SketchConsole;
 			sourceTree = "<group>";
@@ -203,6 +217,7 @@
 			files = (
 				557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */,
 				5521794719B9413C00E99E2D /* PluginsManagerController.h in Headers */,
+				5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */,
 				559E2FEB19A97EE100774BED /* TBRConsoleViewController.h in Headers */,
 				55A173BE19AF00EE00470090 /* SDTModule.h in Headers */,
 				5578CAAF19AC561B001E7C3B /* COSPreprocessorReplacement.h in Headers */,
@@ -310,6 +325,7 @@
 				5578CAB019AC561B001E7C3B /* COSPreprocessorReplacement.m in Sources */,
 				559E2FEC19A97EE100774BED /* TBRConsoleViewController.m in Sources */,
 				557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */,
+				5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */,
 				5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */,
 				55A173BF19AF00EE00470090 /* SDTModule.m in Sources */,
 				5521794819B9413C00E99E2D /* PluginsManagerController.m in Sources */,
