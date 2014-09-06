@@ -58,6 +58,13 @@
         restrict: 'A',
         compile: function(element, attributes) {
 
+            if(angular.isDefined(attributes.protocolHandler)) {
+                element.bind('click', function() {
+                   console.log("ЭТО ПРОТОКОЛИЩЕ! :)");
+                });
+
+            }
+
             if(angular.isDefined(attributes.openUrl)) {
 
                 console.log("EXTENDED!");
@@ -71,18 +78,28 @@
 
                 });
             }
+        }
+    }; });
 
+    module.directive('protocolHandler', function() { return {
+        restrict: 'A',
+        compile: function(element, attributes) {
 
+            if(angular.isDefined(attributes.protocolHandler)) {
+                element.bind('click', function() {
+                    var parts=attributes.protocolHandler.split(":");
 
-            /*
-            element.addClass('btn');
-            if ( attributes.type === 'submit' ) {
-                element.addClass('btn-primary');
+                    var params={
+                        ide: parts[0],
+                        path: decodeURI(parts[1]),
+                        line: parseInt(parts[2])
+                    };
+
+                    SketchDevTools.openFileWithIDE(params.path,params.ide,params.line);
+
+                });
+
             }
-            if ( attributes.size ) {
-                element.addClass('btn-' + attributes.size);
-            }*/
-
         }
     }; });
 

@@ -1,8 +1,9 @@
-function theFunctionFromLibLibrary() {
-    print("I'm a dummy function! :)");
+/**
+ *
+ * A small JS framework that prints Hello! :)
+ *
+ */
+
+function printHello() {
+    print("Hello!");
 }
-
-open -a /Applications/WebStorm.app/ "/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Sketch DevTools/plugins/MakeItRed.js" --args --line 3
-
-
-open -a /Applications/WebStorm.app/ "/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Sketch DevTools/js/controllers.js" --line 10 ""

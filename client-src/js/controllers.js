@@ -109,15 +109,33 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
             // mvim://open/?url=file://{{{filePath}}}&line={{line}}&column=1
             // atom://{{{filePath}}}
 
+            function buildProtocolHandlerString() {
+                return $scope.options.defaultProtocolHandler+":"+error.filePath+":"+error.line;
+            }
+
+            function buildClickProtocolHandlerString() {
+                // return $scope.options.defaultProtocolHandler+":"+error.filePath+":"+error.line;
+                return Mustache.render('SketchDevTools.openFileWithIDE("{{{file}}}","{{ide}}",{{line}})',{
+                    ide: $scope.options.defaultProtocolHandler,
+                    file: error.filePath,
+                    line: error.line.toString()
+                });
+            }
+
+            console.log(buildClickProtocolHandlerString());
 
             var link=Mustache.render($scope.options.protocolHandlerTemplate,{
                     filePath: error.filePath,
                     line: error.line
                 });
 
+            // Новый обработчик отрывания файлов во внешнем редакторе.
+            var protocolHandler=buildProtocolHandlerString();
+            link = "#";
 
 
-            var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4><p>»  {{errorLineContents}}  «</p> <p><a href='{{link}}' onclick='{{click}}'>{{fileName}}, Line: {{line}}</a></p></div>";
+            var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4><p>»  {{errorLineContents}}  «</p> <p><a href='{{link}}' onclick='{{click}}' protocol_handler='{{protocolHandler}}'>{{fileName}}, Line: {{line}}</a></p></div>";
+
 
 
             var errors={
@@ -129,7 +147,9 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     fileName: fileName,
                     line: error.line,
                     link: link,
-                    errorLineContents: error.errorLineContents
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
                 },
                 "SyntaxError": {
                     level: "danger",
@@ -139,7 +159,9 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     fileName: fileName,
                     line: error.line,
                     link: link,
-                    errorLineContents: error.errorLineContents
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
                 },
                 "TypeError": {
                     level: "danger",
@@ -149,7 +171,9 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     fileName: fileName,
                     line: error.line,
                     link: link,
-                    errorLineContents: error.errorLineContents
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
                 },
                 "RangeError": {
                     level: "danger",
@@ -159,7 +183,9 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     fileName: fileName,
                     line: error.line,
                     link: link,
-                    errorLineContents: error.errorLineContents
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
                 },
                 "CustomError": {
                     level: "danger",
@@ -169,7 +195,9 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     fileName: fileName,
                     line: error.line,
                     link: link,
-                    errorLineContents: error.errorLineContents
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
                 }
             };
 
@@ -180,7 +208,7 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                 actualError.link="#";
                 actualError["click"]="SketchDevTools.showCustomScriptWindow("+actualError.line+")";
             } else {
-                actualError["click"]="";
+                // actualError["click"]="";
             }
 
             var errorHtml=Mustache.render(template,actualError);

@@ -17,6 +17,8 @@
 #import "NSString+SketchDevTools.h"
 #import "NSView+SketchDevTools.h"
 
+#import "SKDProtocolHandler.h"
+
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -641,8 +643,8 @@
     
     if (sel == @selector(showCustomScriptWindow:))
         name = @"showCustomScriptWindow";
-    
-    
+    if (sel == @selector(openFile:withIDE:atLine:))
+        name = @"openFileWithIDE";
     
     return name;
 }
@@ -656,6 +658,7 @@
     if (sel == @selector(getConsoleOptions)) return NO;
     if (sel == @selector(setConsoleOptions:)) return NO;
     if (sel == @selector(showCustomScriptWindow:)) return NO;
+    if (sel == @selector(openFile:withIDE:atLine:)) return NO;
     
     return YES;
 }
@@ -701,6 +704,10 @@
     }
     
 };
+
+-(BOOL)openFile:(NSString*)filePath withIDE:(NSString*)ide atLine:(NSInteger)line {
+    return [SKDProtocolHandler openFile:filePath withIDE:ide atLine:line];
+}
 
 @end
 

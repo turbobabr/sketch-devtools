@@ -14,7 +14,106 @@
  * [NSTask launchedTaskWithLaunchPath:"/Applications/WebStorm.app/Contents/MacOS/webide" arguments:["--line","271","/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-qrcode/src/lib/QRCode.js"]];
  */
 
+#import 'plugins/lib.js'
 
 
-print(path);
+
+
+
+var IDE = {
+    Sublime: "sublime",
+    TextMate: "textmate",
+    Atom: "atom",
+    XCode: "xcode",
+    MacVim: "macvim",
+    WebStorm: "webstorm",
+    AppCode: "appcode",
+
+};
+
+printHello();
+
+function openFileAtLine(ide,filePath,line) {
+
+    function launch(launchPath,argumets) {
+        [NSTask launchedTaskWithLaunchPath:launchPath arguments:argumets];
+    }
+
+    if(ide==IDE.Sublime) {
+        launch("/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl",[filePath+":"+line]);
+
+    } else if(ide==IDE.TextMate) {
+        launch("/Applications/TextMate.app/Contents/Resources/mate",[filePath,"-l",line.toString()]);
+
+    } else if(ide==IDE.Atom) {
+        launch("/Applications/Atom.app/Contents/MacOS/Atom",[filePath+":"+line]);
+    } else if(ide==IDE.XCode) {
+        launch("/usr/bin/xed",["--line",line.toString(),filePath]);
+    } else if(ide==IDE.MacVim) {
+        launch("/Applications/MacVim.app/Contents/MacOS/Vim",[filePath,"-g","+"+line]);
+    } else if(ide==IDE.WebStorm) {
+        launch("/Applications/WebStorm.app/Contents/MacOS/webide",["--line",line.toString(),filePath]);
+
+        function activateApp(appName) {
+            var script = [[NSAppleScript alloc] initWithSource:"tell application \""+appName+"\" to activate"];
+            [script executeAndReturnError:nil];
+        }
+
+        activateApp("WebStorm")
+    } else if(ide==IDE.AppCode) {
+        launch("/Applications/AppCode.app/Contents/MacOS/appcode",["--line",line.toString(),filePath]);
+
+        function activateApp(appName) {
+            var script = [[NSAppleScript alloc] initWithSource:"tell application \""+appName+"\" to activate"];
+            [script executeAndReturnError:nil];
+        }
+
+        activateApp("AppCode")
+    }
+}
+
+
+
+// Sublime.
+// openFileAtLine(IDE.AppCode,"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/Playground.sketchplugin",13);
+
+
+function loadFrameworks() {
+    if(NSClassFromString("SketchConsole")==null) {
+        var mocha=Mocha.sharedRuntime();
+
+        function folderWithRelativePath(relative) {
+            var scriptPath = scriptPath || sketch.scriptPath;
+            var pluginPath = scriptPath.substring(0, scriptPath.lastIndexOf('/'));
+            return pluginPath+relative;
+        }
+
+        var frameWorkFolder=folderWithRelativePath("/frameworks/SketchConsole/Build/Products/Release");
+        return [mocha loadFrameworkWithName:"SketchConsole" inDirectory:frameWorkFolder];
+    } else return true;
+
+    return false;
+}
+
+
+(function() {
+    return;
+
+    if(!loadFrameworks()) {
+        print("Error: Something strange has happened - Can't load external framework!");
+        return;
+    }
+
+    var filePath="/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/Playground.sketchplugin";
+    [SKDProtocolHandler openFile:filePath withIDE:"XCode" atLine:103];
+
+
+})();
+
+
+
+
+
+
+
 
