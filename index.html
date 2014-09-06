@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SketchConsole">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel='stylesheet' href='./bower_components/bootstrap/dist/css/bootstrap.css'>
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/moment/moment.js"></script>
+    <script src="./bower_components/underscore/underscore.js"></script>
+    <script src="./bower_components/mustache/mustache.js"></script>
+
+    <script src="./js/controllers.js"></script>
+    <script src="./js/services.js"></script>
+
+    <link rel='stylesheet' href='./css/bs-callout.css'>
+    <link rel='stylesheet' href='./css/main.css'>
+
+    <script>
+        function addPrintItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
+            angular.element(document.getElementById('myBody')).scope().addItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
+            angular.element(document.getElementById('myBody')).scope().$apply();
+
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
+
+            angular.element(document.getElementById('myBody')).scope().addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
+            angular.element(document.getElementById('myBody')).scope().$apply();
+
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function addErrorItem(errorType,errorMessage,filePath,line,errorLineContents) {
+
+            angular.element(document.getElementById('myBody')).scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents);
+            angular.element(document.getElementById('myBody')).scope().$apply();
+
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function clearConsole() {
+            angular.element(document.getElementById('myBody')).scope().clear();
+            angular.element(document.getElementById('myBody')).scope().$apply();
+
+        }
+    </script>
+</head>
+<body ng-controller="SketchConsoleController" id="myBody">
+
+<div class="navbar-xs">
+    <div class="navbar-primary">
+    <div class="navbar navbar-fixed-top navbar-sketch-toolbox" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header" style="padding-top: 1px;">
+                <!--<span style="color:#545454;"><small><strong>Sketch DevTools: Console</strong></small></span>-->
+                <!--
+                <img src="./images/console-icon.png" style="vertical-align: top;padding-top: 5px;margin-right: 3px;">
+                -->
+                <div class="sketch-toolbox-console-icon"></div>
+                <span class="sketch-devtools-console-title">Sketch DevTools: Console</span>
+            </div>
+
+            <div class="navbar-collapse">
+                <form class="navbar-right" role="form">
+                    <button class="sketch-toolbox-clear-button" ng-click="clear()"></button>
+                    <button class="sketch-toolbox-settings-button" ng-click="showSettings()" style="margin-left: 4px;margin-right: 6px;"></button>
+                    <button class="sketch-toolbox-close-button" ng-click="hideConsole()"></button>
+                </form>
+            </div>
+        </div>
+    </div>
+        </div>
+</div>
+
+<div class="container-fluid" style="padding-top: 30px;">
+
+    <div class="row" ng-if="showLogo()">
+        <div class="col-md-12" style="position: relative;">
+            <img src="images/background-logo.png" class="background-logo">
+        </div>
+    </div>
+
+
+    <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0"></div>
+
+<!--
+    <div class="row" ng-repeat="item in items" style="border-bottom: 1px solid #F0F0F0">
+        <div class="col-md-10" ng-bind-html="renderHtml(item)"></div>
+        <div class="col-md-2"><span class="pull-right text-muted"><small>{{item.plugin.pluginName}}</small></span></div>
+    </div>
+    -->
+
+    <!--
+    <button class="btn btn-lg btn-success" ng-click="getConsoleOptions()">GET Console Options</button>
+    <button class="btn btn-lg btn-success" ng-click="setConsoleOptions()">SET Console Options</button>
+    <a href='atom://file://Users/andrey/Library/Application%20Support/com.bohemiancoding.sketch3/Plugins/Sketch%20DevTools/index.html'>OPEN IN ATOM!</a>
+    -->
+
+</div>
+<a id="bottom"></a>
+</body>
+</html>
+

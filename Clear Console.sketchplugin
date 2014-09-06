@@ -1,0 +1,5 @@
+// (option cmd shift k)
+print("COMMAND: CLEAR CONSOLE! :)");
+
+SketchConsole.clearConsole();
+

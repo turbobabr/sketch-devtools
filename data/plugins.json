@@ -1,0 +1,787 @@
+[
+  {
+    "plugin" : "All Text Layers in Page.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Annotate.sketchplugin",
+    "shortcut" : [
+      "control",
+      "a"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/1. Curvy.sketchplugin",
+    "shortcut" : [
+      "control",
+      "1"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/10. Custom.sketchplugin",
+    "shortcut" : [
+      "control",
+      "0"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/2. Crisp.sketchplugin",
+    "shortcut" : [
+      "control",
+      "2"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/3. Angled Smooth.sketchplugin",
+    "shortcut" : [
+      "control",
+      "3"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/4. Falcon.sketchplugin",
+    "shortcut" : [
+      "control",
+      "4"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/5. Sharp.sketchplugin",
+    "shortcut" : [
+      "control",
+      "5"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/6. Angled.sketchplugin",
+    "shortcut" : [
+      "control",
+      "6"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/7. Sharp with Dot.sketchplugin",
+    "shortcut" : [
+      "control",
+      "7"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/8. Measure.sketchplugin",
+    "shortcut" : [
+      "control",
+      "8"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Shape\/9. Connector.sketchplugin",
+    "shortcut" : [
+      "control",
+      "9"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 1.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "1"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 10.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "0"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 2.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "2"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 3.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "3"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 4.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "4"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 5.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "5"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 6.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "6"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 7.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "7"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 8.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "8"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Arrow Size\/Size 9.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "9"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/cmd-enter.sketchplugin",
+    "shortcut" : [
+      "command",
+      "↩"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/codebase\/Color Grabber.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "c"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/codebase\/Define Texture.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Console.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Decrease Arrow Size.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "["
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Enter-Exit Annotation Mode.sketchplugin",
+    "shortcut" : [
+      "control",
+      "b"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Increase Arrow Size.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "]"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Increment Index.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "a"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Playground.sketchplugin",
+      "shortcut" : [
+          "command",
+          "↩"
+      ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Presets\/Arrow Presets.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Presets\/Common Presets.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Presets\/Index Presets.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Presets\/Shape Presets.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Remove Shadow.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Save as Default.sketchplugin",
+    "shortcut" : [
+      "control",
+      "s"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Surround.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "g"
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Utils\/Arrow Shape Exporter.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Utils\/Remove All Annotations.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "AnnotationKit\/Utils\/Select UI Item.sketchplugin",
+    "shortcut" : [
+      "control",
+      "d"
+    ]
+  },
+  {
+    "plugin" : "cmd-enter\/cmd-enter.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Geo\/USA\/City.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Geo\/USA\/Full address.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Geo\/USA\/States.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Details\/Email.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Details\/Phone.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Names\/Female.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Names\/Male.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Photos\/Female.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Photos\/Male.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Persona\/Photos\/Neutral.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Photos\/Music artist.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Photos\/Nature and urban.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Custom string.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Dummy text\/Fillerati\/Generate.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Dummy text\/Fillerati\/Replace.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Dummy text\/Hipsum\/Generate.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Dummy text\/Hipsum\/Replace.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Dummy text\/Lorem\/Generate.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Dummy text\/Lorem\/Replace.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Content Generator Sketch Plugin\/Text\/Time ago.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Align to Object.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Artboard - Bleed.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Artboard - Margin.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Artboard - Rotate.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Blend - Backward.sketchplugin",
+    "shortcut" : [
+      "cmd",
+      "shift",
+      "<"
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Blend - Forward.sketchplugin",
+    "shortcut" : [
+      "cmd",
+      "shift",
+      ">"
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Blend - Knockout.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Blend - Masked.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Create Guides.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Deselect.sketchplugin",
+    "shortcut" : [
+      "shift",
+      "cmd",
+      "a"
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Grow.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Lock or Unlock.sketchplugin",
+    "shortcut" : [
+      "option",
+      "cmd",
+      "l"
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Match Rotation.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "DrawingKit\/Shift Guides.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Cheatsheet.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Above Repeater.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "command",
+      "↑"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Above.sketchplugin",
+    "shortcut" : [
+      "control",
+      "command",
+      "↑"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Below Repeater.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "command",
+      "↓"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Below.sketchplugin",
+    "shortcut" : [
+      "control",
+      "command",
+      "↓"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Left Repeater.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "command",
+      "←"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Left.sketchplugin",
+    "shortcut" : [
+      "control",
+      "command",
+      "←"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Right Repeater.sketchplugin",
+    "shortcut" : [
+      "control",
+      "shift",
+      "command",
+      "→"
+    ]
+  },
+  {
+    "plugin" : "Duplicator\/Duplicate Right.sketchplugin",
+    "shortcut" : [
+      "control",
+      "command",
+      "→"
+    ]
+  },
+  {
+    "plugin" : "Fuzzy Commander\/Apply Shared Style.sketchplugin",
+    "shortcut" : [
+      "ctrl",
+      "cmd",
+      "option",
+      "shift",
+      "z"
+    ]
+  },
+  {
+    "plugin" : "Fuzzy Commander\/Launch Shared Style Search.sketchplugin",
+    "shortcut" : [
+      "cmd",
+      "\/"
+    ]
+  },
+  {
+    "plugin" : "Fuzzy Commander\/Launch Shared Text Style Search.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Fuzzy Commander\/Launch Symbol Search.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Navigator\/Down.sketchplugin",
+    "shortcut" : [
+      "control",
+      "option",
+      "↓"
+    ]
+  },
+  {
+    "plugin" : "Navigator\/Left.sketchplugin",
+    "shortcut" : [
+      "control",
+      "option",
+      "←"
+    ]
+  },
+  {
+    "plugin" : "Navigator\/Right.sketchplugin",
+    "shortcut" : [
+      "control",
+      "option",
+      "→"
+    ]
+  },
+  {
+    "plugin" : "Navigator\/Up.sketchplugin",
+    "shortcut" : [
+      "control",
+      "option",
+      "↑"
+    ]
+  },
+  {
+    "plugin" : "Random User\/Insert Random User.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Random User\/Refresh Random Users.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Say Hello.sketchplugin",
+    "shortcut" : [
+      "control",
+      "\/"
+    ]
+  },
+  {
+    "plugin" : "Sketch DevTools\/Clear Console.sketchplugin",
+    "shortcut" : [
+      "option",
+      "cmd",
+      "shift",
+      "k"
+    ]
+  },
+  {
+    "plugin" : "Sketch DevTools\/Console.sketchplugin",
+    "shortcut" : [
+      "option",
+      "cmd",
+      "k"
+    ]
+  },
+  {
+    "plugin" : "Sketch Dynamic Button\/Dynamic Button.sketchplugin",
+    "shortcut" : [
+      "cmd",
+      "j"
+    ]
+  },
+  {
+    "plugin" : "Sketch Fusion\/Test Sketch Fusion.sketchplugin",
+    "shortcut" : [
+      "cmd",
+      "shift",
+      "ctrl",
+      "option",
+      "["
+    ]
+  },
+  {
+    "plugin" : "Sketch Measure\/1. Measure Sizes.sketchplugin",
+    "shortcut" : [
+      "ctrl",
+      "cmd",
+      "1"
+    ]
+  },
+  {
+    "plugin" : "Sketch Measure\/2. Measure Margin or Padding.sketchplugin",
+    "shortcut" : [
+      "ctrl",
+      "cmd",
+      "2"
+    ]
+  },
+  {
+    "plugin" : "Sketch Measure\/3. Measure Distances.sketchplugin",
+    "shortcut" : [
+      "ctrl",
+      "cmd",
+      "3"
+    ]
+  },
+  {
+    "plugin" : "Sketch Measure\/4. Get Properties.sketchplugin",
+    "shortcut" : [
+      "ctrl",
+      "cmd",
+      "4"
+    ]
+  },
+  {
+    "plugin" : "Sketch Measure\/5. Settings\/Design Resolution.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Sketch Measure\/5. Settings\/Guide Style.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Sketch Plugins\/Symbols\/Sync Symbol.sketchplugin",
+    "shortcut" : [
+      "cmd",
+      "e"
+    ]
+  },
+  {
+    "plugin" : "sketch-qrcode\/src\/Generate QR Code.sketchplugin",
+    "shortcut" : [
+
+    ]
+  },
+  {
+    "plugin" : "Sketchplugins\/Make Rect.sketchplugin",
+    "shortcut" : [
+      "command",
+      "option",
+      "r"
+    ]
+  },
+  {
+    "plugin" : "Sketchplugins\/Transform Again.sketchplugin",
+    "shortcut" : [
+      "command",
+      "option",
+      "'"
+    ]
+  },
+  {
+    "plugin" : "Sketchplugins\/Transform.sketchplugin",
+    "shortcut" : [
+      "command",
+      "'"
+    ]
+  },
+  {
+    "plugin" : "Speaker Desk\/Next Slide.sketchplugin",
+    "shortcut" : [
+      "control",
+      "n"
+    ]
+  }
+]

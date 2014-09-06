@@ -1,0 +1,24 @@
+// (option cmd k)
+
+function loadFrameworks() {
+    if(NSClassFromString("SketchConsole")==null) {
+        var mocha=Mocha.sharedRuntime();
+
+        return [mocha loadFrameworkWithName:"SketchConsole" inDirectory:"/Users/andrey/Library/Developer/Xcode/DerivedData/SketchConsole-anyumcukpgcyxfbuprhwfeslmphm/Build/Products/Debug/"];
+    } else return true;
+
+    return false;
+}
+
+
+(function() {
+
+    if(!loadFrameworks()) {
+        print("Error: Something strange has happened - Can't load external framework!");
+        return;
+    }
+
+    SketchConsole.showHideConsole(sketch.scriptURL);
+
+})();
+
