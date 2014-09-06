@@ -9,8 +9,6 @@
 #import "SketchConsole.h"
 #import <objc/runtime.h>
 
-#import "MMMarkdown.h"
-
 #import <WebKit/WebKit.h>
 #import "COSPreprocessorReplacement.h"
 #import "SDTSwizzle.h"
@@ -482,8 +480,6 @@
 }
 
 -(void)print:(id)s {
-    
-    SketchConsole* shared=[SketchConsole sharedInstance];
     
     // Invoke original MSPlugin.print() method.
     if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_print")]) {

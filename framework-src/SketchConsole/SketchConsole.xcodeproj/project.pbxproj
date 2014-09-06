@@ -24,24 +24,6 @@
 		559E2FB019A61E6E00774BED /* SketchConsole.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559E2F9319A61E6E00774BED /* SketchConsole.framework */; };
 		559E2FB619A61E6E00774BED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559E2FB419A61E6E00774BED /* InfoPlist.strings */; };
 		559E2FB819A61E6E00774BED /* SketchConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FB719A61E6E00774BED /* SketchConsoleTests.m */; };
-		559E2FD419A7090900774BED /* MMDocument_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC219A7090900774BED /* MMDocument_Private.h */; };
-		559E2FD519A7090900774BED /* MMDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC319A7090900774BED /* MMDocument.h */; };
-		559E2FD619A7090900774BED /* MMDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FC419A7090900774BED /* MMDocument.m */; };
-		559E2FD719A7090900774BED /* MMElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC519A7090900774BED /* MMElement.h */; };
-		559E2FD819A7090900774BED /* MMElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FC619A7090900774BED /* MMElement.m */; };
-		559E2FD919A7090900774BED /* MMGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC719A7090900774BED /* MMGenerator.h */; };
-		559E2FDA19A7090900774BED /* MMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FC819A7090900774BED /* MMGenerator.m */; };
-		559E2FDB19A7090900774BED /* MMHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC919A7090900774BED /* MMHTMLParser.h */; };
-		559E2FDC19A7090900774BED /* MMHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FCA19A7090900774BED /* MMHTMLParser.m */; };
-		559E2FDD19A7090900774BED /* MMMarkdown-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FCB19A7090900774BED /* MMMarkdown-Prefix.pch */; };
-		559E2FDE19A7090900774BED /* MMMarkdown.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FCC19A7090900774BED /* MMMarkdown.h */; };
-		559E2FDF19A7090900774BED /* MMMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FCD19A7090900774BED /* MMMarkdown.m */; };
-		559E2FE019A7090900774BED /* MMParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FCE19A7090900774BED /* MMParser.h */; };
-		559E2FE119A7090900774BED /* MMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FCF19A7090900774BED /* MMParser.m */; };
-		559E2FE219A7090900774BED /* MMScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FD019A7090900774BED /* MMScanner.h */; };
-		559E2FE319A7090900774BED /* MMScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FD119A7090900774BED /* MMScanner.m */; };
-		559E2FE419A7090900774BED /* MMSpanParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FD219A7090900774BED /* MMSpanParser.h */; };
-		559E2FE519A7090900774BED /* MMSpanParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FD319A7090900774BED /* MMSpanParser.m */; };
 		559E2FEB19A97EE100774BED /* TBRConsoleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FE819A97EE100774BED /* TBRConsoleViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		559E2FEC19A97EE100774BED /* TBRConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FE919A97EE100774BED /* TBRConsoleViewController.m */; };
 		559E2FED19A97EE100774BED /* TBRConsoleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559E2FEA19A97EE100774BED /* TBRConsoleViewController.xib */; };
@@ -84,24 +66,6 @@
 		559E2FB319A61E6E00774BED /* SketchConsoleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SketchConsoleTests-Info.plist"; sourceTree = "<group>"; };
 		559E2FB519A61E6E00774BED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		559E2FB719A61E6E00774BED /* SketchConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchConsoleTests.m; sourceTree = "<group>"; };
-		559E2FC219A7090900774BED /* MMDocument_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDocument_Private.h; sourceTree = "<group>"; };
-		559E2FC319A7090900774BED /* MMDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDocument.h; sourceTree = "<group>"; };
-		559E2FC419A7090900774BED /* MMDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDocument.m; sourceTree = "<group>"; };
-		559E2FC519A7090900774BED /* MMElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMElement.h; sourceTree = "<group>"; };
-		559E2FC619A7090900774BED /* MMElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMElement.m; sourceTree = "<group>"; };
-		559E2FC719A7090900774BED /* MMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGenerator.h; sourceTree = "<group>"; };
-		559E2FC819A7090900774BED /* MMGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGenerator.m; sourceTree = "<group>"; };
-		559E2FC919A7090900774BED /* MMHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHTMLParser.h; sourceTree = "<group>"; };
-		559E2FCA19A7090900774BED /* MMHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHTMLParser.m; sourceTree = "<group>"; };
-		559E2FCB19A7090900774BED /* MMMarkdown-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMMarkdown-Prefix.pch"; sourceTree = "<group>"; };
-		559E2FCC19A7090900774BED /* MMMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMarkdown.h; sourceTree = "<group>"; };
-		559E2FCD19A7090900774BED /* MMMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMarkdown.m; sourceTree = "<group>"; };
-		559E2FCE19A7090900774BED /* MMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMParser.h; sourceTree = "<group>"; };
-		559E2FCF19A7090900774BED /* MMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMParser.m; sourceTree = "<group>"; };
-		559E2FD019A7090900774BED /* MMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMScanner.h; sourceTree = "<group>"; };
-		559E2FD119A7090900774BED /* MMScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMScanner.m; sourceTree = "<group>"; };
-		559E2FD219A7090900774BED /* MMSpanParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSpanParser.h; sourceTree = "<group>"; };
-		559E2FD319A7090900774BED /* MMSpanParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSpanParser.m; sourceTree = "<group>"; };
 		559E2FE819A97EE100774BED /* TBRConsoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRConsoleViewController.h; sourceTree = "<group>"; };
 		559E2FE919A97EE100774BED /* TBRConsoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRConsoleViewController.m; sourceTree = "<group>"; };
 		559E2FEA19A97EE100774BED /* TBRConsoleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBRConsoleViewController.xib; sourceTree = "<group>"; };
@@ -140,7 +104,6 @@
 				559E2FE819A97EE100774BED /* TBRConsoleViewController.h */,
 				559E2FE919A97EE100774BED /* TBRConsoleViewController.m */,
 				559E2FEA19A97EE100774BED /* TBRConsoleViewController.xib */,
-				559E2FC119A708CA00774BED /* MMMarkdown */,
 				559E2F9C19A61E6E00774BED /* SketchConsole */,
 				559E2FB119A61E6E00774BED /* SketchConsoleTests */,
 				559E2F9519A61E6E00774BED /* Frameworks */,
@@ -222,31 +185,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		559E2FC119A708CA00774BED /* MMMarkdown */ = {
-			isa = PBXGroup;
-			children = (
-				559E2FC219A7090900774BED /* MMDocument_Private.h */,
-				559E2FC319A7090900774BED /* MMDocument.h */,
-				559E2FC419A7090900774BED /* MMDocument.m */,
-				559E2FC519A7090900774BED /* MMElement.h */,
-				559E2FC619A7090900774BED /* MMElement.m */,
-				559E2FC719A7090900774BED /* MMGenerator.h */,
-				559E2FC819A7090900774BED /* MMGenerator.m */,
-				559E2FC919A7090900774BED /* MMHTMLParser.h */,
-				559E2FCA19A7090900774BED /* MMHTMLParser.m */,
-				559E2FCB19A7090900774BED /* MMMarkdown-Prefix.pch */,
-				559E2FCC19A7090900774BED /* MMMarkdown.h */,
-				559E2FCD19A7090900774BED /* MMMarkdown.m */,
-				559E2FCE19A7090900774BED /* MMParser.h */,
-				559E2FCF19A7090900774BED /* MMParser.m */,
-				559E2FD019A7090900774BED /* MMScanner.h */,
-				559E2FD119A7090900774BED /* MMScanner.m */,
-				559E2FD219A7090900774BED /* MMSpanParser.h */,
-				559E2FD319A7090900774BED /* MMSpanParser.m */,
-			);
-			name = MMMarkdown;
-			sourceTree = "<group>";
-		};
 		55A173BB19AF00E500470090 /* Module */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,18 +204,8 @@
 				557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */,
 				5521794719B9413C00E99E2D /* PluginsManagerController.h in Headers */,
 				559E2FEB19A97EE100774BED /* TBRConsoleViewController.h in Headers */,
-				559E2FD919A7090900774BED /* MMGenerator.h in Headers */,
 				55A173BE19AF00EE00470090 /* SDTModule.h in Headers */,
-				559E2FE419A7090900774BED /* MMSpanParser.h in Headers */,
-				559E2FDB19A7090900774BED /* MMHTMLParser.h in Headers */,
-				559E2FD419A7090900774BED /* MMDocument_Private.h in Headers */,
-				559E2FDE19A7090900774BED /* MMMarkdown.h in Headers */,
-				559E2FD519A7090900774BED /* MMDocument.h in Headers */,
-				559E2FDD19A7090900774BED /* MMMarkdown-Prefix.pch in Headers */,
-				559E2FD719A7090900774BED /* MMElement.h in Headers */,
-				559E2FE019A7090900774BED /* MMParser.h in Headers */,
 				5578CAAF19AC561B001E7C3B /* COSPreprocessorReplacement.h in Headers */,
-				559E2FE219A7090900774BED /* MMScanner.h in Headers */,
 				5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,20 +308,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5578CAB019AC561B001E7C3B /* COSPreprocessorReplacement.m in Sources */,
-				559E2FDF19A7090900774BED /* MMMarkdown.m in Sources */,
 				559E2FEC19A97EE100774BED /* TBRConsoleViewController.m in Sources */,
-				559E2FD619A7090900774BED /* MMDocument.m in Sources */,
-				559E2FE319A7090900774BED /* MMScanner.m in Sources */,
 				557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */,
-				559E2FDC19A7090900774BED /* MMHTMLParser.m in Sources */,
 				5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */,
 				55A173BF19AF00EE00470090 /* SDTModule.m in Sources */,
-				559E2FE119A7090900774BED /* MMParser.m in Sources */,
-				559E2FE519A7090900774BED /* MMSpanParser.m in Sources */,
 				5521794819B9413C00E99E2D /* PluginsManagerController.m in Sources */,
-				559E2FDA19A7090900774BED /* MMGenerator.m in Sources */,
 				559E2FA519A61E6E00774BED /* SketchConsole.m in Sources */,
-				559E2FD819A7090900774BED /* MMElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
