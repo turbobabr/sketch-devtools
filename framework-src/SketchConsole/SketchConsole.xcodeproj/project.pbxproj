@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5521794419B9410600E99E2D /* PluginsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5521794319B9410600E99E2D /* PluginsManager.xib */; };
+		5521794719B9413C00E99E2D /* PluginsManagerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5521794519B9413C00E99E2D /* PluginsManagerController.h */; };
+		5521794819B9413C00E99E2D /* PluginsManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5521794619B9413C00E99E2D /* PluginsManagerController.m */; };
+		5578CAAF19AC561B001E7C3B /* COSPreprocessorReplacement.h in Headers */ = {isa = PBXBuildFile; fileRef = 5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */; };
+		5578CAB019AC561B001E7C3B /* COSPreprocessorReplacement.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */; };
+		5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */; };
+		5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */; };
+		557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */; };
+		557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */; };
+		559E2F9719A61E6E00774BED /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559E2F9619A61E6E00774BED /* Cocoa.framework */; };
+		559E2FA119A61E6E00774BED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559E2F9F19A61E6E00774BED /* InfoPlist.strings */; };
+		559E2FA519A61E6E00774BED /* SketchConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FA419A61E6E00774BED /* SketchConsole.m */; };
+		559E2FAC19A61E6E00774BED /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559E2FAB19A61E6E00774BED /* XCTest.framework */; };
+		559E2FAD19A61E6E00774BED /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559E2F9619A61E6E00774BED /* Cocoa.framework */; };
+		559E2FB019A61E6E00774BED /* SketchConsole.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559E2F9319A61E6E00774BED /* SketchConsole.framework */; };
+		559E2FB619A61E6E00774BED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 559E2FB419A61E6E00774BED /* InfoPlist.strings */; };
+		559E2FB819A61E6E00774BED /* SketchConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FB719A61E6E00774BED /* SketchConsoleTests.m */; };
+		559E2FD419A7090900774BED /* MMDocument_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC219A7090900774BED /* MMDocument_Private.h */; };
+		559E2FD519A7090900774BED /* MMDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC319A7090900774BED /* MMDocument.h */; };
+		559E2FD619A7090900774BED /* MMDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FC419A7090900774BED /* MMDocument.m */; };
+		559E2FD719A7090900774BED /* MMElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC519A7090900774BED /* MMElement.h */; };
+		559E2FD819A7090900774BED /* MMElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FC619A7090900774BED /* MMElement.m */; };
+		559E2FD919A7090900774BED /* MMGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC719A7090900774BED /* MMGenerator.h */; };
+		559E2FDA19A7090900774BED /* MMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FC819A7090900774BED /* MMGenerator.m */; };
+		559E2FDB19A7090900774BED /* MMHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FC919A7090900774BED /* MMHTMLParser.h */; };
+		559E2FDC19A7090900774BED /* MMHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FCA19A7090900774BED /* MMHTMLParser.m */; };
+		559E2FDD19A7090900774BED /* MMMarkdown-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FCB19A7090900774BED /* MMMarkdown-Prefix.pch */; };
+		559E2FDE19A7090900774BED /* MMMarkdown.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FCC19A7090900774BED /* MMMarkdown.h */; };
+		559E2FDF19A7090900774BED /* MMMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FCD19A7090900774BED /* MMMarkdown.m */; };
+		559E2FE019A7090900774BED /* MMParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FCE19A7090900774BED /* MMParser.h */; };
+		559E2FE119A7090900774BED /* MMParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FCF19A7090900774BED /* MMParser.m */; };
+		559E2FE219A7090900774BED /* MMScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FD019A7090900774BED /* MMScanner.h */; };
+		559E2FE319A7090900774BED /* MMScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FD119A7090900774BED /* MMScanner.m */; };
+		559E2FE419A7090900774BED /* MMSpanParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FD219A7090900774BED /* MMSpanParser.h */; };
+		559E2FE519A7090900774BED /* MMSpanParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FD319A7090900774BED /* MMSpanParser.m */; };
+		559E2FEB19A97EE100774BED /* TBRConsoleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 559E2FE819A97EE100774BED /* TBRConsoleViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		559E2FEC19A97EE100774BED /* TBRConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FE919A97EE100774BED /* TBRConsoleViewController.m */; };
+		559E2FED19A97EE100774BED /* TBRConsoleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 559E2FEA19A97EE100774BED /* TBRConsoleViewController.xib */; };
+		55A173BE19AF00EE00470090 /* SDTModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A173BC19AF00EE00470090 /* SDTModule.h */; };
+		55A173BF19AF00EE00470090 /* SDTModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A173BD19AF00EE00470090 /* SDTModule.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		559E2FAE19A61E6E00774BED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 559E2F8A19A61E6E00774BED /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 559E2F9219A61E6E00774BED;
+			remoteInfo = SketchConsole;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5521794319B9410600E99E2D /* PluginsManager.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PluginsManager.xib; sourceTree = "<group>"; };
+		5521794519B9413C00E99E2D /* PluginsManagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginsManagerController.h; sourceTree = "<group>"; };
+		5521794619B9413C00E99E2D /* PluginsManagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginsManagerController.m; sourceTree = "<group>"; };
+		5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSPreprocessorReplacement.h; sourceTree = "<group>"; };
+		5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COSPreprocessorReplacement.m; sourceTree = "<group>"; };
+		5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTSwizzle.h; sourceTree = "<group>"; };
+		5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTSwizzle.m; sourceTree = "<group>"; };
+		557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SketchDevTools.h"; sourceTree = "<group>"; };
+		557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SketchDevTools.m"; sourceTree = "<group>"; };
+		559E2F9319A61E6E00774BED /* SketchConsole.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SketchConsole.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		559E2F9619A61E6E00774BED /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		559E2F9919A61E6E00774BED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		559E2F9A19A61E6E00774BED /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		559E2F9B19A61E6E00774BED /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		559E2F9E19A61E6E00774BED /* SketchConsole-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SketchConsole-Info.plist"; sourceTree = "<group>"; };
+		559E2FA019A61E6E00774BED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		559E2FA219A61E6E00774BED /* SketchConsole-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SketchConsole-Prefix.pch"; sourceTree = "<group>"; };
+		559E2FA319A61E6E00774BED /* SketchConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchConsole.h; sourceTree = "<group>"; };
+		559E2FA419A61E6E00774BED /* SketchConsole.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchConsole.m; sourceTree = "<group>"; };
+		559E2FAA19A61E6E00774BED /* SketchConsoleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SketchConsoleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		559E2FAB19A61E6E00774BED /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		559E2FB319A61E6E00774BED /* SketchConsoleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SketchConsoleTests-Info.plist"; sourceTree = "<group>"; };
+		559E2FB519A61E6E00774BED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		559E2FB719A61E6E00774BED /* SketchConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchConsoleTests.m; sourceTree = "<group>"; };
+		559E2FC219A7090900774BED /* MMDocument_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDocument_Private.h; sourceTree = "<group>"; };
+		559E2FC319A7090900774BED /* MMDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDocument.h; sourceTree = "<group>"; };
+		559E2FC419A7090900774BED /* MMDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDocument.m; sourceTree = "<group>"; };
+		559E2FC519A7090900774BED /* MMElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMElement.h; sourceTree = "<group>"; };
+		559E2FC619A7090900774BED /* MMElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMElement.m; sourceTree = "<group>"; };
+		559E2FC719A7090900774BED /* MMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGenerator.h; sourceTree = "<group>"; };
+		559E2FC819A7090900774BED /* MMGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGenerator.m; sourceTree = "<group>"; };
+		559E2FC919A7090900774BED /* MMHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMHTMLParser.h; sourceTree = "<group>"; };
+		559E2FCA19A7090900774BED /* MMHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMHTMLParser.m; sourceTree = "<group>"; };
+		559E2FCB19A7090900774BED /* MMMarkdown-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMMarkdown-Prefix.pch"; sourceTree = "<group>"; };
+		559E2FCC19A7090900774BED /* MMMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMarkdown.h; sourceTree = "<group>"; };
+		559E2FCD19A7090900774BED /* MMMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMarkdown.m; sourceTree = "<group>"; };
+		559E2FCE19A7090900774BED /* MMParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMParser.h; sourceTree = "<group>"; };
+		559E2FCF19A7090900774BED /* MMParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMParser.m; sourceTree = "<group>"; };
+		559E2FD019A7090900774BED /* MMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMScanner.h; sourceTree = "<group>"; };
+		559E2FD119A7090900774BED /* MMScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMScanner.m; sourceTree = "<group>"; };
+		559E2FD219A7090900774BED /* MMSpanParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSpanParser.h; sourceTree = "<group>"; };
+		559E2FD319A7090900774BED /* MMSpanParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSpanParser.m; sourceTree = "<group>"; };
+		559E2FE819A97EE100774BED /* TBRConsoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBRConsoleViewController.h; sourceTree = "<group>"; };
+		559E2FE919A97EE100774BED /* TBRConsoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBRConsoleViewController.m; sourceTree = "<group>"; };
+		559E2FEA19A97EE100774BED /* TBRConsoleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TBRConsoleViewController.xib; sourceTree = "<group>"; };
+		55A173BC19AF00EE00470090 /* SDTModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTModule.h; sourceTree = "<group>"; };
+		55A173BD19AF00EE00470090 /* SDTModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTModule.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		559E2F8F19A61E6E00774BED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				559E2F9719A61E6E00774BED /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		559E2FA719A61E6E00774BED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				559E2FAD19A61E6E00774BED /* Cocoa.framework in Frameworks */,
+				559E2FB019A61E6E00774BED /* SketchConsole.framework in Frameworks */,
+				559E2FAC19A61E6E00774BED /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		559E2F8919A61E6E00774BED = {
+			isa = PBXGroup;
+			children = (
+				55A173BB19AF00E500470090 /* Module */,
+				5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */,
+				5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */,
+				559E2FE819A97EE100774BED /* TBRConsoleViewController.h */,
+				559E2FE919A97EE100774BED /* TBRConsoleViewController.m */,
+				559E2FEA19A97EE100774BED /* TBRConsoleViewController.xib */,
+				559E2FC119A708CA00774BED /* MMMarkdown */,
+				559E2F9C19A61E6E00774BED /* SketchConsole */,
+				559E2FB119A61E6E00774BED /* SketchConsoleTests */,
+				559E2F9519A61E6E00774BED /* Frameworks */,
+				559E2F9419A61E6E00774BED /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		559E2F9419A61E6E00774BED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				559E2F9319A61E6E00774BED /* SketchConsole.framework */,
+				559E2FAA19A61E6E00774BED /* SketchConsoleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		559E2F9519A61E6E00774BED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				559E2F9619A61E6E00774BED /* Cocoa.framework */,
+				559E2FAB19A61E6E00774BED /* XCTest.framework */,
+				559E2F9819A61E6E00774BED /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		559E2F9819A61E6E00774BED /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				559E2F9919A61E6E00774BED /* Foundation.framework */,
+				559E2F9A19A61E6E00774BED /* CoreData.framework */,
+				559E2F9B19A61E6E00774BED /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		559E2F9C19A61E6E00774BED /* SketchConsole */ = {
+			isa = PBXGroup;
+			children = (
+				559E2FA319A61E6E00774BED /* SketchConsole.h */,
+				559E2FA419A61E6E00774BED /* SketchConsole.m */,
+				5521794319B9410600E99E2D /* PluginsManager.xib */,
+				5521794519B9413C00E99E2D /* PluginsManagerController.h */,
+				5521794619B9413C00E99E2D /* PluginsManagerController.m */,
+				559E2F9D19A61E6E00774BED /* Supporting Files */,
+				5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */,
+				5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */,
+				557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */,
+				557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */,
+			);
+			path = SketchConsole;
+			sourceTree = "<group>";
+		};
+		559E2F9D19A61E6E00774BED /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				559E2F9E19A61E6E00774BED /* SketchConsole-Info.plist */,
+				559E2F9F19A61E6E00774BED /* InfoPlist.strings */,
+				559E2FA219A61E6E00774BED /* SketchConsole-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		559E2FB119A61E6E00774BED /* SketchConsoleTests */ = {
+			isa = PBXGroup;
+			children = (
+				559E2FB719A61E6E00774BED /* SketchConsoleTests.m */,
+				559E2FB219A61E6E00774BED /* Supporting Files */,
+			);
+			path = SketchConsoleTests;
+			sourceTree = "<group>";
+		};
+		559E2FB219A61E6E00774BED /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				559E2FB319A61E6E00774BED /* SketchConsoleTests-Info.plist */,
+				559E2FB419A61E6E00774BED /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		559E2FC119A708CA00774BED /* MMMarkdown */ = {
+			isa = PBXGroup;
+			children = (
+				559E2FC219A7090900774BED /* MMDocument_Private.h */,
+				559E2FC319A7090900774BED /* MMDocument.h */,
+				559E2FC419A7090900774BED /* MMDocument.m */,
+				559E2FC519A7090900774BED /* MMElement.h */,
+				559E2FC619A7090900774BED /* MMElement.m */,
+				559E2FC719A7090900774BED /* MMGenerator.h */,
+				559E2FC819A7090900774BED /* MMGenerator.m */,
+				559E2FC919A7090900774BED /* MMHTMLParser.h */,
+				559E2FCA19A7090900774BED /* MMHTMLParser.m */,
+				559E2FCB19A7090900774BED /* MMMarkdown-Prefix.pch */,
+				559E2FCC19A7090900774BED /* MMMarkdown.h */,
+				559E2FCD19A7090900774BED /* MMMarkdown.m */,
+				559E2FCE19A7090900774BED /* MMParser.h */,
+				559E2FCF19A7090900774BED /* MMParser.m */,
+				559E2FD019A7090900774BED /* MMScanner.h */,
+				559E2FD119A7090900774BED /* MMScanner.m */,
+				559E2FD219A7090900774BED /* MMSpanParser.h */,
+				559E2FD319A7090900774BED /* MMSpanParser.m */,
+			);
+			name = MMMarkdown;
+			sourceTree = "<group>";
+		};
+		55A173BB19AF00E500470090 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				55A173BC19AF00EE00470090 /* SDTModule.h */,
+				55A173BD19AF00EE00470090 /* SDTModule.m */,
+			);
+			name = Module;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		559E2F9019A61E6E00774BED /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */,
+				5521794719B9413C00E99E2D /* PluginsManagerController.h in Headers */,
+				559E2FEB19A97EE100774BED /* TBRConsoleViewController.h in Headers */,
+				559E2FD919A7090900774BED /* MMGenerator.h in Headers */,
+				55A173BE19AF00EE00470090 /* SDTModule.h in Headers */,
+				559E2FE419A7090900774BED /* MMSpanParser.h in Headers */,
+				559E2FDB19A7090900774BED /* MMHTMLParser.h in Headers */,
+				559E2FD419A7090900774BED /* MMDocument_Private.h in Headers */,
+				559E2FDE19A7090900774BED /* MMMarkdown.h in Headers */,
+				559E2FD519A7090900774BED /* MMDocument.h in Headers */,
+				559E2FDD19A7090900774BED /* MMMarkdown-Prefix.pch in Headers */,
+				559E2FD719A7090900774BED /* MMElement.h in Headers */,
+				559E2FE019A7090900774BED /* MMParser.h in Headers */,
+				5578CAAF19AC561B001E7C3B /* COSPreprocessorReplacement.h in Headers */,
+				559E2FE219A7090900774BED /* MMScanner.h in Headers */,
+				5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		559E2F9219A61E6E00774BED /* SketchConsole */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 559E2FBB19A61E6E00774BED /* Build configuration list for PBXNativeTarget "SketchConsole" */;
+			buildPhases = (
+				559E2F8E19A61E6E00774BED /* Sources */,
+				559E2F8F19A61E6E00774BED /* Frameworks */,
+				559E2F9019A61E6E00774BED /* Headers */,
+				559E2F9119A61E6E00774BED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SketchConsole;
+			productName = SketchConsole;
+			productReference = 559E2F9319A61E6E00774BED /* SketchConsole.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		559E2FA919A61E6E00774BED /* SketchConsoleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 559E2FBE19A61E6E00774BED /* Build configuration list for PBXNativeTarget "SketchConsoleTests" */;
+			buildPhases = (
+				559E2FA619A61E6E00774BED /* Sources */,
+				559E2FA719A61E6E00774BED /* Frameworks */,
+				559E2FA819A61E6E00774BED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				559E2FAF19A61E6E00774BED /* PBXTargetDependency */,
+			);
+			name = SketchConsoleTests;
+			productName = SketchConsoleTests;
+			productReference = 559E2FAA19A61E6E00774BED /* SketchConsoleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		559E2F8A19A61E6E00774BED /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Turbobabr;
+				TargetAttributes = {
+					559E2FA919A61E6E00774BED = {
+						TestTargetID = 559E2F9219A61E6E00774BED;
+					};
+				};
+			};
+			buildConfigurationList = 559E2F8D19A61E6E00774BED /* Build configuration list for PBXProject "SketchConsole" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 559E2F8919A61E6E00774BED;
+			productRefGroup = 559E2F9419A61E6E00774BED /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				559E2F9219A61E6E00774BED /* SketchConsole */,
+				559E2FA919A61E6E00774BED /* SketchConsoleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		559E2F9119A61E6E00774BED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5521794419B9410600E99E2D /* PluginsManager.xib in Resources */,
+				559E2FA119A61E6E00774BED /* InfoPlist.strings in Resources */,
+				559E2FED19A97EE100774BED /* TBRConsoleViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		559E2FA819A61E6E00774BED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				559E2FB619A61E6E00774BED /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		559E2F8E19A61E6E00774BED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5578CAB019AC561B001E7C3B /* COSPreprocessorReplacement.m in Sources */,
+				559E2FDF19A7090900774BED /* MMMarkdown.m in Sources */,
+				559E2FEC19A97EE100774BED /* TBRConsoleViewController.m in Sources */,
+				559E2FD619A7090900774BED /* MMDocument.m in Sources */,
+				559E2FE319A7090900774BED /* MMScanner.m in Sources */,
+				557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */,
+				559E2FDC19A7090900774BED /* MMHTMLParser.m in Sources */,
+				5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */,
+				55A173BF19AF00EE00470090 /* SDTModule.m in Sources */,
+				559E2FE119A7090900774BED /* MMParser.m in Sources */,
+				559E2FE519A7090900774BED /* MMSpanParser.m in Sources */,
+				5521794819B9413C00E99E2D /* PluginsManagerController.m in Sources */,
+				559E2FDA19A7090900774BED /* MMGenerator.m in Sources */,
+				559E2FA519A61E6E00774BED /* SketchConsole.m in Sources */,
+				559E2FD819A7090900774BED /* MMElement.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		559E2FA619A61E6E00774BED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				559E2FB819A61E6E00774BED /* SketchConsoleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		559E2FAF19A61E6E00774BED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 559E2F9219A61E6E00774BED /* SketchConsole */;
+			targetProxy = 559E2FAE19A61E6E00774BED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		559E2F9F19A61E6E00774BED /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559E2FA019A61E6E00774BED /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		559E2FB419A61E6E00774BED /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				559E2FB519A61E6E00774BED /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		559E2FB919A61E6E00774BED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		559E2FBA19A61E6E00774BED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		559E2FBC19A61E6E00774BED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SketchConsole/SketchConsole-Prefix.pch";
+				INFOPLIST_FILE = "SketchConsole/SketchConsole-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		559E2FBD19A61E6E00774BED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SketchConsole/SketchConsole-Prefix.pch";
+				INFOPLIST_FILE = "SketchConsole/SketchConsole-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		559E2FBF19A61E6E00774BED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SketchConsole.framework/Versions/A/SketchConsole";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SketchConsole/SketchConsole-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SketchConsoleTests/SketchConsoleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		559E2FC019A61E6E00774BED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SketchConsole.framework/Versions/A/SketchConsole";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SketchConsole/SketchConsole-Prefix.pch";
+				INFOPLIST_FILE = "SketchConsoleTests/SketchConsoleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		559E2F8D19A61E6E00774BED /* Build configuration list for PBXProject "SketchConsole" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				559E2FB919A61E6E00774BED /* Debug */,
+				559E2FBA19A61E6E00774BED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		559E2FBB19A61E6E00774BED /* Build configuration list for PBXNativeTarget "SketchConsole" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				559E2FBC19A61E6E00774BED /* Debug */,
+				559E2FBD19A61E6E00774BED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		559E2FBE19A61E6E00774BED /* Build configuration list for PBXNativeTarget "SketchConsoleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				559E2FBF19A61E6E00774BED /* Debug */,
+				559E2FC019A61E6E00774BED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 559E2F8A19A61E6E00774BED /* Project object */;
+}
