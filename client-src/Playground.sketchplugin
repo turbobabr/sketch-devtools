@@ -15,4 +15,6 @@
  */
 
 
-print("Hello from New Playground! :)");
+
+print(path);
+
