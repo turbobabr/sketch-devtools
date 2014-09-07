@@ -2,5 +2,5 @@
     "defaultProtocolHandler": "TextMate",
     "protocolHandlerTemplate": "txmt://open/?url=file://{{{filePath}}}&line={{line}}",
     "showConsoleOnError": true,
-    "clearConsoleBeforeLaunch": true
+    "clearConsoleBeforeLaunch": false
 }
