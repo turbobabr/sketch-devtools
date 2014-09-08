@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class SDTModule;
 
 @interface SketchConsole : NSObject
 
@@ -30,6 +31,9 @@
 
 @property (nonatomic) NSDictionary* options;
 @property (nonatomic) NSURL* scriptURL;
+
+@property BOOL isNewSession;
+@property SDTModule* cachedScriptRoot;
 
 +(SketchConsole*)sharedInstance;
 

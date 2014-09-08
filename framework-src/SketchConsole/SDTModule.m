@@ -214,7 +214,7 @@
         
         // is block comment.
         // if([tok isComment] && ([[tok stringValue] rangeOfString:@"/*"].location!=NSNotFound)) {
-        if(objc_msgSend(tok,NSSelectorFromString(@"isComment")) && ([[tok stringValue] rangeOfString:@"/*"].location!=NSNotFound)) {
+        if(objc_msgSend(tok,NSSelectorFromString(@"isComment")) && ([[tok stringValue] rangeOfString:@"/*"].location!=NSNotFound) && false) {
             
             NSInteger currentLine=[collector sdt_numberOfLines];
             

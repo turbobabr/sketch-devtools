@@ -168,11 +168,11 @@
 				5521794319B9410600E99E2D /* PluginsManager.xib */,
 				5521794519B9413C00E99E2D /* PluginsManagerController.h */,
 				5521794619B9413C00E99E2D /* PluginsManagerController.m */,
-				559E2F9D19A61E6E00774BED /* Supporting Files */,
 				5578CAAD19AC561B001E7C3B /* COSPreprocessorReplacement.h */,
 				5578CAAE19AC561B001E7C3B /* COSPreprocessorReplacement.m */,
 				5538100719BACF0A00D10D67 /* SKDProtocolHandler.h */,
 				5538100819BACF0A00D10D67 /* SKDProtocolHandler.m */,
+				559E2F9D19A61E6E00774BED /* Supporting Files */,
 			);
 			path = SketchConsole;
 			sourceTree = "<group>";

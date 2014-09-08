@@ -24,7 +24,7 @@
     // [SketchConsole printGlobal:@"COSPreprocessorReplacement:load!"];
 
     [self swizzle_processCode];
-    [self swizzle_processImports];
+    // [self swizzle_processImports];
 }
 
 +(void)swizzle_processCode {
@@ -32,6 +32,10 @@
     dispatch_once(&COPreprocessorOnceToken, ^{
         
         [SDTSwizzle swizzleClassMethod:@selector(preprocessCode:withBaseURL:) withMethod:@selector(preprocessCode:withBaseURL:) sClass:self pClass:NSClassFromString(@"COSPreprocessor") originalMethodPrefix:@"originalCOSPreprocessor_"];
+        
+        
+        [SDTSwizzle swizzleClassMethod:@selector(preprocessForObjCStrings:) withMethod:@selector(preprocessForObjCStrings:) sClass:self pClass:NSClassFromString(@"COSPreprocessor") originalMethodPrefix:@"originalCOSPreprocessor_"];
+        
         /*
         Class selfClass = object_getClass((id)self);
         Class pluginClass = object_getClass((id)NSClassFromString(@"COSPreprocessor"));
@@ -79,9 +83,130 @@
 }
 
 
++ (NSString*)preprocessForObjCStrings:(NSString*)sourceString {
+    NSMutableString *buffer = [NSMutableString string];
+    // TDTokenizer *tokenizer  = [TDTokenizer tokenizerWithString:sourceString];
+    
+    id tokenizer  = objc_msgSend(NSClassFromString(@"TDTokenizer"),NSSelectorFromString(@"tokenizerWithString:"),sourceString);
+    
+    /*
+    tokenizer.whitespaceState.reportsWhitespaceTokens = YES;
+    tokenizer.commentState.reportsCommentTokens = NO;
+     */
+    
+    // [[tokenizer whitespaceState] setReportsWhitespaceTokens:YES];
+    objc_msgSend(objc_msgSend(tokenizer,NSSelectorFromString(@"whitespaceState")),NSSelectorFromString(@"setReportsWhitespaceTokens:"),YES);
+    
+    // [[tokenizer commentState] setReportsCommentTokens:YES];
+    objc_msgSend(objc_msgSend(tokenizer,NSSelectorFromString(@"commentState")),NSSelectorFromString(@"setReportsCommentTokens:"),YES);
+
+    // TDToken *eof = [TDToken EOFToken];
+    id eof = objc_msgSend(NSClassFromString(@"TDToken"),NSSelectorFromString(@"EOFToken"));
+    //TDToken *tok                    = nil;
+    id tok = nil;
+    id nextToken = nil;
+    
+    while ((tok = objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken"))) != eof) {
+        
+        if (objc_msgSend(tok,NSSelectorFromString(@"isComment"))) {
+            
+            if([[tok stringValue] rangeOfString:@"/*"].location!=NSNotFound) {
+                
+                NSInteger numLines=[[tok stringValue] sdt_numberOfLines];
+                NSMutableString* nastyComment=[NSMutableString string];
+                for(int i=0;i<numLines;i++) {
+                    
+                    [nastyComment appendString:(i<numLines-1) ? @"// I will never ever remove block comments! (c) ccgus :)\n" : @"// I will never ever remove block comments! (c) Gus Mueller :)"];
+                }
+                
+                
+                // [SketchConsole printGlobal:[tok stringValue]];
+                
+                
+                [buffer appendString:nastyComment];
+            } else {
+                
+                // nextToken = objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken"));
+                // [buffer appendString:@"\n"];
+            }
+            
+        } else if (objc_msgSend(tok,NSSelectorFromString(@"isSymbol")) && [[tok stringValue] isEqualToString:@"@"]) {
+            
+            // woo, it's special objc stuff.
+            
+            nextToken = objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken"));
+            //if (nextToken.quotedString) {
+            if(objc_msgSend(nextToken,NSSelectorFromString(@"quotedString"))) {
+                [buffer appendFormat:@"[NSString stringWithString:%@]", [nextToken stringValue]];
+            }
+            else {
+                [buffer appendString:[tok stringValue]];
+                [buffer appendString:[nextToken stringValue]];
+            }
+        }
+        else {
+            [buffer appendString:[tok stringValue]];
+        }
+    }
+    
+    return buffer;
+}
+
+
 + (NSString*)preprocessCode:(NSString*)sourceString withBaseURL:(NSURL*)base {
+
+/*
+    [SketchConsole printGlobal:@"INITIAL:"];
+    [SketchConsole printGlobal:@"==========================================================================================="];
+    [SketchConsole printGlobal:sourceString];
+    [SketchConsole printGlobal:@" "];
+    [SketchConsole printGlobal:@" "];
+    
+
+    sourceString = objc_msgSend(NSClassFromString(@"COSPreprocessor"),NSSelectorFromString(@"preprocessForObjCStrings:"),sourceString);
+    [SketchConsole printGlobal:@"AFTER: preprocessForObjCStrings"];
+    [SketchConsole printGlobal:@"==========================================================================================="];
+    [SketchConsole printGlobal:sourceString];
+    [SketchConsole printGlobal:@" "];
+    [SketchConsole printGlobal:@" "];
+
+
+    
+    sourceString = objc_msgSend(NSClassFromString(@"COSPreprocessor"),NSSelectorFromString(@"preprocessForObjCMessagesToJS:"),sourceString);
+    [SketchConsole printGlobal:@"AFTER: preprocessForObjCMessagesToJS"];
+    [SketchConsole printGlobal:@"==========================================================================================="];
+    [SketchConsole printGlobal:sourceString];
+    [SketchConsole printGlobal:@" "];
+    [SketchConsole printGlobal:@" "];
+    
+    
+    
+//    sourceString = [self processImports:sourceString withBaseURL:(NSURL*)base];
+//    sourceString = [self processMultilineStrings:sourceString];
+//    sourceString = [self preprocessForObjCStrings:sourceString];
+//    sourceString = [self preprocessForObjCMessagesToJS:sourceString];
+     
+    
+   //  "<MOMethodDescription: 0x60000063aa40 : selector=preprocessForObjCStrings:, typeEncoding=@24@0:8@16>",
+   //  "<MOMethodDescription: 0x60000063aa80 : selector=preprocessForObjCMessagesToJS:, typeEncoding=@24@0:8@16>"
+    
+
+    
+    return sourceString;
+ */
+
+    
     
     NSString* code=@"print('THE CODE IS EMPTY!');";
+    /*
+    [SketchConsole printGlobal:@"А ТУТ МЕНЯ УЖЕ ПОКОЛЕЧИЛИ!!! :("];
+    [SketchConsole printGlobal:sourceString];
+     */
+    
+    // Indicate that we are running a new session.
+    SketchConsole* console=[SketchConsole sharedInstance];
+    console.isNewSession=true;
+    
     
     // Invoke original method.
     if ([self respondsToSelector:NSSelectorFromString(@"originalCOSPreprocessor_preprocessCode:withBaseURL:")]) {
@@ -93,10 +218,19 @@
         [SketchConsole clearConsole];
     }
     
+    /*
+    [SketchConsole printGlobal:@"ИЛИ ТУТ ПОКАЛЕЧИЛИ????????!!! :("];
+    [SketchConsole printGlobal:code];
+     */
+    
+    [SketchConsole printGlobalEx:code];
+    
+    // [SketchConsole printGlobalEx:sourceString];
+    
     return code;
 }
 
-
+/*
 + (NSString*)processImports:(NSString*)sourceString withBaseURL:(NSURL*)base {
     
     NSString* code=@"// THIS IS THE BEGINNING!\n";
@@ -108,6 +242,8 @@
     
     return code;
 }
+
+
 
 +(NSString*)getLineInfo:(NSUInteger)lineNumber source:(NSString*)sourceScript withBaseURL:(NSURL*)base {
     return @"Unknown";
@@ -129,8 +265,9 @@
  
     return @"NO INFO";
 }
+ */
 
-
+/*
 + (NSMutableArray*)processImportsMap:(NSString*)sourceString withBaseURL:(NSURL*)base {
     
     NSMutableString *buffer = [NSMutableString string];
@@ -186,9 +323,9 @@
                     NSString *pathInQuotes = [objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken")) stringValue];
                     // [SketchConsole printGlobal:pathInQuotes];
                     
-                    /*
-                    NSString *pathInQuotes = objc_msgSend(objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken")),NSSelectorFromString(@"stringValue"));
-                     */
+
+                    // NSString *pathInQuotes = objc_msgSend(objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken")),NSSelectorFromString(@"stringValue"));
+
                     
                     NSString *path = [pathInQuotes substringWithRange:NSMakeRange(1, [pathInQuotes length]-2)];
                     
@@ -284,7 +421,7 @@
     return sourceMap;
     // return tempBuffer;
 }
-
+*/
 
 @end
 

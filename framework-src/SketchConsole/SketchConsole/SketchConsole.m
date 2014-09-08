@@ -38,8 +38,60 @@
     dispatch_once(&onceToken, ^{
         
         [SDTSwizzle swizzleMethod:@selector(print:) withMethod:@selector(print:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
+        
+
+        // [SDTSwizzle swizzleMethod:@selector(printException:) withMethod:@selector(printException:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
+
+        
+        // [SDTSwizzle swizzleMethod:@selector(scriptWithExpandedImports:path:) withMethod:@selector(scriptWithExpandedImports:path:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
+        
+        [SDTSwizzle swizzleMethod:@selector(executeString:baseURL:) withMethod:@selector(executeString:baseURL:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
+
     });
+}
+
+- (id)executeString:(NSString*)str baseURL:(NSURL*)base {
     
+    /*
+    [SketchConsole printGlobal:@"ВОТ ОНО ТУТ ЗАКРАЛОСЯ!!!"];
+    [SketchConsole printGlobal:str];
+     */
+    
+    if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:")]) {
+        return [self performSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:") withObject:str withObject:base];
+    } else {
+        [SketchConsole printGlobal:@"originalCOScript_executeString:baseURL: Does not respond to selector!"];
+    }
+    
+    return nil;
+}
+
+- (id)scriptWithExpandedImports:(id)arg1 path:(id)arg2 {
+    
+    
+    
+    [SketchConsole printGlobal:@"А мы сюда попадаем??? :("];
+    [SketchConsole printGlobal:arg1];
+    [SketchConsole printGlobal:arg2];
+    
+    id wtf=[self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:arg1 withObject:arg2];
+    [SketchConsole printGlobal:wtf];
+    
+    
+    // Invoke original COScript.printException() method.
+
+        if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path:")]) {
+            
+            NSString* result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:arg1 withObject:arg2];
+            [SketchConsole printGlobal:@"SCRIPT WITH EXPANDED IMPORTS!"];
+            [SketchConsole printGlobal:result];
+            
+            return result;
+        } else {
+            [SketchConsole printGlobal:@"MSPlugin.scriptWithExpandedImports: Does not respond to selector!"];
+        }
+    
+    return @"function noScriptToday(){}";
 }
 
 +(NSDictionary*)getExternalFiles:(NSURL*)scriptURL {
@@ -107,6 +159,147 @@
 }
 
 
+- (void)coscript:(id)coscript hadError:(NSString*)error onLineNumber:(NSInteger)lineNumber atSourceURL:(id)url {
+    // [SketchConsole printGlobal:error];
+}
+
+- (void)error:(id)error {
+    [SketchConsole printGlobal:error];
+}
+
++(void)extendedPrint:(NSDictionary*)info sourceScript:(NSString*)script {
+
+    
+    [self printGlobal:@""];
+    [self printGlobal:@""];
+    [self printGlobal:@""];
+    [self printGlobal:@""];
+    
+    [self printGlobal:@"Exception info from JS Console:"];
+    [self printGlobal:info];
+    
+    [self printGlobal:@""];
+    
+    /*
+    NSDictionary* line=[SketchConsole getLineInfo:[(NSNumber*)info[@"line"] integerValue] source:script withBaseURL:[NSURL fileURLWithPath:info[@"file"]]];
+    [self printGlobal:line];
+     */
+    
+    SketchConsole* shared=[self sharedInstance];
+    [self printGlobal:[NSString stringWithFormat:@"Is new session: %d",shared.isNewSession]];
+    if(shared.isNewSession) {
+        shared.cachedScriptRoot=[[SDTModule alloc] initWithScriptSource:script baseURL:[NSURL fileURLWithPath:info[@"file"]] parent:nil startLine:0];
+        // SDTModule* module=[root findModuleByLineNumber:lineNumber];
+        shared.isNewSession=false;
+    }
+    
+    if(shared.cachedScriptRoot!=nil) {
+        
+        SDTModule* module=[shared.cachedScriptRoot findModuleByLineNumber:[(NSNumber*)info[@"line"] integerValue]];
+        [self printGlobal:@"Module found from cached root module:"];
+        [self printGlobal:module];
+        
+        NSInteger line=[module relativeLineByAbsolute:[(NSNumber*)info[@"line"] integerValue]];
+        [self printGlobal:[NSString stringWithFormat:@"Actual Line Number: %ld",line]];
+        
+
+        // Print it! :)
+        WebView* webView =[SketchConsole findWebView];
+        if(webView==nil) {
+            // [SketchConsole printGlobal:@"ERROR: CAN'T FIND WEB VIEW!!!"];
+            return;
+        }
+        
+        NSArray *args = @[[module description],@"Some Plugin",info[@"file"],info[@"file"]];
+        
+        id win = [webView windowScriptObject];
+        [win callWebScriptMethod:@"addPrintItem" withArguments:args];
+        
+        
+        args=@[[NSString stringWithFormat:@"Actual Line Number: %ld",line],@"Some Plugin",info[@"file"],info[@"file"]];
+        [win callWebScriptMethod:@"addPrintItem" withArguments:args];
+        
+
+        
+        
+    }
+    
+    [self printGlobal:@""];
+    [self printGlobal:@""];
+
+};
+
+- (void)printException:(NSException*)e {
+    
+    // Invoke original COScript.printException() method.
+    if(false) {
+        if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_printException")]) {
+            [self performSelector:NSSelectorFromString(@"originalCOScript_printException") withObject:e];
+        } else {
+            [SketchConsole printGlobal:@"COScript.printException: Does not respond to selector!"];
+        }
+    }
+    
+    BOOL(^callAddErrorJSFunction)(NSString* fnName,NSArray* args) = ^BOOL(NSString* fnName,NSArray* args) {
+        WebView* webView=[SketchConsole findWebView];
+        if(webView==nil) {
+            return false;;
+        }
+
+        [SketchConsole ensureConsoleVisible];
+        [[webView windowScriptObject] callWebScriptMethod:fnName withArguments:args];
+        
+        return true;
+    };
+    
+    // Check for JS errors.
+    if([e.name isEqualToString:@"MOJavaScriptException"]) {
+    
+        NSString* errorType=@"JSUnknownError";
+        NSString* message=@"";
+        NSDictionary* errors=
+        @{
+          @"ReferenceError: " : @"JSReferenceError",
+          @"TypeError: " : @"JSTypeError",
+          @"SyntaxError: " : @"JSSyntaxError",
+          @"RangeError: " : @"JSRangeError",
+          @"EvalError: " : @"JSEvalError",
+          @"InternalError: " : @"JSInternalError",
+          @"URIError: " : @"JSURIError",
+          @"Error: " : @"JSCustomError"
+          };
+        
+        for (NSString* key in errors) {
+            if([e.reason rangeOfString:key].location==0) {
+                errorType=errors[key];
+                message=[e.reason stringByReplacingOccurrencesOfString:key withString:@""];
+                break;
+            }
+        }
+        
+        callAddErrorJSFunction(@"addErrorItem",@[errorType,message,e.userInfo[@"sourceURL"],@4,@"Yo man! :)"]);
+        
+    } else if([e.name isEqualToString:@"MORuntimeException"]) {
+        // Mocha runtime error.
+        callAddErrorJSFunction(@"addMochaErrorItem",@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]);
+    }
+    
+    
+    // Name:
+    [SketchConsole printGlobal:@"Name: "];
+    [SketchConsole printGlobal:e.name];
+    [SketchConsole printGlobal:@" "];
+    
+    // Reason
+    [SketchConsole printGlobal:@"Reason: "];
+    [SketchConsole printGlobal:e.reason];
+    [SketchConsole printGlobal:@" "];
+    
+    // User Info
+    [SketchConsole printGlobal:@"User Info: "];
+    [SketchConsole printGlobal:e.userInfo];
+    [SketchConsole printGlobal:@" "];
+}
 
 
 +(BOOL)initConsole:(NSURL*)scriptURL {
@@ -290,6 +483,7 @@
 
 
 +(void)printGlobal:(id)s {
+    if(!s) return;
     
     if (![s isKindOfClass:[NSString class]]) {
         s = [s description];
@@ -309,13 +503,14 @@
 }
 
 +(void)printGlobalEx:(id)s {
+
     
     if (![s isKindOfClass:[NSString class]]) {
         s = [s description];
     }
     
     
-    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/logs/framework_dump.txt";
+    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/temp/scriptDump_processed.js";
     
     [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:[s dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }
@@ -586,10 +781,6 @@
     [plugin performSelector:NSSelectorFromString(@"processScript")];
     [plugin performSelector:NSSelectorFromString(@"run")];
     
-}
-
-- (void)coscript:(id)coscript hadError:(NSString*)error onLineNumber:(NSInteger)lineNumber atSourceURL:(id)url {
-    // [self print:error];
 }
 
 +(void)clearConsole {
