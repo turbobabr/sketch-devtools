@@ -57,11 +57,37 @@
     [SketchConsole printGlobal:str];
      */
     
+    // Vandalize Print Statement! :)
+    if(false) {
+        Ivar nameIVar = class_getInstanceVariable([self class], "_mochaRuntime");
+        id mocha = object_getIvar(self, nameIVar);
+        
+        [mocha setNilValueForKey:@"print"];
+        [mocha setNilValueForKey:@"log"];
+        
+        
+        NSString* printScript=[[NSString alloc] initWithContentsOfFile:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/runtime/printVandalizer.js" encoding:NSUTF8StringEncoding error:nil];
+        
+        
+        [SketchConsole printGlobal:@"MOCHA IS HERE:"];
+        [SketchConsole printGlobal:mocha];
+        [SketchConsole printGlobal:printScript];
+        
+        id newScript=[mocha performSelector:NSSelectorFromString(@"evalString:") withObject:printScript];
+        
+        [SketchConsole printGlobal:@"THE NEW SCRIPT OBJECT IS:"];
+        [SketchConsole printGlobal:newScript];
+        
+        
+        [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"print"];
+    }
+    
     if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:")]) {
         return [self performSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:") withObject:str withObject:base];
     } else {
         [SketchConsole printGlobal:@"originalCOScript_executeString:baseURL: Does not respond to selector!"];
     }
+
     
     return nil;
 }
@@ -168,7 +194,6 @@
 }
 
 +(void)extendedPrint:(NSDictionary*)info sourceScript:(NSString*)script {
-
     
     [self printGlobal:@""];
     [self printGlobal:@""];

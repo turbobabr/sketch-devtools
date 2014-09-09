@@ -116,7 +116,7 @@
                 NSMutableString* nastyComment=[NSMutableString string];
                 for(int i=0;i<numLines;i++) {
                     
-                    [nastyComment appendString:(i<numLines-1) ? @"// I will never ever remove block comments! (c) ccgus :)\n" : @"// I will never ever remove block comments! (c) Gus Mueller :)"];
+                    [nastyComment appendString:(i<numLines-1) ? @"// I will never ever remove block comments! (c) Gus Mueller :)\n" : @"// I will never ever remove block comments! (c) Gus Mueller :)"];
                 }
                 
                 
