@@ -29,6 +29,10 @@
 
 +(void)load {
     [self swizzleMSPluginMethods];
+    
+    int size=sizeof(CGPoint)*3;
+    [SketchConsole printGlobal:[NSString stringWithFormat:@"SIZE OF CGPOINT: %d",size]];
+    
 }
 
 +(void)swizzleMSPluginMethods {
@@ -46,9 +50,48 @@
         // [SDTSwizzle swizzleMethod:@selector(scriptWithExpandedImports:path:) withMethod:@selector(scriptWithExpandedImports:path:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
         
         [SDTSwizzle swizzleMethod:@selector(executeString:baseURL:) withMethod:@selector(executeString:baseURL:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
+        
+        
+        // [SDTSwizzle swizzleMethod:@selector(run) withMethod:@selector(run) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
 
+        
+        // Shortcuts Experiment!
+        [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
     });
 }
+
+// It works like a charm! :(
+- (void)keyDown:(NSEvent*)event; {
+    
+    NSDictionary* mutableKeycodesD=
+    @{
+      @"11" : @"b", // B - Toggle border
+      @"3"  : @"f",  // F - Toggle fill
+      @"9"  : @"v",  // V - Vector tool
+      @"35" : @"p", // P - Pencil tool
+      @"17" : @"t", // T - Text tool
+      @"0"  : @"a",  // A - Artoboard tool
+      @"1"  : @"s",  // S - Slice tool
+      @"37" : @"l", // L - Line tool
+      @"15" : @"r", // R - Rectangle tool
+      @"31" : @"o", // O - Oval tool
+      @"32" : @"u"  // U - Rounded Rect tool
+      };    
+    
+    NSString* preferredCharacter=[mutableKeycodesD valueForKey:[[NSNumber numberWithUnsignedShort:event.keyCode] stringValue]];
+    if(preferredCharacter!=nil && !event.isARepeat && event.characters.length==1 && /*[NSEvent modifierFlags]==0 &&*/ ![preferredCharacter isEqualToString:[event.characters lowercaseString]]) {
+        event=[NSEvent keyEventWithType:event.type location:event.locationInWindow modifierFlags:event.modifierFlags timestamp:event.timestamp windowNumber:event.windowNumber context:event.context characters:preferredCharacter charactersIgnoringModifiers:preferredCharacter isARepeat:event.isARepeat keyCode:event.keyCode];
+    }
+    
+    SEL sel=NSSelectorFromString(@"originalMSContentDrawView_keyDown");
+    if([self respondsToSelector:sel]) {
+        [self performSelector:sel withObject:event];
+    }
+};
+
+-(unsigned short)shortcutCharacter {
+    return 'q';
+};
 
 - (id)executeString:(NSString*)str baseURL:(NSURL*)base {
     
@@ -82,6 +125,36 @@
         [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"print"];
     }
     
+    // Extend runtime with Console! :)
+    if(false) {
+        Ivar nameIVar = class_getInstanceVariable([self class], "_mochaRuntime");
+        id mocha = object_getIvar(self, nameIVar);
+        
+        /*
+        [mocha setNilValueForKey:@"print"];
+        [mocha setNilValueForKey:@"log"];
+         */
+        
+        
+        NSString* printScript=[[NSString alloc] initWithContentsOfFile:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/libs/console.js" encoding:NSUTF8StringEncoding error:nil];
+        
+        printScript = objc_msgSend(NSClassFromString(@"COSPreprocessor"),NSSelectorFromString(@"preprocessForObjCStrings:"),printScript);
+        printScript = objc_msgSend(NSClassFromString(@"COSPreprocessor"),NSSelectorFromString(@"preprocessForObjCMessagesToJS:"),printScript);
+        
+        
+        [SketchConsole printGlobal:@"MOCHA IS HERE:"];
+        [SketchConsole printGlobal:mocha];
+        [SketchConsole printGlobal:printScript];
+        
+        id newScript=[mocha performSelector:NSSelectorFromString(@"evalString:") withObject:printScript];
+        
+        [SketchConsole printGlobal:@"THE NEW SCRIPT OBJECT IS:"];
+        [SketchConsole printGlobal:newScript];
+        
+        
+        // [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"console"];
+    }
+    
     if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:")]) {
         return [self performSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:") withObject:str withObject:base];
     } else {
@@ -92,27 +165,83 @@
     return nil;
 }
 
-- (id)scriptWithExpandedImports:(id)arg1 path:(id)arg2 {
++(NSString*)processPackageImports:(NSString*)script path:(NSURL*)url {
+    
+    script=[script stringByReplacingOccurrencesOfString:@"#import 'underscore'" withString:@"#import 'modules/underscore.js'"];
+    script=[script stringByReplacingOccurrencesOfString:@"#import 'console'" withString:@"#import 'modules/console.js'"];
+    script=[script stringByReplacingOccurrencesOfString:@"#import 'sketch-query'" withString:@"#import 'modules/sketch-query.js'"];
     
     
-    
-    [SketchConsole printGlobal:@"А мы сюда попадаем??? :("];
-    [SketchConsole printGlobal:arg1];
-    [SketchConsole printGlobal:arg2];
-    
-    id wtf=[self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:arg1 withObject:arg2];
-    [SketchConsole printGlobal:wtf];
+    // Ignore source file replacement in case of custom script.
+    if([url.lastPathComponent isEqualToString:@"Untitled.sketchplugin"]) {
+        return script;
+    }
     
     
-    // Invoke original COScript.printException() method.
+    // Replace source file with the new imports.
+    [script writeToFile:[url path] atomically:true encoding:NSUTF8StringEncoding error:nil];
+    
+    return script;
+};
 
+- (id)run {
+    [SketchConsole printGlobal:self];
+    
+    /*
+     @property(nonatomic) BOOL skipNextLog; // @synthesize skipNextLog=_skipNextLog;
+     @property(retain, nonatomic) COScript *session; // @synthesize session=_session;
+     @property(retain, nonatomic) NSString *name; // @synthesize name=_name;
+     @property(retain, nonatomic) NSMutableString *log; // @synthesize log=_log;
+     @property(retain, nonatomic) ECASLClient *logger; // @synthesize logger=_logger;
+     @property(retain, nonatomic) NSURL *root; // @synthesize root=_root;
+     @property(retain, nonatomic) NSString *processedScript; // @synthesize processedScript=_processedScript;
+     @property(retain, nonatomic) NSString *script; // @synthesize script=_script;
+     @property(retain, nonatomic) NSURL *url; // @synthesize url=_url;
+     */
+    
+    [SketchConsole printGlobal:[self valueForKey:@"session"]];
+    [SketchConsole printGlobal:[self valueForKey:@"name"]];
+    [SketchConsole printGlobal:[self valueForKey:@"log"]];
+    [SketchConsole printGlobal:[self valueForKey:@"logger"]];
+    [SketchConsole printGlobal:[self valueForKey:@"root"]];
+    [SketchConsole printGlobal:[self valueForKey:@"processedScript"]];
+    [SketchConsole printGlobal:[self valueForKey:@"script"]];
+    [SketchConsole printGlobal:[self valueForKey:@"url"]];
+    
+    NSString* script=[self valueForKey:@"script"];
+    NSURL* url=[self valueForKey:@"url"];
+    [self setValue:[SketchConsole processPackageImports:script path:url] forKey:@"script"];
+    
+    
+    [SketchConsole printGlobal:[self valueForKey:@"script"]];
+    
+    id result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_run")];
+    [SketchConsole printGlobal:@"Plugin RUN result:"];
+    [SketchConsole printGlobal:result];
+    
+    return result;
+}
+
+- (id)scriptWithExpandedImports:(id)script path:(id)basePath {
+    
+        [SketchConsole printGlobal:@"scriptWithExpandedImports:"];
+    [SketchConsole printGlobal:script];
+    [SketchConsole printGlobal:basePath];
+    
+    [SketchConsole printGlobal:[self className]];
+    [SketchConsole printGlobal:[script className]];
+    [SketchConsole printGlobal:[basePath className]];
+    
+        // Invoke original COScript.printException() method.
         if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path:")]) {
             
-            NSString* result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:arg1 withObject:arg2];
-            [SketchConsole printGlobal:@"SCRIPT WITH EXPANDED IMPORTS!"];
-            [SketchConsole printGlobal:result];
             
-            return result;
+            script=[SketchConsole processPackageImports:script path:basePath];
+            script = [self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:script withObject:basePath];
+            
+            
+            
+            return script;
         } else {
             [SketchConsole printGlobal:@"MSPlugin.scriptWithExpandedImports: Does not respond to selector!"];
         }
@@ -508,6 +637,8 @@
 
 
 +(void)printGlobal:(id)s {
+
+    
     if(!s) return;
     
     if (![s isKindOfClass:[NSString class]]) {
@@ -535,7 +666,7 @@
     }
     
     
-    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/temp/scriptDump_processed.js";
+    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/logs/framework_dump.js";
     
     [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:[s dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }
@@ -642,6 +773,10 @@
 }
 
 -(void)print:(id)s {
+    
+    if(s==nil) {
+        s=@"NULL!";
+    }
     
     // Invoke original MSPlugin.print() method.
     if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_print")]) {
@@ -925,6 +1060,49 @@
     return [SKDProtocolHandler openFile:filePath withIDE:ide atLine:line];
 }
 
++(id)testObject:(id)object {
+    return [object description];
+}
+
++(id)getPropertyData:(Class)objectClass accessorKey:(NSString*)accessorKey {
+    
+    objc_property_t prop = class_getProperty(objectClass, [accessorKey UTF8String]);
+    
+    NSString* getter=@"";
+    NSString* setter=@"";
+    
+    char *setterName = property_copyAttributeValue(prop, "S");
+    if (setterName == NULL) {
+        setter=accessorKey;
+    } else {
+        setter = [NSString stringWithUTF8String:setterName];
+    }
+    
+    char *getterName = property_copyAttributeValue(prop, "G");
+    if (getterName == NULL) {
+        getter = accessorKey;
+    } else {
+        getter = [NSString stringWithUTF8String:getterName];
+    }
+    
+    return @{
+             @"setter" : setter,
+             @"getter" : getter
+             };
+};
+
 @end
 
+
+
 #pragma clang diagnostic pop
+
+
+
+
+
+
+
+
+
+

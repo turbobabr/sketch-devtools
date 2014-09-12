@@ -330,6 +330,24 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
     };
 
+    $scope.customScript ="print('Hello World of Coding!');";
+
+    $scope.runCustomScript = function() {
+        var script=$scope.customScript;
+
+        // What the heck is wrong with text area? :(
+        script = script.replace(/“/g, '"');
+        script = script.replace(/”/g, '"');
+
+        script = script.replace(/‘/g, "'");
+        script = script.replace(/’/g, "'");
+
+
+        console.log(script);
+
+        SketchDevTools.execScript(script);
+    };
+
     $scope.getConsoleOptions = function() {
 
         var options=JSON.parse(SketchDevTools.getConsoleOptions());
