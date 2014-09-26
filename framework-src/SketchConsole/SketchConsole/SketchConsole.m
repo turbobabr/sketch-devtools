@@ -28,42 +28,26 @@
 @implementation SketchConsole
 
 +(void)load {
-    [self swizzleMSPluginMethods];
-    
-    int size=sizeof(CGPoint)*3;
-    [SketchConsole printGlobal:[NSString stringWithFormat:@"SIZE OF CGPOINT: %d",size]];
-    
-}
-
-+(void)swizzleMSPluginMethods {
     static dispatch_once_t onceToken;
-    
-    
     dispatch_once(&onceToken, ^{
-        
-        
-        
-
-        // [SDTSwizzle swizzleMethod:@selector(printException:) withMethod:@selector(printException:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
-
-        
         // [SDTSwizzle swizzleMethod:@selector(scriptWithExpandedImports:path:) withMethod:@selector(scriptWithExpandedImports:path:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
         
+        // Перехват всех ошибок.
+        // COScript.printException:
+        [SDTSwizzle swizzleMethod:@selector(printException:) withMethod:@selector(printException:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
         
+        // MSPlugin.run();
+        [SDTSwizzle swizzleMethod:@selector(run) withMethod:@selector(run) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
         
-        
-        // [SDTSwizzle swizzleMethod:@selector(run) withMethod:@selector(run) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
-
-        
-        // ORIGINAL AND WORKING!
-        
+        // MSPlugin.print();
         [SDTSwizzle swizzleMethod:@selector(print:) withMethod:@selector(print:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
+        
+        // COScript.executeString:baseURL:
         [SDTSwizzle swizzleMethod:@selector(executeString:baseURL:) withMethod:@selector(executeString:baseURL:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
         
         
         // Shortcuts Experiment!
         [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
-        
     });
 }
 
@@ -191,67 +175,57 @@
     return script;
 };
 
+// Подмененные метод 'run' класса MSPlugin.
+// Мы используем его для получения информации о сессии, а так же для получения время исполнения скрипта.
 - (id)run {
-    [SketchConsole printGlobal:self];
+    NSLog(@"begin: MSPlugin - run");
     
-    /*
-     @property(nonatomic) BOOL skipNextLog; // @synthesize skipNextLog=_skipNextLog;
-     @property(retain, nonatomic) COScript *session; // @synthesize session=_session;
-     @property(retain, nonatomic) NSString *name; // @synthesize name=_name;
-     @property(retain, nonatomic) NSMutableString *log; // @synthesize log=_log;
-     @property(retain, nonatomic) ECASLClient *logger; // @synthesize logger=_logger;
-     @property(retain, nonatomic) NSURL *root; // @synthesize root=_root;
-     @property(retain, nonatomic) NSString *processedScript; // @synthesize processedScript=_processedScript;
-     @property(retain, nonatomic) NSString *script; // @synthesize script=_script;
-     @property(retain, nonatomic) NSURL *url; // @synthesize url=_url;
-     */
+    NSDate *start = [NSDate date];
     
-    [SketchConsole printGlobal:[self valueForKey:@"session"]];
-    [SketchConsole printGlobal:[self valueForKey:@"name"]];
-    [SketchConsole printGlobal:[self valueForKey:@"log"]];
-    [SketchConsole printGlobal:[self valueForKey:@"logger"]];
-    [SketchConsole printGlobal:[self valueForKey:@"root"]];
-    [SketchConsole printGlobal:[self valueForKey:@"processedScript"]];
-    [SketchConsole printGlobal:[self valueForKey:@"script"]];
-    [SketchConsole printGlobal:[self valueForKey:@"url"]];
     
+    // Кэшируем данные связанные с сессией.
     NSString* script=[self valueForKey:@"script"];
-    NSURL* url=[self valueForKey:@"url"];
-    [self setValue:[SketchConsole processPackageImports:script path:url] forKey:@"script"];
+    NSURL* baseURL=[self valueForKey:@"url"];
+    NSURL* root=[self valueForKey:@"root"];
+    NSLog(@"%@",root);
     
     
-    [SketchConsole printGlobal:[self valueForKey:@"script"]];
-    
+    SketchConsole* shared=[SketchConsole sharedInstance];
+    shared.isNewSession=true;
+    if(shared.isNewSession) {
+        
+        SDTModule* module=[[SDTModule alloc] initWithScriptSource:script baseURL:baseURL parent:nil startLine:0];
+        shared.cachedScriptRoot=module;
+        
+        shared.isNewSession=false;
+    }
+
+    // Вызываем оригинальный метод MSPlugin run.
     id result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_run")];
-    [SketchConsole printGlobal:@"Plugin RUN result:"];
-    [SketchConsole printGlobal:result];
+
+    // Получаем время исполнения всего скрипта (похоже что надо переносить в другой метод!).
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
+    
+    NSLog(@"end: MSPlugin - run");
     
     return result;
 }
 
 - (id)scriptWithExpandedImports:(id)script path:(id)basePath {
     
-        [SketchConsole printGlobal:@"scriptWithExpandedImports:"];
-    [SketchConsole printGlobal:script];
-    [SketchConsole printGlobal:basePath];
+    NSLog(@"begin: MSPlugin - scriptWithExpandedImports:path:");
     
-    [SketchConsole printGlobal:[self className]];
-    [SketchConsole printGlobal:[script className]];
-    [SketchConsole printGlobal:[basePath className]];
-    
-        // Invoke original COScript.printException() method.
-        if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path:")]) {
-            
-            
-            script=[SketchConsole processPackageImports:script path:basePath];
-            script = [self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:script withObject:basePath];
-            
-            
-            
-            return script;
-        } else {
-            [SketchConsole printGlobal:@"MSPlugin.scriptWithExpandedImports: Does not respond to selector!"];
-        }
+    // Invoke original MSPlugin scriptWithExpandedImports:path: method.
+    if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path:")]) {
+        script=[SketchConsole processPackageImports:script path:basePath];
+        script = [self performSelector:NSSelectorFromString(@"originalMSPlugin_scriptWithExpandedImports:path") withObject:script withObject:basePath];
+        
+        NSLog(@"end: MSPlugin - scriptWithExpandedImports:path:");
+        
+        return script;
+    } else {
+        [SketchConsole printGlobal:@"MSPlugin.scriptWithExpandedImports: Does not respond to selector!"];
+    }
     
     return @"function noScriptToday(){}";
 }
@@ -320,15 +294,6 @@
     return _options;
 }
 
-
-- (void)coscript:(id)coscript hadError:(NSString*)error onLineNumber:(NSInteger)lineNumber atSourceURL:(id)url {
-    // [SketchConsole printGlobal:error];
-}
-
-- (void)error:(id)error {
-    [SketchConsole printGlobal:error];
-}
-
 +(void)extendedPrint:(NSDictionary*)info sourceScript:(NSString*)script {
     
     [self printGlobal:@""];
@@ -390,7 +355,14 @@
 
 };
 
+// Перехваченный метод из класса MSPlugin, который отвечает за отображение JS и Mocha ошибок.
 - (void)printException:(NSException*)e {
+    
+    LogMessage(@"FRAMEWORK",0,	@"Мы сюда попадаем!");
+    
+    
+    
+    
     
     // Invoke original COScript.printException() method.
     if(false) {
@@ -401,10 +373,13 @@
         }
     }
     
+    // Блок для вызова добавлялки ошибки на стороне WebKit'a.
+    // fnName - JS функция для вызова.
+    // args - аргументы подаваемые в JS функцию.
     BOOL(^callAddErrorJSFunction)(NSString* fnName,NSArray* args) = ^BOOL(NSString* fnName,NSArray* args) {
         WebView* webView=[SketchConsole findWebView];
         if(webView==nil) {
-            return false;;
+            return false;
         }
 
         [SketchConsole ensureConsoleVisible];
@@ -429,7 +404,8 @@
           @"URIError: " : @"JSURIError",
           @"Error: " : @"JSCustomError"
           };
-        
+
+        // Выявляем тип ошибки, а так же получаем сообщение ошибки.
         for (NSString* key in errors) {
             if([e.reason rangeOfString:key].location==0) {
                 errorType=errors[key];
@@ -438,14 +414,82 @@
             }
         }
         
-        callAddErrorJSFunction(@"addErrorItem",@[errorType,message,e.userInfo[@"sourceURL"],@4,@"Yo man! :)"]);
+        // TODO: Здесь необходимо обращаться к процессору импортов и получать актуальный файл, линию и строку ошибки!
+        //       Пока это голимая залипуха, но она все же перехватывает и перенаправляет ошибки в консоль!
+        SketchConsole* shared=[SketchConsole sharedInstance];
+        if(shared.cachedScriptRoot) {
+            
+            // Обработка стэка вызовов.
+            NSArray* stack=[e.userInfo[@"stack"] componentsSeparatedByString:@"\n"];
+            LogMessage(@"printException - STACK",0,	@"%@",stack);
+            
+            NSMutableArray* callStack = [NSMutableArray arrayWithArray:@[]];
+            
+            for(NSString* call in stack) {
+                NSArray* components=[call componentsSeparatedByString:@"@"];
+                
+                NSString* fn=(components.count>1) ? components[0] : @"closure";
+                // NSLog(fn);
+                
+                components=[components[components.count-1] componentsSeparatedByString:@":"];
+                // NSLog(@"Components: %@",components);
+                
+                
+                
+                NSString* filePath=components[0];
+                NSUInteger line=[components[1] integerValue];
+                NSUInteger column=[components[2] integerValue];
+                SDTModule* module=[shared.cachedScriptRoot findModuleByLineNumber:line];
+                if(module) {
+                    NSUInteger relativeLineNumer=[module relativeLineByAbsolute:line];
+                    NSString* sourceCodeLine=[module sourceCodeForLine:relativeLineNumer];
+                    
+                    NSLog(@"Stack Call: %@: %@:%ld:%ld",fn,[module.url lastPathComponent],relativeLineNumer,column);
+                    
+                    NSDictionary* call=@{
+                                        @"fn": fn,
+                                        @"filePath" : [module.url path],
+                                        @"line": @(line),
+                                        @"column": @(column)
+                                        };
+                    
+                    [callStack addObject:call];
+                    
+                    // Добавляем и отображаем ошибку на стороне WebKit'a.
+                    //callAddErrorJSFunction(@"addErrorItem",@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine]);
+                }
+            }
+            
+            NSString* callStackObj=[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:callStack options:0 error:nil] encoding:NSUTF8StringEncoding];
+            
+            // Ищем модуль по глобальной строке в которой произошла ошибка и обрабатывает эту ошибку.
+            NSUInteger lineNumber=[(NSNumber*)e.userInfo[@"line"] integerValue];
+            
+            SDTModule* module=[shared.cachedScriptRoot findModuleByLineNumber:lineNumber];
+            if(module) {
+                NSUInteger relativeLineNumer=[module relativeLineByAbsolute:lineNumber];
+                NSString* sourceCodeLine=[module sourceCodeForLine:relativeLineNumer];
+                
+                // Добавляем и отображаем ошибку на стороне WebKit'a.
+                callAddErrorJSFunction(@"addErrorItem",@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]);
+            } else {
+                NSLog(@"Error: Can't find source module!");
+            }
+            
+        } else {
+            NSLog(@"Error: Root module is not found!");
+        }
         
-    } else if([e.name isEqualToString:@"MORuntimeException"]) {
-        // Mocha runtime error.
+        return;
+    }
+    
+    // Check for Mocha runtime error.
+    if([e.name isEqualToString:@"MORuntimeException"]) {
         callAddErrorJSFunction(@"addMochaErrorItem",@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]);
     }
     
-    
+
+    /*
     // Name:
     [SketchConsole printGlobal:@"Name: "];
     [SketchConsole printGlobal:e.name];
@@ -460,6 +504,7 @@
     [SketchConsole printGlobal:@"User Info: "];
     [SketchConsole printGlobal:e.userInfo];
     [SketchConsole printGlobal:@" "];
+     */
 }
 
 

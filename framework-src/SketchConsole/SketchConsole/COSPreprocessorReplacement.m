@@ -210,7 +210,7 @@
     
     // Indicate that we are running a new session.
     SketchConsole* console=[SketchConsole sharedInstance];
-    console.isNewSession=true;
+    // console.isNewSession=true;
     
     
     // Invoke original method.

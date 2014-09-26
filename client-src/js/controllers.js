@@ -8,7 +8,7 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         $scope.options=JSON.parse(SketchDevTools.getConsoleOptions());
     }
 
-    $scope.addErrorItem = function(type,message,filePath,line,errorLineContents) {
+    $scope.addErrorItem = function(type,message,filePath,line,errorLineContents,callStack) {
 
         var newItem={
             type: "error",
@@ -17,7 +17,8 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                 message: message,
                 filePath: filePath,
                 line: line,
-                errorLineContents: errorLineContents
+                errorLineContents: errorLineContents,
+                stack: JSON.parse(callStack)
             }
         };
 
@@ -134,10 +135,11 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
             link = "#";
 
 
-            var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4><p>»  {{errorLineContents}}  «</p> <p><a href='{{link}}' onclick='{{click}}' protocol_handler='{{protocolHandler}}'>{{fileName}}, Line: {{line}}</a></p></div>";
+            var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4><p>»  {{errorLineContents}}  «</p> <p><a href='{{link}}' onclick='{{click}}' protocol_handler='{{protocolHandler}}'>{{fileName}}, Line: {{line}}</a></p>{{{callStack}}}</div>";
 
 
 
+            /*
             var errors={
                 "ReferenceError": {
                     level: "danger",
@@ -200,6 +202,70 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     click: buildClickProtocolHandlerString()
                 }
             };
+            */
+
+            var errors={
+                "JSReferenceError": {
+                    level: "danger",
+                    symbol: "R",
+                    errorTitle: "Reference Error",
+                    errorMessage: error.message,
+                    fileName: fileName,
+                    line: error.line,
+                    link: link,
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
+                },
+                "JSSyntaxError": {
+                    level: "danger",
+                    symbol: "S",
+                    errorTitle: "Syntax Error",
+                    errorMessage: error.message,
+                    fileName: fileName,
+                    line: error.line,
+                    link: link,
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
+                },
+                "JSTypeError": {
+                    level: "danger",
+                    symbol: "T",
+                    errorTitle: "Type Error",
+                    errorMessage: error.message,
+                    fileName: fileName,
+                    line: error.line,
+                    link: link,
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
+                },
+                "JSRangeError": {
+                    level: "danger",
+                    symbol: "R",
+                    errorTitle: "Range Error",
+                    errorMessage: error.message,
+                    fileName: fileName,
+                    line: error.line,
+                    link: link,
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
+                },
+                "JSCustomError": {
+                    level: "danger",
+                    symbol: "E",
+                    errorTitle: "Error",
+                    errorMessage: error.message,
+                    fileName: fileName,
+                    line: error.line,
+                    link: link,
+                    errorLineContents: error.errorLineContents,
+                    protocolHandler: protocolHandler,
+                    click: buildClickProtocolHandlerString()
+                }
+            };
 
             // Custom Script handler.
             var actualError=errors[error.type];
@@ -211,10 +277,31 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                 // actualError["click"]="";
             }
 
+            // Call stack
+            {
+
+                var result="";
+                _.each(error.stack,function(call) {
+                    var fileName= _.last(call.filePath.split("/"));
+                    var fn=(call.fn=="closure") ? "(anonymous function)" : call.fn;
+                    fn =(fn=="global code") ? "(global)" : fn;
+
+                    result+=Mustache.render("<p>{{{fn}}} - {{fileName}}:{{line}}:{{column}}</p>",{
+                        fn: fn,
+                        fileName: fileName,
+                        line: call.line,
+                        column: call.column
+                    });
+                })
+
+                actualError["callStack"]=result;
+            }
+
+
             var errorHtml=Mustache.render(template,actualError);
             // <div class="col-md-10" ng-bind-html="renderHtml(item)"></div>
 
-            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{error}}}</div>'",{
+            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12' style='margin-bottom: 0px;'>{{{error}}}</div>",{
                 error: errorHtml
             }));
         }

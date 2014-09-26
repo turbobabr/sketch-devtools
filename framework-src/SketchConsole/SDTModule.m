@@ -16,6 +16,7 @@
 
 #import <objc/runtime.h>
 #import "SDTModule.h"
+#import "NSString+SketchDevTools.h"
 
 /*
  #import "TDTokenizer.h"
@@ -26,17 +27,6 @@
 
 
 
-@implementation NSString (SketchDevTools)
--(NSInteger)sdt_numberOfLines {
-    NSString *string=self;
-    NSInteger numberOfLines, index, stringLength = [string length];
-    
-    for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++)
-        index = NSMaxRange([string lineRangeForRange:NSMakeRange(index, 0)]);
-    
-    return numberOfLines;
-}
-@end
 
 
 @implementation SDTModule {
@@ -371,6 +361,20 @@
                          };
     
     return [dict description];
+}
+
+
+-(NSString*)sourceCodeForLine:(NSInteger)line {
+    
+    // Decrement line number for 0...count base format.
+    line-=1;
+    
+    NSArray* lines=[self.source componentsSeparatedByString:@"\n"];
+    if(line<0 || line>lines.count) {
+        return @"NONE";
+    }
+    
+    return lines[line];
 }
 
 @end

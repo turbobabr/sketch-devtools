@@ -21,7 +21,6 @@
     Method originalMethod = class_getInstanceMethod(pClass, originalSelector);
     Method swizzledMethod = class_getInstanceMethod(sClass, swizzledSelector);
     
-    BOOL didAddMethod =
     class_addMethod(sClass,
                     originalSelector,
                     method_getImplementation(swizzledMethod),

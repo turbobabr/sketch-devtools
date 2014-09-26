@@ -13,6 +13,5 @@
 +(void)load;
 
 + (NSString*)preprocessCode:(NSString*)sourceString withBaseURL:(NSURL*)base;
-+(NSDictionary*)getLineInfo:(NSUInteger)lineNumber source:(NSString*)sourceScript withBaseURL:(NSURL*)base;
 
 @end

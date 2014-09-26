@@ -16,6 +16,7 @@
     <link rel='stylesheet' href='./css/main.css'>
 
     <script>
+
         function addPrintItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
             angular.element(document.getElementById('myBody')).scope().addItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
             angular.element(document.getElementById('myBody')).scope().$apply();
@@ -31,9 +32,9 @@
             window.scrollTo(0, document.body.scrollHeight);
         }
 
-        function addErrorItem(errorType,errorMessage,filePath,line,errorLineContents) {
+        function addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack) {
 
-            angular.element(document.getElementById('myBody')).scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents);
+            angular.element(document.getElementById('myBody')).scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack);
             angular.element(document.getElementById('myBody')).scope().$apply();
 
             window.scrollTo(0, document.body.scrollHeight);
@@ -100,7 +101,7 @@
     </div>
     -->
 
-    <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0"></div>
+    <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0;"></div>
 
 </div>
 <a id="bottom"></a>

@@ -17,6 +17,10 @@
     for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++)
         index = NSMaxRange([string lineRangeForRange:NSMakeRange(index, 0)]);
     
+    if(stringLength>0 && [string characterAtIndex:stringLength-1]=='\n') {
+        numberOfLines++;
+    }
+
     return numberOfLines;
 }
 

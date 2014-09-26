@@ -40,5 +40,7 @@
 
 -(NSInteger)relativeLineByAbsolute:(NSInteger)absolute;
 
+-(NSString*)sourceCodeForLine:(NSInteger)line;
+
 
 @end
