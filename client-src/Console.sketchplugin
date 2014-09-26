@@ -12,7 +12,9 @@ function loadFrameworks() {
 
         var frameWorkFolder=folderWithRelativePath("/frameworks/SketchConsole/Build/Products/Release");
         return [mocha loadFrameworkWithName:"SketchConsole" inDirectory:frameWorkFolder];
-    } else return true;
+    } else {
+        return true;
+    }
 
     return false;
 }

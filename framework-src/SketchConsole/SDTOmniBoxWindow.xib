@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="5056"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SDTOmniBoxWindowController">
+            <connections>
+                <outlet property="searchBox" destination="RDS-bF-wnM" id="U86-TK-Iyl"/>
+                <outlet property="webView" destination="Xl8-hu-z2A" id="ldJ-td-p0w"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="kyU-7h-Wmi"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g" customClass="SDTOmniBoxWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="596" height="305"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="596" height="305"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="8Fc-ML-PnL" customClass="SDTOmniBoxContentView">
+                        <rect key="frame" x="0.0" y="0.0" width="596" height="305"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <webView translatesAutoresizingMaskIntoConstraints="NO" id="Xl8-hu-z2A">
+                                <rect key="frame" x="20" y="20" width="556" height="217"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
+                                    <nil key="identifier"/>
+                                </webPreferences>
+                            </webView>
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RDS-bF-wnM">
+                                <rect key="frame" x="18" y="252" width="482" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" id="Oh8-hf-gIo">
+                                    <font key="font" size="32" name="HelveticaNeue-Light"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Xl8-hu-z2A" firstAttribute="top" secondItem="RDS-bF-wnM" secondAttribute="bottom" constant="15" id="Uxl-bz-inZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Xl8-hu-z2A" secondAttribute="trailing" constant="20" symbolic="YES" id="Wx0-Ro-TVI"/>
+                            <constraint firstAttribute="bottom" secondItem="Xl8-hu-z2A" secondAttribute="bottom" constant="20" symbolic="YES" id="Xeg-3t-3lL"/>
+                            <constraint firstItem="RDS-bF-wnM" firstAttribute="leading" secondItem="8Fc-ML-PnL" secondAttribute="leading" constant="20" symbolic="YES" id="YQm-OY-W0p"/>
+                            <constraint firstItem="RDS-bF-wnM" firstAttribute="top" secondItem="8Fc-ML-PnL" secondAttribute="top" constant="14" id="aSR-2i-x7C"/>
+                            <constraint firstItem="Xl8-hu-z2A" firstAttribute="leading" secondItem="RDS-bF-wnM" secondAttribute="leading" id="hZH-ZE-JPL"/>
+                            <constraint firstAttribute="trailing" secondItem="RDS-bF-wnM" secondAttribute="trailing" constant="98" id="zdB-b5-jM8"/>
+                        </constraints>
+                    </customView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="8Fc-ML-PnL" secondAttribute="trailing" id="1xR-fA-y05"/>
+                    <constraint firstItem="8Fc-ML-PnL" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="HSC-Eg-iHl"/>
+                    <constraint firstAttribute="bottom" secondItem="8Fc-ML-PnL" secondAttribute="bottom" id="mNL-tH-lf6"/>
+                    <constraint firstItem="8Fc-ML-PnL" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="tSs-Xk-eKj"/>
+                </constraints>
+            </view>
+        </window>
+    </objects>
+</document>
