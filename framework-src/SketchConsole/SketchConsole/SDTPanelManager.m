@@ -286,6 +286,13 @@
     
 }
 
-
+extern void JSSynchronousGarbageCollectForDebugging(JSContextRef);
++(void)santinel:(id)coscript {
+    
+    JSGlobalContextRef context=(__bridge JSGlobalContextRef)([coscript performSelector:NSSelectorFromString(@"context")]);
+    JSSynchronousGarbageCollectForDebugging(context);
+    
+}
 
 @end
+

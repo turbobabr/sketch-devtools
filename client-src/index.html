@@ -17,11 +17,26 @@
 
     <script>
 
+
+        function refreshConsoleList() {
+            angular.element(document.getElementById('myBody')).scope().$apply();
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        function addHeaderItem(title) {
+            angular.element(document.getElementById('myBody')).scope().addHeaderItem(title);
+        }
+
+        function addDurationItem(duration) {
+            angular.element(document.getElementById('myBody')).scope().addDurationItem(duration);
+        }
+
         function addPrintItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
             angular.element(document.getElementById('myBody')).scope().addItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
-            angular.element(document.getElementById('myBody')).scope().$apply();
+        }
 
-            window.scrollTo(0, document.body.scrollHeight);
+        function addPrintItemEx(contents,filePath,line) {
+            angular.element(document.getElementById('myBody')).scope().addItemEx(contents,filePath,line);
         }
 
         function addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
@@ -36,7 +51,6 @@
 
             angular.element(document.getElementById('myBody')).scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack);
             angular.element(document.getElementById('myBody')).scope().$apply();
-
             window.scrollTo(0, document.body.scrollHeight);
         }
 
@@ -100,6 +114,7 @@
         </div>
     </div>
     -->
+
 
     <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0;"></div>
 

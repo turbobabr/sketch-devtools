@@ -8,6 +8,24 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         $scope.options=JSON.parse(SketchDevTools.getConsoleOptions());
     }
 
+    $scope.addHeaderItem = function(title) {
+        var newItem={
+            type: "header",
+            title: title
+        };
+
+        $scope.items.push(newItem);
+    };
+
+    $scope.addDurationItem = function(duration) {
+        var newItem={
+            type: "duration",
+            duration: duration
+        };
+
+        $scope.items.push(newItem);
+    };
+
     $scope.addErrorItem = function(type,message,filePath,line,errorLineContents,callStack) {
 
         var newItem={
@@ -56,6 +74,19 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         $scope.items.push(newItem);
     };
 
+    $scope.addItemEx = function(contents,filePath,line) {
+
+        var newItem = {
+            type: "extendedPrint",
+            contents: contents,
+            filePath: filePath,
+            line: line,
+            timestamp: new Date().valueOf()
+        };
+
+        $scope.items.push(newItem);
+    };
+
     $scope.showLogo = function() {
         return $scope.items.length==0;
     };
@@ -73,6 +104,68 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
     };
 
     $scope.renderHtml = function(item) {
+
+        function humanizeDuration(duration) {
+
+            console.log(duration);
+            console.log(Math.floor(duration));
+
+            if(Math.floor(duration)>0) {
+                return Math.floor(duration)+"s "+(((duration-Math.floor(duration)))*1000).toFixed()+"ms";
+            }
+
+            return (duration*1000).toFixed()+" ms";
+        }
+
+        if(item.type=="header") {
+
+            /*
+            return $sce.trustAsHtml(Mustache.render(
+                "<div class='col-md-12'><h6><span class='text-capitalize text-center text-danger'>{{title}}</span></h6></div>",{
+                    title: item.title
+                }));
+                */
+
+            return $sce.trustAsHtml(Mustache.render(
+                "<div class='col-md-12 console-header console-header-success text-center'><h3>{{title}}</h3></div>",{
+                    title: "Session #34: "+item.title
+                }));
+        }
+
+        if(item.type=="duration") {
+            // Script executed in 0.129081s
+            return $sce.trustAsHtml(Mustache.render(
+                "<div class='col-md-12'><span class='text-success'>Script executed in {{duration}}</span></div>",{
+                    // duration: item.duration.toFixed(6)
+                    duration: humanizeDuration(item.duration)
+                    // duration: moment().duration(item.duration,"ms").humanize()
+                }));
+        }
+
+        if(item.type=="extendedPrint") {
+            var link=Mustache.render(
+                "txmt://open/?url=file://{{{filePath}}}&line=1&column=1",{
+                    filePath: item.filePath
+                });
+
+            var contentsHtml=Mustache.render(
+                "<div class='col-md-1'>{{timestamp}}</div><div class='col-md-1'><span class='label label-default'>{{tag}}</span></div><div class='col-md-9'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
+                {
+                    contents: item.contents,
+                    file: _.last(item.filePath.split("/")),
+                    link: link,
+                    line: item.line,
+                    timestamp: moment(item.timestamp).format("HH:mm:ss.SSS"),
+                    tag: "log"
+                });
+
+
+            console.log(item);
+
+
+            return $sce.trustAsHtml(contentsHtml);
+        }
+
 
         if(item.type=="mochaError") {
 
@@ -102,6 +195,8 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
         if(item.type=="error") {
             var error=item.error;
+
+            console.log(error);
 
             var fileName=_.last(error.filePath.split("/"));
 

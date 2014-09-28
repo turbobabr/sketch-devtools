@@ -47,7 +47,7 @@
         
         
         // Shortcuts Experiment!
-        [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
+        // [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
     });
 }
 
@@ -92,7 +92,7 @@
      */
     
     // Vandalize Print Statement! :)
-    if(false) {
+    if(true) {
         Ivar nameIVar = class_getInstanceVariable([self class], "_mochaRuntime");
         id mocha = object_getIvar(self, nameIVar);
         
@@ -180,6 +180,8 @@
 - (id)run {
     NSLog(@"begin: MSPlugin - run");
     
+    WebView* webView =[SketchConsole findWebView];
+    
     NSDate *start = [NSDate date];
     
     
@@ -188,6 +190,18 @@
     NSURL* baseURL=[self valueForKey:@"url"];
     NSURL* root=[self valueForKey:@"root"];
     NSLog(@"%@",root);
+    
+    
+    // Очищаем консоль в случае если пользователь включил очистку консоли при каждом запуске.
+    if([(NSNumber*)[SketchConsole sharedInstance].options[@"clearConsoleBeforeLaunch"] boolValue]) {
+        [SketchConsole clearConsole];
+    }
+    
+    // Добавляем шапку сессии.
+    if(webView!=nil) {
+        id win = [webView windowScriptObject];
+        [win callWebScriptMethod:@"addHeaderItem" withArguments:@[[baseURL lastPathComponent]]];
+    }
     
     
     SketchConsole* shared=[SketchConsole sharedInstance];
@@ -202,9 +216,19 @@
 
     // Вызываем оригинальный метод MSPlugin run.
     id result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_run")];
-
+    
+    // Применяем изменения в консоли.
+    
     // Получаем время исполнения всего скрипта (похоже что надо переносить в другой метод!).
     NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
+
+
+    if(webView!=nil) {
+        id win = [webView windowScriptObject];
+        [win callWebScriptMethod:@"addDurationItem" withArguments:@[@(interval)]];
+        [win callWebScriptMethod:@"refreshConsoleList" withArguments:@[]];
+
+    }
     
     NSLog(@"end: MSPlugin - run");
     
@@ -294,75 +318,53 @@
     return _options;
 }
 
-+(void)extendedPrint:(NSDictionary*)info sourceScript:(NSString*)script {
++(void)extendedPrint:(id)s info:(NSDictionary*)info sourceScript:(NSString*)script {
     
-    [self printGlobal:@""];
-    [self printGlobal:@""];
-    [self printGlobal:@""];
-    [self printGlobal:@""];
-    
-    [self printGlobal:@"Exception info from JS Console:"];
-    [self printGlobal:info];
-    
-    [self printGlobal:@""];
-    
+    // If logged value is an object we should convert it to a string.
+    if (![s isKindOfClass:[NSString class]]) {
+        s = [[s description] sdt_escapeHTML];
+    }
+
     /*
-    NSDictionary* line=[SketchConsole getLineInfo:[(NSNumber*)info[@"line"] integerValue] source:script withBaseURL:[NSURL fileURLWithPath:info[@"file"]]];
-    [self printGlobal:line];
+    LogMessage(@"Extended Print", 0, @"Кто-то вызвал Print! :(");
+    LogMessage(@"Extended Print", 0, @"%@",info);
      */
     
     SketchConsole* shared=[self sharedInstance];
-    [self printGlobal:[NSString stringWithFormat:@"Is new session: %d",shared.isNewSession]];
-    if(shared.isNewSession) {
-        shared.cachedScriptRoot=[[SDTModule alloc] initWithScriptSource:script baseURL:[NSURL fileURLWithPath:info[@"file"]] parent:nil startLine:0];
-        // SDTModule* module=[root findModuleByLineNumber:lineNumber];
-        shared.isNewSession=false;
-    }
-    
     if(shared.cachedScriptRoot!=nil) {
         
         SDTModule* module=[shared.cachedScriptRoot findModuleByLineNumber:[(NSNumber*)info[@"line"] integerValue]];
-        [self printGlobal:@"Module found from cached root module:"];
-        [self printGlobal:module];
-        
         NSInteger line=[module relativeLineByAbsolute:[(NSNumber*)info[@"line"] integerValue]];
-        [self printGlobal:[NSString stringWithFormat:@"Actual Line Number: %ld",line]];
-        
 
         // Print it! :)
         WebView* webView =[SketchConsole findWebView];
         if(webView==nil) {
-            // [SketchConsole printGlobal:@"ERROR: CAN'T FIND WEB VIEW!!!"];
             return;
         }
         
         NSArray *args = @[[module description],@"Some Plugin",info[@"file"],info[@"file"]];
         
+
         id win = [webView windowScriptObject];
+        
+        /*
         [win callWebScriptMethod:@"addPrintItem" withArguments:args];
+        */
         
+        // NSLog(s);
         
+        args=@[s,[module.url path],@(line)];
+        [win callWebScriptMethod:@"addPrintItemEx" withArguments:args];
+        
+        /*
         args=@[[NSString stringWithFormat:@"Actual Line Number: %ld",line],@"Some Plugin",info[@"file"],info[@"file"]];
         [win callWebScriptMethod:@"addPrintItem" withArguments:args];
-        
-
-        
-        
+         */
     }
-    
-    [self printGlobal:@""];
-    [self printGlobal:@""];
-
 };
 
 // Перехваченный метод из класса MSPlugin, который отвечает за отображение JS и Mocha ошибок.
 - (void)printException:(NSException*)e {
-    
-    LogMessage(@"FRAMEWORK",0,	@"Мы сюда попадаем!");
-    
-    
-    
-    
     
     // Invoke original COScript.printException() method.
     if(false) {
@@ -433,7 +435,6 @@
                 
                 components=[components[components.count-1] componentsSeparatedByString:@":"];
                 // NSLog(@"Components: %@",components);
-                
                 
                 
                 NSString* filePath=components[0];
@@ -970,7 +971,7 @@
         
     } else {
         // NSArray *args = [NSArray arrayWithObjects:@"print",s,pluginName,[pluginFileURL path],[pluginsRootURL path],nil];
-        NSArray *args = @[s,pluginName,[pluginFileURL path],[pluginsRootURL path]];
+        NSArray *args = @[s,pluginName,[pluginFileURL path],[pluginsRootURL path],@true];
         
         id win = [webView windowScriptObject];
         [win callWebScriptMethod:@"addPrintItem" withArguments:args];

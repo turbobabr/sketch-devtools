@@ -52,8 +52,10 @@
                     // print(logCall);
                     // [SketchConsole extendedPrint:logCall sourceScript:coscript.printController().script()];
 
-                    coscript.print("<H2><span class='label label-danger'>Меня подменили! :)</span></H2>")
-                    SketchConsole.extendedPrint_sourceScript_(logCall,coscript.printController().script());
+                    // coscript.print("<H2><span class='label label-danger'>Меня подменили! :)</span></H2>")
+                    // SketchConsole.extendedPrint_sourceScript_(logCall,coscript.printController().script());
+
+                    SketchConsole.extendedPrint_info_sourceScript_(obj,logCall,coscript.printController().script());
                     /*
                     coscript.print("Вот он! Мерзкий вызов! :)");
                     coscript.print(logCall);

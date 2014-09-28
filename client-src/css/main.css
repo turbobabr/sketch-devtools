@@ -286,3 +286,44 @@
     margin-left: -74px;
     margin-top: -79;
 }
+
+
+
+.console-header {
+    margin: 0px 0;
+    padding: 8px 13px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-family: "Helvetica Neue";
+}
+
+.console-header-danger {
+    background-color: #fcf2f2;
+    border-color: #dFb5b4;
+}
+.console-header-warning {
+    background-color: #fefbed;
+    border-color: #f1e7bc;
+}
+.console-header-info {
+    background-color: #f0f7fd;
+    border-color: #d0e3f0;
+}
+.console-header-success {
+    background-color: #DFF0D7;
+    border-color: #D6EAC5;
+}
+
+
+
+.console-header-success h1,
+.console-header-success h2,
+.console-header-success h3,
+.console-header-success h4,
+.console-header-success h5,
+.console-header-success h6 {
+    color: #3C763D;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 14px;
+}

@@ -81,6 +81,11 @@
                                       range:NSMakeRange(0, [encoded length])];
     }
     
+    // Line break;
+    [encoded replaceOccurrencesOfString:@"\n" withString:@"<br>" options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
+    
+    // Tab (4 spaces).
+    [encoded replaceOccurrencesOfString:@"    " withString:@"&nbsp;&nbsp;&nbsp;&nbsp;" options:NSLiteralSearch range:NSMakeRange(0, [encoded length])];
     
     return encoded;
 }

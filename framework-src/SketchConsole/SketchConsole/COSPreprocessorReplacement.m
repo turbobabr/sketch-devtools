@@ -219,9 +219,13 @@
     }
     
     // Очистка консоли перед запуском каждого плагина.
+    
+    /*
     if([(NSNumber*)[SketchConsole sharedInstance].options[@"clearConsoleBeforeLaunch"] boolValue]) {
         [SketchConsole clearConsole];
     }
+     */
+     
     
     /*
     [SketchConsole printGlobal:@"ИЛИ ТУТ ПОКАЛЕЧИЛИ????????!!! :("];

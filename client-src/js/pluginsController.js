@@ -13,7 +13,6 @@ module.controller('PluginsController', function ($scope,$http,$sce,$location,$an
                 var parts=plugin.plugin.split("/");
 
 
-
                 function parseShortcut(sh) {
                     if(sh.length<1) {
                         return "?";
