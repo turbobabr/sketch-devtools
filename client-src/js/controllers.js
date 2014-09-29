@@ -1,4 +1,4 @@
-var phonecatApp = angular.module('SketchConsole', []);
+var phonecatApp = angular.module('SketchConsole', ['ui.bootstrap']);
 
 phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$location,$anchorScroll,$compile) {
     $scope.items = [];
@@ -9,6 +9,8 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
     }
 
     $scope.addHeaderItem = function(title) {
+        return;
+
         var newItem={
             type: "header",
             title: title
@@ -128,7 +130,7 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
             return $sce.trustAsHtml(Mustache.render(
                 "<div class='col-md-12 console-header console-header-success text-center'><h3>{{title}}</h3></div>",{
-                    title: "Session #34: "+item.title
+                    title: item.title
                 }));
         }
 
@@ -148,8 +150,22 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     filePath: item.filePath
                 });
 
+            /*
             var contentsHtml=Mustache.render(
-                "<div class='col-md-1'>{{timestamp}}</div><div class='col-md-1'><span class='label label-default'>{{tag}}</span></div><div class='col-md-9'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
+                "<div class='col-md-1' style='width:110px;border-right: 1px solid #F0F0F0;'>{{timestamp}}</div><div class='col-md-1' style='width:60px;border-right: 1px solid #F0F0F0;'><span class='label label-default'>{{tag}}</span></div><div class='col-md-9'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
+                {
+                    contents: item.contents,
+                    file: _.last(item.filePath.split("/")),
+                    link: link,
+                    line: item.line,
+                    timestamp: moment(item.timestamp).format("HH:mm:ss.SSS"),
+                    tag: "log"
+                });
+                */
+
+
+            var contentsHtml=Mustache.render(
+                "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
                 {
                     contents: item.contents,
                     file: _.last(item.filePath.split("/")),
@@ -161,6 +177,28 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
 
             console.log(item);
+
+            console.log({
+                class: "MSColor",
+                value: "#D6EAC5",
+                points: [
+                    {
+                        x: 10,
+                        y: 20
+                    },
+                    {
+                        x: 25,
+                        y: 40
+                    },
+                    {
+                        x: 67,
+                        y: 87
+                    }
+                ],
+                gradient: {
+                    type: 0
+                }
+            });
 
 
             return $sce.trustAsHtml(contentsHtml);

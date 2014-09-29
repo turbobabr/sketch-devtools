@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel='stylesheet' href='./bower_components/bootstrap/dist/css/bootstrap.css'>
+    <link rel='stylesheet' href='./bower_components/fontawesome/css/font-awesome.css'>
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
     <script src="./bower_components/angular/angular.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="./bower_components/moment/moment.js"></script>
     <script src="./bower_components/underscore/underscore.js"></script>
     <script src="./bower_components/mustache/mustache.js"></script>
+
 
     <script src="./js/controllers.js"></script>
     <script src="./js/services.js"></script>
@@ -20,7 +24,11 @@
 
         function refreshConsoleList() {
             angular.element(document.getElementById('myBody')).scope().$apply();
-            window.scrollTo(0, document.body.scrollHeight);
+            // window.scrollTo(0, document.body.scrollHeight);
+
+            // $("#contentView").scrollTo(0, document.body.scrollHeight);
+            var d = $('#contentView');
+            d.scrollTop(d.prop("scrollHeight"));
         }
 
         function addHeaderItem(title) {
@@ -59,9 +67,22 @@
             angular.element(document.getElementById('myBody')).scope().$apply();
 
         }
+
+        $(window).resize(function() {
+            console.log("Resize it!");
+            $("#contentView").css("height", window.innerHeight-32);
+
+        });
+
+        $( document ).ready(function() {
+            console.log("Init it!");
+            $("#contentView").css("height", window.innerHeight-32);
+        });
+
+
     </script>
 </head>
-<body ng-controller="SketchConsoleController" id="myBody">
+<body ng-controller="SketchConsoleController" id="myBody" style="overflow: hidden;">
 
 <div class="navbar-xs">
     <div class="navbar-primary">
@@ -88,16 +109,24 @@
         </div>
 </div>
 
+
+
 <div class="container-fluid" style="padding-top: 30px;">
-
-    <div class="row" ng-if="showLogo()">
-        <div class="col-md-12" style="position: relative;">
-            <img src="images/background-logo.png" class="background-logo">
+    <div style="overflow-y: auto; overflow-x: hidden;" id="contentView">
+        <div class="row" ng-if="showLogo()">
+            <div class="col-md-12" style="position: relative;">
+                <img src="images/background-logo.png" class="background-logo">
+            </div>
         </div>
+        <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px;"></div>
+
+        <i class="fa fa-exclamation-circle"></i>
+        <span style='color: #FF0000;'><i class='fa fa-times-circle'></i></span>
+
+        <span style="color: #F2AE43;"><i class="fa fa-exclamation-triangle "></i></span>
+        <span style="color: #3E8ACC;"><i class="fa fa-info-circle"></i></span>
+
     </div>
-
-
-
     <!-- Custom Script Field -->
     <!--
     <div class="row">
@@ -116,9 +145,9 @@
     -->
 
 
-    <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0;"></div>
-
 </div>
+
+
 <a id="bottom"></a>
 </body>
 </html>

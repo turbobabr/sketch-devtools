@@ -13,4 +13,6 @@
 -(NSInteger)sdt_numberOfLines;
 - (NSString *)sdt_escapeHTML;
 
++ (NSString *)sdt_escapeHTML:(NSString*)str;
+
 @end
