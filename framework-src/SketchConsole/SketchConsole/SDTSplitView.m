@@ -16,6 +16,9 @@
     if (self) {
         // Initialization code here.
     }
+
+    NSURL* url;
+    
     return self;
 }
 

@@ -8,6 +8,14 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         $scope.options=JSON.parse(SketchDevTools.getConsoleOptions());
     }
 
+
+    $scope.addCustomPrintItem = function(contents) {
+        $scope.items.push({
+            type: "custom",
+            contents: contents
+        });
+    };
+
     $scope.addHeaderItem = function(title) {
         return;
 
@@ -107,6 +115,10 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
     $scope.renderHtml = function(item) {
 
+        if(item.type=="custom") {
+            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{contents}}}</div>",item));
+        }
+
         function humanizeDuration(duration) {
 
             console.log(duration);
@@ -137,10 +149,11 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         if(item.type=="duration") {
             // Script executed in 0.129081s
             return $sce.trustAsHtml(Mustache.render(
-                "<div class='col-md-12'><span class='text-success'>Script executed in {{duration}}</span></div>",{
+                "<div class='col-md-12'><span class='text-success'>{{timestamp}}: Script executed in {{duration}}</span></div>",{
                     // duration: item.duration.toFixed(6)
-                    duration: humanizeDuration(item.duration)
+                    duration: humanizeDuration(item.duration),
                     // duration: moment().duration(item.duration,"ms").humanize()
+                    timestamp: moment(new Date().valueOf()).format("HH:mm:ss.SSS")
                 }));
         }
 

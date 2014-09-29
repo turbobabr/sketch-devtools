@@ -35,6 +35,10 @@
             angular.element(document.getElementById('myBody')).scope().addHeaderItem(title);
         }
 
+        function addCustomPrintItem(contents) {
+            angular.element(document.getElementById('myBody')).scope().addCustomPrintItem(contents);
+        }
+
         function addDurationItem(duration) {
             angular.element(document.getElementById('myBody')).scope().addDurationItem(duration);
         }
@@ -120,11 +124,13 @@
         </div>
         <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px;"></div>
 
+        <!--
         <i class="fa fa-exclamation-circle"></i>
         <span style='color: #FF0000;'><i class='fa fa-times-circle'></i></span>
 
         <span style="color: #F2AE43;"><i class="fa fa-exclamation-triangle "></i></span>
         <span style="color: #3E8ACC;"><i class="fa fa-info-circle"></i></span>
+        -->
 
     </div>
     <!-- Custom Script Field -->

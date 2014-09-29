@@ -318,6 +318,21 @@
     return _options;
 }
 
++(void)customPrint:(id)s {
+    // If logged value is an object we should convert it to a string.
+    if (![s isKindOfClass:[NSString class]]) {
+        s = [[s description] sdt_escapeHTML];
+    }
+
+    WebView* webView =[SketchConsole findWebView];
+    if(webView==nil) {
+        return;
+    }
+    
+    id win = [webView windowScriptObject];
+    [win callWebScriptMethod:@"addCustomPrintItem" withArguments:@[s]];
+}
+
 +(void)extendedPrint:(id)s info:(NSDictionary*)info sourceScript:(NSString*)script {
     
     // If logged value is an object we should convert it to a string.
