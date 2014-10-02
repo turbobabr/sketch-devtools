@@ -12,7 +12,6 @@
     <script src="./bower_components/underscore/underscore.js"></script>
     <script src="./bower_components/mustache/mustache.js"></script>
 
-
     <script src="./js/controllers.js"></script>
     <script src="./js/services.js"></script>
 
@@ -21,53 +20,41 @@
 
     <script>
         function refreshConsoleList() {
-            // angular.element(document.getElementById('myBody')).scope().$apply();
-            angular.element($("#myBody")).scope().$apply();
-            // window.scrollTo(0, document.body.scrollHeight);
-
-            // $("#contentView").scrollTo(0, document.body.scrollHeight);
+            scope().$apply();
             var contentView = $('#contentView');
             contentView.scrollTop(contentView.prop("scrollHeight"));
         }
 
+        function scope() {
+            return angular.element($("#myBody")).scope();
+        }
+
         function addCustomPrintItem(contents) {
-            angular.element(document.getElementById('myBody')).scope().addCustomPrintItem(contents);
+            scope().addCustomPrintItem(contents);
         }
 
         function addSessionItem(scriptName,duration) {
-            angular.element(document.getElementById('myBody')).scope().addSessionItem(scriptName,duration);
+            scope().addSessionItem(scriptName,duration);
         }
 
         function addPrintItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
-            angular.element(document.getElementById('myBody')).scope().addItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
+            scope().addItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
         }
 
         function addPrintItemEx(contents,filePath,line) {
-            angular.element(document.getElementById('myBody')).scope().addItemEx(contents,filePath,line);
+            scope().addItemEx(contents,filePath,line);
         }
 
         function addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
-
-            angular.element(document.getElementById('myBody')).scope().addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
-
-            // angular.element(document.getElementById('myBody')).scope().$apply();
-
-            // window.scrollTo(0, document.body.scrollHeight);
+            scope().addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
         }
 
         function addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack) {
-
-            angular.element(document.getElementById('myBody')).scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack);
-
-            // angular.element(document.getElementById('myBody')).scope().$apply();
-
-            // window.scrollTo(0, document.body.scrollHeight);
+            scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack);
         }
 
         function clearConsole() {
-            angular.element(document.getElementById('myBody')).scope().clear();
-            // angular.element(document.getElementById('myBody')).scope().$apply();
-
+            scope().clear();
         }
 
 
@@ -77,7 +64,7 @@
 
         });
 
-        $( document ).ready(function() {
+        $(document).ready(function() {
             console.log("Init it!");
             $("#contentView").css("height", window.innerHeight-32);
         });

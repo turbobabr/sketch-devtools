@@ -15,14 +15,11 @@
 
 +(void)load;
 
-// +(void)printGlobal:(id)s;
+
 +(void)printGlobalEx:(id)s;
 
 -(void)print:(id)s;
--(void)coscript:(id)coscript hadError:(NSString*)error onLineNumber:(NSInteger)lineNumber atSourceURL:(id)url;
-
 -(void)execScript:(NSString*)script;
-
 
 + (NSString *) webScriptNameForSelector:(SEL)sel;
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;

@@ -1,7 +1,7 @@
 {
-  "showConsoleOnError" : true,
-  "defaultProtocolHandler" : "webstorm",
-  "clearConsoleBeforeLaunch" : false,
   "showSessionInfo" : true,
-  "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}"
+  "defaultProtocolHandler" : "webstorm",
+  "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}",
+  "showConsoleOnError" : true,
+  "clearConsoleBeforeLaunch" : true
 }

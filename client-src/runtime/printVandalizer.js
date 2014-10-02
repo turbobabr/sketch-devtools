@@ -56,23 +56,20 @@
                     // SketchConsole.extendedPrint_sourceScript_(logCall,coscript.printController().script());
 
                     SketchConsole.extendedPrint_info_sourceScript_(obj,logCall,coscript.printController().script());
-                    /*
-                    coscript.print("Вот он! Мерзкий вызов! :)");
-                    coscript.print(logCall);
-                    */
+
+                    // Mirror log to stderr.
+                    coscript.print(obj);
+
+
 
                 } else {
-                    // print("Печатаем без консоли:")
-                    coscript.print("Печатаем без консоли 1:");
-                    // print(obj);
+                    // No log call?
                     coscript.print(obj);
 
                 }
 
             } else {
-                // print("Печатаем без консоли:")
-                coscript.print("Печатаем без консоли 2:");
-                // print(obj);
+                // Print object without console.
                 coscript.print(obj);
             }
         }

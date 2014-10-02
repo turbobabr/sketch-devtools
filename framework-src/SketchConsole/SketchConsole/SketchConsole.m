@@ -40,7 +40,8 @@
         [SDTSwizzle swizzleMethod:@selector(run) withMethod:@selector(run) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
         
         // MSPlugin.print();
-        [SDTSwizzle swizzleMethod:@selector(print:) withMethod:@selector(print:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
+        // Временно отрубаем ради эксперимента!
+        // [SDTSwizzle swizzleMethod:@selector(print:) withMethod:@selector(print:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
         
         // COScript.executeString:baseURL:
         [SDTSwizzle swizzleMethod:@selector(executeString:baseURL:) withMethod:@selector(executeString:baseURL:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
@@ -313,16 +314,18 @@
 }
 
 +(void)extendedPrint:(id)s info:(NSDictionary*)info sourceScript:(NSString*)script {
+
+    if(s==nil) {
+        s=@"(null)";
+    }
+    LogMessage(@"EX_PRINT", 0, @"%@",s);
+    LogMessage(@"EX_PRINT", 0, @"%@",info);
+    LogMessage(@"EX_PRINT", 0, @"%@",script);
     
     // If logged value is an object we should convert it to a string.
     if (![s isKindOfClass:[NSString class]]) {
         s = [[s description] sdt_escapeHTML];
     }
-
-    /*
-    LogMessage(@"Extended Print", 0, @"Кто-то вызвал Print! :(");
-    LogMessage(@"Extended Print", 0, @"%@",info);
-     */
     
     SketchConsole* shared=[self sharedInstance];
     if(shared.cachedScriptRoot!=nil) {
@@ -340,20 +343,8 @@
         
 
         id win = [webView windowScriptObject];
-        
-        /*
-        [win callWebScriptMethod:@"addPrintItem" withArguments:args];
-        */
-        
-        // NSLog(s);
-        
         args=@[s,[module.url path],@(line)];
         [win callWebScriptMethod:@"addPrintItemEx" withArguments:args];
-        
-        /*
-        args=@[[NSString stringWithFormat:@"Actual Line Number: %ld",line],@"Some Plugin",info[@"file"],info[@"file"]];
-        [win callWebScriptMethod:@"addPrintItem" withArguments:args];
-         */
     }
 };
 
