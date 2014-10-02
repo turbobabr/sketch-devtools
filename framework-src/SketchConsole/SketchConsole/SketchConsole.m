@@ -179,31 +179,14 @@
 // Мы используем его для получения информации о сессии, а так же для получения время исполнения скрипта.
 - (id)run {
     NSLog(@"begin: MSPlugin - run");
-    
-    WebView* webView =[SketchConsole findWebView];
-    
     NSDate *start = [NSDate date];
-    
     
     // Кэшируем данные связанные с сессией.
     NSString* script=[self valueForKey:@"script"];
     NSURL* baseURL=[self valueForKey:@"url"];
     NSURL* root=[self valueForKey:@"root"];
-    NSLog(@"%@",root);
     
-    
-    // Очищаем консоль в случае если пользователь включил очистку консоли при каждом запуске.
-    if([(NSNumber*)[SketchConsole sharedInstance].options[@"clearConsoleBeforeLaunch"] boolValue]) {
-        [SketchConsole clearConsole];
-    }
-    
-    // Добавляем шапку сессии.
-    if(webView!=nil) {
-        id win = [webView windowScriptObject];
-        [win callWebScriptMethod:@"addHeaderItem" withArguments:@[[baseURL lastPathComponent]]];
-    }
-    
-    
+    // Кэшируем дерево импортов для последующего использования при ошибках или логировании.
     SketchConsole* shared=[SketchConsole sharedInstance];
     shared.isNewSession=true;
     if(shared.isNewSession) {
@@ -213,21 +196,31 @@
         
         shared.isNewSession=false;
     }
-
+    
+    // Очищаем консоль в случае если пользователь включил очистку консоли при каждом запуске.
+    if([(NSNumber*)shared.options[@"clearConsoleBeforeLaunch"] boolValue]) {
+        [SketchConsole clearConsole];
+    }
+    
     // Вызываем оригинальный метод MSPlugin run.
     id result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_run")];
     
-    // Применяем изменения в консоли.
-    
-    // Получаем время исполнения всего скрипта (похоже что надо переносить в другой метод!).
-    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
-
-
+    WebView* webView =[SketchConsole findWebView];
     if(webView!=nil) {
         id win = [webView windowScriptObject];
-        [win callWebScriptMethod:@"addDurationItem" withArguments:@[@(interval)]];
-        [win callWebScriptMethod:@"refreshConsoleList" withArguments:@[]];
+        
+        // Добавляем информацию о сессии имя плагина, таймстэмп и время исполнения.
+        if([(NSNumber*)shared.options[@"showSessionInfo"] boolValue]) {
+            
+            // Получаем время исполнения всего скрипта (похоже что надо переносить в другой метод!).
+            NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
 
+            // Добавляем элемент сессии.
+            [win callWebScriptMethod:@"addSessionItem" withArguments:@[[baseURL lastPathComponent],@(interval)]];
+        }
+
+        // Обновляем консоль.
+        [win callWebScriptMethod:@"refreshConsoleList" withArguments:@[]];
     }
     
     NSLog(@"end: MSPlugin - run");

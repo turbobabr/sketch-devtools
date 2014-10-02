@@ -327,3 +327,13 @@
     margin-bottom: 0px;
     font-size: 14px;
 }
+
+.options-checkbox:link {
+    color: #333333;
+    text-decoration: none;
+}
+
+.options-checkbox:hover {
+    color: #333333;
+    text-decoration: none;
+}

@@ -20,8 +20,6 @@
     <link rel='stylesheet' href='./css/main.css'>
 
     <script>
-
-
         function refreshConsoleList() {
             angular.element(document.getElementById('myBody')).scope().$apply();
             // window.scrollTo(0, document.body.scrollHeight);
@@ -31,16 +29,12 @@
             d.scrollTop(d.prop("scrollHeight"));
         }
 
-        function addHeaderItem(title) {
-            angular.element(document.getElementById('myBody')).scope().addHeaderItem(title);
-        }
-
         function addCustomPrintItem(contents) {
             angular.element(document.getElementById('myBody')).scope().addCustomPrintItem(contents);
         }
 
-        function addDurationItem(duration) {
-            angular.element(document.getElementById('myBody')).scope().addDurationItem(duration);
+        function addSessionItem(scriptName,duration) {
+            angular.element(document.getElementById('myBody')).scope().addSessionItem(scriptName,duration);
         }
 
         function addPrintItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
@@ -114,15 +108,45 @@
 </div>
 
 
-
 <div class="container-fluid" style="padding-top: 30px;">
+
     <div style="overflow-y: auto; overflow-x: hidden;" id="contentView">
+        <div style="background-color: #ffffff; border: 1px solid #F0F0F0; margin: 5px; padding: 10px 5px 15px 15px; box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);" ng-if="isOptionsOpened">
+            <!-- Header -->
+            <div>
+                <h4 style="padding-right: 20px;">Console Settings <a href="#" style="color: #333333;" ng-click="hideSettings()"><i class="fa fa-times pull-right"></i></a></h4>
+                <hr>
+            </div>
+            <div style="padding-left: 20px;">
+                <!-- Console settings -->
+
+                <form role="form">
+                    <div class="form-group">
+                        <label for="protocolHandlerId">Jump to Code Editor: &nbsp;&nbsp;</label>
+                        <div class="btn-group" dropdown is-open="status.isopen" id="protocolHandlerId">
+                            <button type="button" class="btn btn-default dropdown-toggle"><span><img ng-src="{{iconForEditor(currentEditor())}}" width="24" height="24"> {{currentEditor().name}} &nbsp;</span><span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-repeat="editor in editors"><a href="#" ng-click="onEditorChange(editor)"><img ng-src="{{iconForEditor(editor)}}" width="24" height="24"> {{ editor.name }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p><input type="checkbox" ng-model="options.showConsoleOnError"> <a class="options-checkbox" href="#" ng-click="options.showConsoleOnError=!options.showConsoleOnError">Show console on Error</a></p>
+                    <p><input type="checkbox" ng-model="options.showConsoleOnPrint"> <a class="options-checkbox" href="#" ng-click="options.showConsoleOnPrint=!options.showConsoleOnPrint">Show console on Print statement</a></p>
+                    <p><input type="checkbox" ng-model="options.clearConsoleBeforeLaunch"> <a class="options-checkbox" href="#" ng-click="options.clearConsoleBeforeLaunch=!options.clearConsoleBeforeLaunch">Clear console before new session</a></p>
+                    <p><input type="checkbox" ng-model="options.showSessionInfo"> <a class="options-checkbox" href="#" ng-click="options.showSessionInfo=!options.showSessionInfo">Show session info</a></p>
+                </form>
+            </div>
+        </div>
+
         <div class="row" ng-if="showLogo()">
             <div class="col-md-12" style="position: relative;">
                 <img src="images/background-logo.png" class="background-logo">
             </div>
         </div>
         <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px;"></div>
+
+
 
         <!--
         <i class="fa fa-exclamation-circle"></i>
@@ -150,8 +174,10 @@
     </div>
     -->
 
-
 </div>
+
+
+
 
 
 <a id="bottom"></a>

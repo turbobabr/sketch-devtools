@@ -16,20 +16,10 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         });
     };
 
-    $scope.addHeaderItem = function(title) {
-        return;
-
+    $scope.addSessionItem = function(scriptName,duration) {
         var newItem={
-            type: "header",
-            title: title
-        };
-
-        $scope.items.push(newItem);
-    };
-
-    $scope.addDurationItem = function(duration) {
-        var newItem={
-            type: "duration",
+            type: "session",
+            name: scriptName,
             duration: duration
         };
 
@@ -98,7 +88,7 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
     };
 
     $scope.showLogo = function() {
-        return $scope.items.length==0;
+        return $scope.items.length==0 && !$scope.isOptionsOpened;
     };
 
     $scope.timestamp = function() {
@@ -111,48 +101,34 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
     $scope.showSettings = function() {
       console.log("SETTINGS!");
+        $scope.isOptionsOpened=true;
+    };
+
+    $scope.hideSettings = function() {
+        $scope.isOptionsOpened=false;
     };
 
     $scope.renderHtml = function(item) {
 
         if(item.type=="custom") {
+            console.count("custom");
             return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{contents}}}</div>",item));
         }
 
-        function humanizeDuration(duration) {
+        if(item.type=="session" && $scope.options.showSessionInfo) {
 
-            console.log(duration);
-            console.log(Math.floor(duration));
+            function humanizeDuration(duration) {
+                if(Math.floor(duration)>0) {
+                    return Math.floor(duration)+"s "+(((duration-Math.floor(duration)))*1000).toFixed()+"ms";
+                }
 
-            if(Math.floor(duration)>0) {
-                return Math.floor(duration)+"s "+(((duration-Math.floor(duration)))*1000).toFixed()+"ms";
+                return (duration*1000).toFixed()+" ms";
             }
 
-            return (duration*1000).toFixed()+" ms";
-        }
-
-        if(item.type=="header") {
-
-            /*
             return $sce.trustAsHtml(Mustache.render(
-                "<div class='col-md-12'><h6><span class='text-capitalize text-center text-danger'>{{title}}</span></h6></div>",{
-                    title: item.title
-                }));
-                */
-
-            return $sce.trustAsHtml(Mustache.render(
-                "<div class='col-md-12 console-header console-header-success text-center'><h3>{{title}}</h3></div>",{
-                    title: item.title
-                }));
-        }
-
-        if(item.type=="duration") {
-            // Script executed in 0.129081s
-            return $sce.trustAsHtml(Mustache.render(
-                "<div class='col-md-12'><span class='text-success'>{{timestamp}}: Script executed in {{duration}}</span></div>",{
-                    // duration: item.duration.toFixed(6)
+                "<div class='col-md-12'><span class='text-success'>{{timestamp}}: {{name}} - Script executed in {{duration}}</span></div>",{
+                    name: item.name,
                     duration: humanizeDuration(item.duration),
-                    // duration: moment().duration(item.duration,"ms").humanize()
                     timestamp: moment(new Date().valueOf()).format("HH:mm:ss.SSS")
                 }));
         }
@@ -162,20 +138,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                 "txmt://open/?url=file://{{{filePath}}}&line=1&column=1",{
                     filePath: item.filePath
                 });
-
-            /*
-            var contentsHtml=Mustache.render(
-                "<div class='col-md-1' style='width:110px;border-right: 1px solid #F0F0F0;'>{{timestamp}}</div><div class='col-md-1' style='width:60px;border-right: 1px solid #F0F0F0;'><span class='label label-default'>{{tag}}</span></div><div class='col-md-9'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
-                {
-                    contents: item.contents,
-                    file: _.last(item.filePath.split("/")),
-                    link: link,
-                    line: item.line,
-                    timestamp: moment(item.timestamp).format("HH:mm:ss.SSS"),
-                    tag: "log"
-                });
-                */
-
 
             var contentsHtml=Mustache.render(
                 "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
@@ -187,32 +149,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     timestamp: moment(item.timestamp).format("HH:mm:ss.SSS"),
                     tag: "log"
                 });
-
-
-            console.log(item);
-
-            console.log({
-                class: "MSColor",
-                value: "#D6EAC5",
-                points: [
-                    {
-                        x: 10,
-                        y: 20
-                    },
-                    {
-                        x: 25,
-                        y: 40
-                    },
-                    {
-                        x: 67,
-                        y: 87
-                    }
-                ],
-                gradient: {
-                    type: 0
-                }
-            });
-
 
             return $sce.trustAsHtml(contentsHtml);
         }
@@ -600,4 +536,83 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         SketchDevTools.showCustomScriptWindow(2);
     };
 
+
+    //  Options popup.
+    $scope.isOptionsOpened = false;
+
+    $scope.editors = [
+        {
+            name: "Sublime Text",
+            icon: "Sublime.png",
+            key: "sublime"
+        },
+        {
+            name: "TextMate",
+            icon: "TextMate.png",
+            key: "textmate"
+        },
+        {
+            name: "WebStorm",
+            icon: "WebStorm.png",
+            key: "webstorm"
+        },
+        {
+            name: "Atom",
+            icon: "Atom.png",
+            key: "atom"
+        },
+        {
+            name: "AppCode",
+            icon: "AppCode.png",
+            key: "appcode"
+        },
+        {
+            name: "Xcode",
+            icon: "XCode.png",
+            key: "xcode"
+        },
+        {
+            name: "MacVim",
+            icon: "MacVim.png",
+            key: "macvim"
+        }
+    ];
+
+    $scope.iconForEditor = function(editor) {
+        return "./images/editors/"+editor.icon;
+    };
+
+    $scope.currentEditor = function()  {
+        return _.find($scope.editors,function(editor) {
+            return $scope.options.defaultProtocolHandler==editor.key;
+        });
+    };
+
+    $scope.onEditorChange = function(editor) {
+        $scope.options.defaultProtocolHandler=editor.key;
+    };
+
+    $scope.$watch('options.defaultProtocolHandler', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
+
+    $scope.$watch('options.showConsoleOnPrint', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
+
+    $scope.$watch('options.showConsoleOnPrint', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
+
+    $scope.$watch('options.showConsoleOnError', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
+
+    $scope.$watch('options.clearConsoleBeforeLaunch', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
+
+    $scope.$watch('options.showSessionInfo', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
 });
