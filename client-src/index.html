@@ -21,12 +21,13 @@
 
     <script>
         function refreshConsoleList() {
-            angular.element(document.getElementById('myBody')).scope().$apply();
+            // angular.element(document.getElementById('myBody')).scope().$apply();
+            angular.element($("#myBody")).scope().$apply();
             // window.scrollTo(0, document.body.scrollHeight);
 
             // $("#contentView").scrollTo(0, document.body.scrollHeight);
-            var d = $('#contentView');
-            d.scrollTop(d.prop("scrollHeight"));
+            var contentView = $('#contentView');
+            contentView.scrollTop(contentView.prop("scrollHeight"));
         }
 
         function addCustomPrintItem(contents) {
@@ -48,23 +49,27 @@
         function addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
 
             angular.element(document.getElementById('myBody')).scope().addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
-            angular.element(document.getElementById('myBody')).scope().$apply();
 
-            window.scrollTo(0, document.body.scrollHeight);
+            // angular.element(document.getElementById('myBody')).scope().$apply();
+
+            // window.scrollTo(0, document.body.scrollHeight);
         }
 
         function addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack) {
 
             angular.element(document.getElementById('myBody')).scope().addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack);
-            angular.element(document.getElementById('myBody')).scope().$apply();
-            window.scrollTo(0, document.body.scrollHeight);
+
+            // angular.element(document.getElementById('myBody')).scope().$apply();
+
+            // window.scrollTo(0, document.body.scrollHeight);
         }
 
         function clearConsole() {
             angular.element(document.getElementById('myBody')).scope().clear();
-            angular.element(document.getElementById('myBody')).scope().$apply();
+            // angular.element(document.getElementById('myBody')).scope().$apply();
 
         }
+
 
         $(window).resize(function() {
             console.log("Resize it!");
@@ -108,9 +113,9 @@
 </div>
 
 
-<div class="container-fluid" style="padding-top: 30px;">
+<div class="container-fluid" style="padding-top: 30px; padding-right: 0px;">
 
-    <div style="overflow-y: auto; overflow-x: hidden;" id="contentView">
+    <div style="overflow-y: auto; overflow-x: hidden; padding-right: 0px;margin-right: 0px;" id="contentView">
         <div style="background-color: #ffffff; border: 1px solid #F0F0F0; margin: 5px; padding: 10px 5px 15px 15px; box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);" ng-if="isOptionsOpened">
             <!-- Header -->
             <div>
@@ -119,7 +124,6 @@
             </div>
             <div style="padding-left: 20px;">
                 <!-- Console settings -->
-
                 <form role="form">
                     <div class="form-group">
                         <label for="protocolHandlerId">Jump to Code Editor: &nbsp;&nbsp;</label>
@@ -138,12 +142,12 @@
             </div>
         </div>
 
-        <div class="row" ng-if="showLogo()">
+        <div class="row" ng-if="showLogo()" style="padding-right:">
             <div class="col-md-12" style="position: relative;">
                 <img src="images/background-logo.png" class="background-logo">
             </div>
         </div>
-        <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px;"></div>
+        <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px; padding-right: 12px;"></div>
 
 
 

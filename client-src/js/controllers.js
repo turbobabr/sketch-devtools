@@ -20,7 +20,8 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         var newItem={
             type: "session",
             name: scriptName,
-            duration: duration
+            duration: duration,
+            timestamp: new Date().valueOf()
         };
 
         $scope.items.push(newItem);
@@ -100,7 +101,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
     };
 
     $scope.showSettings = function() {
-      console.log("SETTINGS!");
         $scope.isOptionsOpened=true;
     };
 
@@ -111,7 +111,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
     $scope.renderHtml = function(item) {
 
         if(item.type=="custom") {
-            console.count("custom");
             return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{contents}}}</div>",item));
         }
 
@@ -129,7 +128,7 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                 "<div class='col-md-12'><span class='text-success'>{{timestamp}}: {{name}} - Script executed in {{duration}}</span></div>",{
                     name: item.name,
                     duration: humanizeDuration(item.duration),
-                    timestamp: moment(new Date().valueOf()).format("HH:mm:ss.SSS")
+                    timestamp: moment(item.timestamp).format("HH:mm:ss.SSS")
                 }));
         }
 
@@ -190,8 +189,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         if(item.type=="error") {
             var error=item.error;
 
-            console.log(error);
-
             var fileName=_.last(error.filePath.split("/"));
 
             // txmt://open/?url=file://{{{filePath}}}&line={{line}}&column=1
@@ -211,8 +208,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     line: error.line.toString()
                 });
             }
-
-            console.log(buildClickProtocolHandlerString());
 
             var link=Mustache.render($scope.options.protocolHandlerTemplate,{
                     filePath: error.filePath,
@@ -396,28 +391,10 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         }
 
         /*
-        function callout(title,obj,type) {
-            type = type || "success";
-
-
-            var html="<div class='bs-callout bs-callout-%TYPE%'>"+"<h4>"+"<span class='label label-danger'>S</span> "+title+"</h4>"+"<p>"+obj+"</p>"+"</div>";
-            html = html.replace("%TYPE%",type);
-
-            return html;
-        }
-        */
-
         var contents=item.contents;
 
         contents = contents.replace(/\n/g, '<br>');
         contents = contents.replace(/    /g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-        /*
-        if((contents.indexOf("<MS")>-1 || contents.indexOf("<NS")>-1 || contents.indexOf("<BC")>-1) && false) {
-            contents = contents.replace(/</g, '&lt;');
-            contents = contents.replace(/>/g, '&gt;');
-        }
-        */
 
         // contents = "<div style='padding-left: 5px;padding-right: 15px;'>"+contents+"</div>";
 
@@ -437,6 +414,9 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
 
        return $sce.trustAsHtml(contentsHtml);
+       */
+
+        return "<H3><span class='label label-danger'>ХРЕН ПОЙМИ ОТ КУДА ВСЕ ЭТО ПРИШЛО! :)</span></H3>";
     };
 
 
@@ -470,64 +450,8 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         SketchDevTools.hideConsole();
     };
 
-    $scope.callPlugin = function(path) {
-
-        $http.get(path)
-            .success(function(data) {
-
-                console.log(data);
-                console.log("This was data!");
-                // SketchDevTools.execScript(data);
-
-                /*
-                angular.extend(_this, data);
-                defer.resolve();
-                */
-            })
-            .error(function() {
-                // defer.reject('could not find someFile.json');
-            });
-
-
-
-        /*
-        fileReader.readAsDataUrl("./../plugins/makeItRed.js", $scope)
-            .then(function(result) {
-                // $scope.imageSrc = result;
-                console.log(result);
-            });
-
-        /*
-
-        /*
-        var script="selection.firstObject().style().fill().setColor([MSColor colorWithHex:'#ff0000' alpha:1]);";
-        SketchDevTools.execScript(script);
-        */
-
-    };
-
-    $scope.customScript ="print('Hello World of Coding!');";
-
-    $scope.runCustomScript = function() {
-        var script=$scope.customScript;
-
-        // What the heck is wrong with text area? :(
-        script = script.replace(/“/g, '"');
-        script = script.replace(/”/g, '"');
-
-        script = script.replace(/‘/g, "'");
-        script = script.replace(/’/g, "'");
-
-
-        console.log(script);
-
-        SketchDevTools.execScript(script);
-    };
-
     $scope.getConsoleOptions = function() {
-
         var options=JSON.parse(SketchDevTools.getConsoleOptions());
-        console.log(options);
     };
 
     $scope.setConsoleOptions = function() {
@@ -537,10 +461,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         };
 
         SketchDevTools.setConsoleOptions(JSON.stringify(options,null,4));
-    };
-
-    $scope.test = function() {
-        SketchDevTools.showCustomScriptWindow(2);
     };
 
 
