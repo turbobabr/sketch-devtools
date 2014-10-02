@@ -1,8 +1,8 @@
 {
-  "clearConsoleBeforeLaunch" : true,
-  "defaultProtocolHandler" : "webstorm",
   "showSessionInfo" : true,
+  "defaultProtocolHandler" : "sublime",
   "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}",
+  "showConsoleOnError" : true,
   "showConsoleOnPrint" : false,
-  "showConsoleOnError" : true
+  "clearConsoleBeforeLaunch" : true
 }

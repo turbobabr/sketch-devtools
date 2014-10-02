@@ -139,15 +139,22 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
                     filePath: item.filePath
                 });
 
+            var clickHandler=Mustache.render('SketchDevTools.openFileWithIDE("{{{file}}}","{{ide}}",{{line}})',{
+                    ide: $scope.options.defaultProtocolHandler,
+                    file: item.filePath,
+                    line: item.line.toString()
+                });
+
             var contentsHtml=Mustache.render(
-                "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}'>{{file}}:{{line}}</a></small></span></div>",
+                "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div>",
                 {
                     contents: item.contents,
                     file: _.last(item.filePath.split("/")),
-                    link: link,
+                    link: "#",
                     line: item.line,
                     timestamp: moment(item.timestamp).format("HH:mm:ss.SSS"),
-                    tag: "log"
+                    tag: "log",
+                    click: clickHandler
                 });
 
             return $sce.trustAsHtml(contentsHtml);
