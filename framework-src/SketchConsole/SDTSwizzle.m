@@ -35,7 +35,7 @@
         methodName=[methodName stringByReplacingOccurrencesOfString:@":" withString:@""];
     }
     
-    [SketchConsole printGlobal: methodName];
+    // [SketchConsole printGlobal: methodName];
     
     class_addMethod(pClass,
                     NSSelectorFromString(methodName),

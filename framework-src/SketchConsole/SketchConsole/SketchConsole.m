@@ -103,14 +103,7 @@
         NSString* printScript=[[NSString alloc] initWithContentsOfFile:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/runtime/printVandalizer.js" encoding:NSUTF8StringEncoding error:nil];
         
         
-        [SketchConsole printGlobal:@"MOCHA IS HERE:"];
-        [SketchConsole printGlobal:mocha];
-        [SketchConsole printGlobal:printScript];
-        
         id newScript=[mocha performSelector:NSSelectorFromString(@"evalString:") withObject:printScript];
-        
-        [SketchConsole printGlobal:@"THE NEW SCRIPT OBJECT IS:"];
-        [SketchConsole printGlobal:newScript];
         
         
         [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"print"];
@@ -134,15 +127,7 @@
         printScript = objc_msgSend(NSClassFromString(@"COSPreprocessor"),NSSelectorFromString(@"preprocessForObjCMessagesToJS:"),printScript);
         
         
-        [SketchConsole printGlobal:@"MOCHA IS HERE:"];
-        [SketchConsole printGlobal:mocha];
-        [SketchConsole printGlobal:printScript];
-        
         id newScript=[mocha performSelector:NSSelectorFromString(@"evalString:") withObject:printScript];
-        
-        [SketchConsole printGlobal:@"THE NEW SCRIPT OBJECT IS:"];
-        [SketchConsole printGlobal:newScript];
-        
         
         // [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"console"];
     }
@@ -150,7 +135,7 @@
     if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:")]) {
         return [self performSelector:NSSelectorFromString(@"originalCOScript_executeString:baseURL:") withObject:str withObject:base];
     } else {
-        [SketchConsole printGlobal:@"originalCOScript_executeString:baseURL: Does not respond to selector!"];
+//         [SketchConsole printGlobal:@"originalCOScript_executeString:baseURL: Does not respond to selector!"];
     }
 
     
@@ -242,7 +227,7 @@
         
         return script;
     } else {
-        [SketchConsole printGlobal:@"MSPlugin.scriptWithExpandedImports: Does not respond to selector!"];
+//        [SketchConsole printGlobal:@"MSPlugin.scriptWithExpandedImports: Does not respond to selector!"];
     }
     
     return @"function noScriptToday(){}";
@@ -380,7 +365,7 @@
         if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_printException")]) {
             [self performSelector:NSSelectorFromString(@"originalCOScript_printException") withObject:e];
         } else {
-            [SketchConsole printGlobal:@"COScript.printException: Does not respond to selector!"];
+//            [SketchConsole printGlobal:@"COScript.printException: Does not respond to selector!"];
         }
     }
     
@@ -697,7 +682,7 @@
 }
 
 
-
+/*
 +(void)printGlobal:(id)s {
 
     
@@ -719,6 +704,7 @@
     
     [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:[log dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
 }
+*/
 
 +(void)printGlobalEx:(id)s {
 
@@ -844,7 +830,7 @@
     if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_print")]) {
         [self performSelector:NSSelectorFromString(@"originalMSPlugin_print") withObject:s];
     } else {
-        [SketchConsole printGlobal:@"Does not respond to selector!"];
+//        [SketchConsole printGlobal:@"Does not respond to selector!"];
     }
     
     

@@ -31,28 +31,15 @@
     
     NSString* filePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/side-panel/plugins-directory.html";
     shared.pageFileWatcher = [SDTFileWatcher fileWatcherWithPath:filePath delegate:shared];
-    
-    [SketchConsole printGlobal:shared.pageFileWatcher];
-    
 }
 
 - (void)fileWatcherDidRecieveFSEvent:(SDTFileWatcher*)fw {
     
     NSString *path = [fw path];
     
-    [SketchConsole printGlobal:@"File Event: "];
-    [SketchConsole printGlobal:path];
-    [SketchConsole printGlobal:@" "];
-    
-    
     LogMessage(@"SDTPanelManager",0,@"Update file: %@",path);
     
-    
     [SDTPanelManager reloadWebView];
-    
-    
-    
-    
     
     /*
     NSError *err = nil;
@@ -89,27 +76,15 @@
 
 +(void)reloadWebView {
     
-    [SketchConsole printGlobal:@"RELOAD VIEW:"];
+
     NSLog(@"LOAD VIEW:");
     NSView* contentView=[self getCurrentDocumentContentView];
     if(contentView==nil) return;
     
-    [SketchConsole printGlobal:@"CONTENT VIEW:"];
-    [SketchConsole printGlobal:contentView.identifier];
-    
-
-    
     NSSplitView* splitView=contentView.subviews[0];
-    [SketchConsole printGlobal:splitView.identifier];
     
     // WebView* webView=[(NSScrollView*)splitView.subviews[1] documentView];
     SDTWebView* webView=(SDTWebView*)splitView.subviews[2];
-    [SketchConsole printGlobal:webView.identifier];
-    
-    [SketchConsole printGlobal:@"WEB VIEW:"];
-    [SketchConsole printGlobal:webView];
-    
-    
     
     // Load web-page and initialize panel.
     NSString* indexPageContents=[NSString stringWithContentsOfFile:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/side-panel/plugins-directory.html" encoding:NSUTF8StringEncoding error:nil];
@@ -126,8 +101,6 @@
 
 
 - (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject forFrame:(WebFrame *)frame {
-    
-    [SketchConsole printGlobal:@"WEB VIEW: МЕНЯ ВЫЗЫВАЮТ???"];
     id win = [sender windowScriptObject];
     [win setValue:[[SDTPanelManager alloc] init] forKey:@"SDTPanelManager"];
 }

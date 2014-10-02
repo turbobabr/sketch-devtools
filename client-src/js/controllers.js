@@ -607,10 +607,6 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
         SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
     });
 
-    $scope.$watch('options.showConsoleOnPrint', function() {
-        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
-    });
-
     $scope.$watch('options.showConsoleOnError', function() {
         SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
     });

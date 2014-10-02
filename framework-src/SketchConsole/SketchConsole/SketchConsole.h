@@ -15,7 +15,7 @@
 
 +(void)load;
 
-+(void)printGlobal:(id)s;
+// +(void)printGlobal:(id)s;
 +(void)printGlobalEx:(id)s;
 
 -(void)print:(id)s;
