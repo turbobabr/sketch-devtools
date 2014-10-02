@@ -48,7 +48,7 @@
         
         
         // Shortcuts Experiment!
-        // [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
+        [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
     });
 }
 
@@ -81,16 +81,8 @@
     }
 };
 
--(unsigned short)shortcutCharacter {
-    return 'q';
-};
 
 - (id)executeString:(NSString*)str baseURL:(NSURL*)base {
-    
-    /*
-    [SketchConsole printGlobal:@"ВОТ ОНО ТУТ ЗАКРАЛОСЯ!!!"];
-    [SketchConsole printGlobal:str];
-     */
     
     // Vandalize Print Statement! :)
     if(true) {
@@ -120,7 +112,6 @@
         [mocha setNilValueForKey:@"print"];
         [mocha setNilValueForKey:@"log"];
          */
-        
         
         NSString* printScript=[[NSString alloc] initWithContentsOfFile:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/libs/console.js" encoding:NSUTF8StringEncoding error:nil];
         
@@ -298,12 +289,24 @@
     return _options;
 }
 
++(void)callJSFunction:(NSString*)name withArguments:(NSArray*)args {
+    WebView* webView =[self findWebView];
+    if(webView!=nil) {
+        [[webView windowScriptObject] callWebScriptMethod:name withArguments:args];
+    }
+}
+
 +(void)customPrint:(id)s {
+    if(s==nil) {
+        s=@"(null)";
+    }
+    
     // If logged value is an object we should convert it to a string.
     if (![s isKindOfClass:[NSString class]]) {
         s = [[s description] sdt_escapeHTML];
     }
 
+    /*
     WebView* webView =[SketchConsole findWebView];
     if(webView==nil) {
         return;
@@ -311,6 +314,9 @@
     
     id win = [webView windowScriptObject];
     [win callWebScriptMethod:@"addCustomPrintItem" withArguments:@[s]];
+     */
+    
+    [self callJSFunction:@"addCustomPrintItem" withArguments:@[s]];
 }
 
 +(void)extendedPrint:(id)s info:(NSDictionary*)info sourceScript:(NSString*)script {
@@ -318,9 +324,6 @@
     if(s==nil) {
         s=@"(null)";
     }
-    LogMessage(@"EX_PRINT", 0, @"%@",s);
-    LogMessage(@"EX_PRINT", 0, @"%@",info);
-    LogMessage(@"EX_PRINT", 0, @"%@",script);
     
     // If logged value is an object we should convert it to a string.
     if (![s isKindOfClass:[NSString class]]) {
@@ -332,19 +335,9 @@
         
         SDTModule* module=[shared.cachedScriptRoot findModuleByLineNumber:[(NSNumber*)info[@"line"] integerValue]];
         NSInteger line=[module relativeLineByAbsolute:[(NSNumber*)info[@"line"] integerValue]];
-
+        
         // Print it! :)
-        WebView* webView =[SketchConsole findWebView];
-        if(webView==nil) {
-            return;
-        }
-        
-        NSArray *args = @[[module description],@"Some Plugin",info[@"file"],info[@"file"]];
-        
-
-        id win = [webView windowScriptObject];
-        args=@[s,[module.url path],@(line)];
-        [win callWebScriptMethod:@"addPrintItemEx" withArguments:args];
+        [self callJSFunction:@"addPrintItemEx" withArguments:@[s,[module.url path],@(line)]];
     }
 };
 
