@@ -114,6 +114,7 @@
         
         
         [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"print"];
+        [self performSelector:NSSelectorFromString(@"pushObject:withName:") withObject:newScript withObject:@"log"];
     }
     
     // Extend runtime with Console! :)
