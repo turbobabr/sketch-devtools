@@ -221,6 +221,8 @@
 // COScript.printException() - this method is responsible for the JS and Mocha exceptions handling.
 - (void)printException:(NSException*)e {
     
+    [SketchConsole ensureConsoleVisible];
+    
     // Invoke original COScript.printException() method.
     if(false) {
         if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_printException")]) {

@@ -39,9 +39,13 @@ gulp.task('plugin', ['clean'], function() {
 gulp.task('componentsCSS', ['clean'], function() {
     return gulp.src([
         "client-src/bower_components/bootstrap/dist/css/bootstrap.css",
-        "client-src/bower_components/bootstrap/dist/css/bootstrap.css.map",
-        "client-src/bower_components/fontawesome/css/font-awesome.css"
+        "client-src/bower_components/bootstrap/dist/css/bootstrap.css.map"
     ]).pipe(gulp.dest('dist/build/css'));
+});
+
+gulp.task('fontAwesome', ['clean'], function() {
+    gulp.src("client-src/bower_components/fontawesome/css/*").pipe(gulp.dest('dist/build/css/fontawesome/css'));
+    gulp.src("client-src/bower_components/fontawesome/fonts/*").pipe(gulp.dest('dist/build/css/fontawesome/fonts'));
 });
 
 gulp.task('componentsJS', ['clean'], function() {
@@ -58,7 +62,7 @@ gulp.task('componentsJS', ['clean'], function() {
 gulp.task('index', ['clean'], function() {
     gulp.src(['client-src/index.html'])
         .pipe(replace("./bower_components/bootstrap/dist/css/", "./css/"))
-        .pipe(replace("./bower_components/fontawesome/css/", "./css/"))
+        .pipe(replace("./bower_components/fontawesome/css/", "./css/fontawesome/css/"))
         .pipe(replace("./bower_components/jquery/dist/", "./js/"))
         .pipe(replace("./bower_components/angular/", "./js/"))
         .pipe(replace("./bower_components/angular-bootstrap/", "./js/"))
@@ -68,7 +72,7 @@ gulp.task('index', ['clean'], function() {
         .pipe(gulp.dest('dist/build'));
 });
 
-gulp.task('zip',['frameworks','scripts','styles','plugin','images','componentsCSS','componentsJS','index'],function() {
+gulp.task('zip',['frameworks','scripts','styles','plugin','images','componentsCSS','componentsJS','index','fontAwesome'],function() {
     return gulp.src('dist/build/**/*')
         .pipe(zip('Sketch DevTools.zip'))
         .pipe(gulp.dest('dist'));
