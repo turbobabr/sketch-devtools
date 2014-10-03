@@ -31,6 +31,19 @@ log("Yo! Yo! Yo!");
 print(sketch);
 ```
 
+### Logging with HTML formatting
+
+```JavaScript
+var layer=selection.firstObject();
+if(layer && layer.isKindOfClass(MSShapeGroup.class())) {
+    print("<h3>Selected Layer:</h3>")
+    var color="#"+layer.style().fill().color().hexValue();
+    print("Color: <span class='label' style='background-color:"+color+";'>"+color+"</span>")
+    print("Bezier Path:");
+    print("<pre>"+layer.bezierPath().bezierPath()+"</pre>");
+}
+```
+
 It produces the following result:
 
 ![Basic Logging Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/basic_logging_result.png)
