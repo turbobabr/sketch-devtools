@@ -21,7 +21,19 @@ Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](
 
 ### Basic Logging
 
-TODO: Text goes here!
+Sketch DevTools console automatically handles all the exceptions and print statements. You use the same print/log function for logging in custom script editor or external sketchplugin/js file without any additional libs.
+
+Just run the following script in the custom script editor:
+
+```JavaScript
+print("Hi Handsome!");
+log("Yo! Yo! Yo!");
+print(sketch);
+```
+
+It produces the following result:
+
+![Basic Logging Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/basic_logging_result.png)
 
 ### Jump to Code
 
