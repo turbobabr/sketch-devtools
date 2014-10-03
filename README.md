@@ -40,7 +40,7 @@ It produces the following result:
 
 Since Sketch DevTools uses WebKit for its UI there is a way to use rich text formatting in console. You can pass any HTML formatted string into `print` or `log` function and it will be rendered as HTML.
 
-#### Demo
+##### Demo
 
 I want to demonstrate it with somthing cool and totally useless! :) Here is an example of HTML formatted logging:
 
@@ -53,7 +53,7 @@ The result will be:
 
 ![Adventure Time - Bacon Pancakes](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/jake_the_dog.png)
 
-#### Using Bootstrap
+##### Using Bootstrap
 
 By default [Twitter Bootstrap](http://getbootstrap.com/) is used as CSS engine. Thus, you can freely use all the styles provided by it. Here is more useful sample that shows Bootstrap usage:
 
@@ -72,9 +72,9 @@ This 'short' logging statement produces the following result:
 
 ![HTML Formatting Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/html_formatting_sample.png)
 
-#### Logging Objects
+##### Logging Objects
 
-If you want to log an object combined with some text you have to escape HTML symbols first:
+If you want to log an object combined with some text in a single line you have to escape HTML symbols first:
 
 ```JavaScript
 function escapeHTML(string) {
@@ -109,6 +109,11 @@ In the following image you can see the difference between these to logs:
 
 ![HTML Escaping](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/html_escaping.png)
 
+##### Console Framework
+
+If you plan to use HTML formatting in your logs a lot, there is a ready to use solution [Sketch DevTools: Console Framework](https://github.com/turbobabr/sketch-devtools-console). This small library is very similar to WebKit Console API and contains a lot of useful methods for Sketch specific logging, HTML formatting and convenient things like timers, counters, tags, etc.
+
+
 ### Jump to Code
 
 Console allows you to quickly open a file on certain line with your IDE of choice. Before using this feature you have to select an editor you are using for Sketch plugins development:
@@ -132,6 +137,7 @@ When you click on the error box url it will be automatically opned in the editor
 
 ## Roadmap
 
+- [ ] Dedicated site for all of this.
 - [ ] A separate `console` CocoaScript module similar to the WebKit console that utilizes all the features of Sketch DevTools Console tab.
 - [ ] Automatic initialization of tools on Sketch launch.
 - [ ] Symbols Explorer. A separate tab panel that contains a Sketch classes reference.
