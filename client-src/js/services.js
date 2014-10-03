@@ -6,7 +6,7 @@
 
             if(angular.isDefined(attributes.protocolHandler)) {
                 element.bind('click', function() {
-                   console.log("ЭТО ПРОТОКОЛИЩЕ! :)");
+                   // ???
                 });
 
             }
@@ -19,9 +19,6 @@
                     // do something with $rootScope here, as your question asks for that
                     // console.log(attributes.openUrl);
                     SketchDevTools.openURL(attributes.openUrl);
-
-
-
                 });
             }
         }
@@ -33,8 +30,6 @@
 
             if(angular.isDefined(attributes.protocolHandler)) {
                 element.bind('click', function() {
-
-                    console.log("Я тут ткнул нечайно...");
 
                     var parts=attributes.protocolHandler.split(":");
 

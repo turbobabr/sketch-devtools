@@ -3,7 +3,7 @@
 //  SketchConsole
 //
 //  Created by Andrey on 21/08/14.
-//  Copyright (c) 2014 Turbobabr. All rights reserved.
+//  Copyright (c) 2014 Andrey Shakhmin. All rights reserved.
 //
 
 #import "SketchConsole.h"
@@ -58,10 +58,6 @@
     [mocha setNilValueForKey:@"print"];
     [mocha setNilValueForKey:@"log"];
     
-    /*
-        NSString* printScript=[[NSString alloc] initWithContentsOfFile:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/runtime/printVandalizer.js" encoding:NSUTF8StringEncoding error:nil];
-     */
-    
     // Load special script that simulates standard print/log statements behaviour.
     NSString *file = [[NSBundle bundleForClass:[SketchConsole class]] pathForResource:@"printVandalizer" ofType:@"js"];
     NSString *printScript = [NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:NULL];
@@ -88,13 +84,12 @@
 // This swizzled method is used to cache imports tree, collect information about current session and refresh client view.
 - (id)run {
 
-    //
+    // Session start timestamp.
     NSDate *start = [NSDate date];
-    
-    // Кэшируем данные связанные с сессией.
+
     NSString* script=[self valueForKey:@"script"];
     NSURL* baseURL=[self valueForKey:@"url"];
-    NSURL* root=[self valueForKey:@"root"];
+    // NSURL* root=[self valueForKey:@"root"];
     
     // Caching imports tree for future use in print and exceptions handlers.
     SketchConsole* shared=[SketchConsole sharedInstance];
@@ -106,21 +101,17 @@
         shared.isNewSession=false;
     }
     
-    // Очищаем консоль в случае если пользователь включил очистку консоли при каждом запуске.
+    // Clear console before script launch.
     if([(NSNumber*)shared.options[@"clearConsoleBeforeLaunch"] boolValue]) {
         [SketchConsole clearConsole];
     }
     
-    // Вызываем оригинальный метод MSPlugin run.
+    // Invoke original MSPlugin.run method.
     id result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_run")];
     
-    // Добавляем информацию о сессии имя плагина, таймстэмп и время исполнения.
+    // Add session item to the client view.
     if([(NSNumber*)shared.options[@"showSessionInfo"] boolValue]) {
-        
-        // Script execution duration.
         NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
-        
-        // Add session info item.
         [SketchConsole callJSFunction:@"addSessionItem" withArguments:@[[baseURL lastPathComponent],@(interval)]];
     }
     
@@ -132,7 +123,6 @@
 
 +(NSDictionary*)getExternalFiles:(NSURL*)scriptURL {
 
-    // Консоль
     NSURL* pluginFolderURL=[scriptURL URLByDeletingLastPathComponent];
     return @{
              @"folder": pluginFolderURL,
@@ -156,7 +146,7 @@
     return sharedInstance;
 }
 
-@synthesize options = _options;  //Must do this
+@synthesize options = _options;
 
 
 - (void) setOptions:(NSDictionary *)options {
@@ -257,7 +247,7 @@
           @"Error: " : @"JSCustomError"
           };
 
-        // Выявляем тип ошибки, а так же получаем сообщение ошибки.
+        // Get error type and the message.
         for (NSString* key in errors) {
             if([e.reason rangeOfString:key].location==0) {
                 errorType=errors[key];
@@ -269,7 +259,7 @@
         SketchConsole* shared=[SketchConsole sharedInstance];
         if(shared.cachedScriptRoot) {
             
-            // Обработка стэка вызовов.
+            // Process call stack.
             NSArray* stack=[e.userInfo[@"stack"] componentsSeparatedByString:@"\n"];
             NSMutableArray* callStack = [NSMutableArray arrayWithArray:@[]];
             
@@ -298,18 +288,13 @@
                 }
             }
             
+            // Looking for the file and line where error had happened and adding appropriate item to the client view.
             NSString* callStackObj=[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:callStack options:0 error:nil] encoding:NSUTF8StringEncoding];
-            
-            // Ищем модуль по глобальной строке в которой произошла ошибка и обрабатывает эту ошибку.
             NSUInteger lineNumber=[(NSNumber*)e.userInfo[@"line"] integerValue];
-            
             SDTModule* module=[shared.cachedScriptRoot findModuleByLineNumber:lineNumber];
             if(module) {
                 NSUInteger relativeLineNumer=[module relativeLineByAbsolute:lineNumber];
                 NSString* sourceCodeLine=[module sourceCodeForLine:relativeLineNumer];
-                
-                // Добавляем и отображаем ошибку на стороне WebKit'a.
-                // callAddErrorJSFunction(@"addErrorItem",@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]);
                 [SketchConsole callJSFunction:@"addErrorItem" withArguments:@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]];
             } else {
                 // NSLog(@"Error: Can't find source module!");
@@ -324,7 +309,7 @@
     
     // Check for Mocha runtime error.
     if([e.name isEqualToString:@"MORuntimeException"]) {
-        // callAddErrorJSFunction(@"addMochaErrorItem",@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]);
+        // TODO: This should be reaplced with correct script path!
         [SketchConsole callJSFunction:@"addMochaErrorItem" withArguments:@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]];
     }
 }
@@ -576,7 +561,6 @@
 
 
 -(void)showCustomScriptWindow:(NSInteger)lineNumber {
-    // Отображаем диалог с кастомным скриптом и получаем на него ссылку.
     NSWindowController* sheet=objc_msgSend(NSClassFromString(@"MSRunCustomScriptSheet"),NSSelectorFromString(@"runForWindow:"),[[NSApplication sharedApplication] mainWindow]);
     
     NSTextView* (^findScriptTextView)(void) = ^NSTextView*(void) {
@@ -650,7 +634,6 @@
              @"getter" : getter
              };
 };
-
 
 + (NSString*)preprocessForObjCStrings:(NSString*)sourceString {
     NSMutableString *buffer = [NSMutableString string];

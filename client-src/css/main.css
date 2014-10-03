@@ -178,13 +178,10 @@
         outline:none;
     }
 
-
-
-
-
     .sketch-toolbox-settings-button {
         border-style: none;
         background: url(./../images/settings-button-normal@2x.png) 0px 0px no-repeat;
+        background-size: 18px 18px;
         width: 18px;
         height: 18px;
 
@@ -197,20 +194,20 @@
 
     .sketch-toolbox-settings-button:hover {
         background: url(./../images/settings-button-hover@2x.png) 0px 0px no-repeat;
+        background-size: 18px 18px;
     }
 
     .sketch-toolbox-settings-button:active {
         background: url(./../images/settings-button-pushed@2x.png) 0px 0px no-repeat;
+        background-size: 18px 18px;
         outline: none;
         border: none;
     }
 
     .sketch-toolbox-settings-button:focus {
         outline:none;
+        background-size: 18px 18px;
     }
-
-
-
 
     .sketch-toolbox-clear-button {
         border-style: none;

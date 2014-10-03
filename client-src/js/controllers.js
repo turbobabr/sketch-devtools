@@ -1,6 +1,6 @@
-var phonecatApp = angular.module('SketchConsole', ['ui.bootstrap']);
+var module = angular.module('SketchConsole', ['ui.bootstrap']);
 
-phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$location,$anchorScroll,$compile) {
+module.controller('SketchConsoleController', function ($scope,$http,$sce,$location,$anchorScroll,$compile) {
     $scope.items = [];
 
     // Initialize options object.
@@ -221,73 +221,7 @@ phonecatApp.controller('SketchConsoleController', function ($scope,$http,$sce,$l
 
             var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4><p>»  {{errorLineContents}}  «</p> <p><a href='{{link}}' onclick='{{click}}' protocol_handler='{{protocolHandler}}'>{{fileName}}, Line: {{line}}</a></p>{{{callStack}}}</div>";
 
-
-
-            /*
-            var errors={
-                "ReferenceError": {
-                    level: "danger",
-                    symbol: "R",
-                    errorTitle: "Reference Error",
-                    errorMessage: error.message,
-                    fileName: fileName,
-                    line: error.line,
-                    link: link,
-                    errorLineContents: error.errorLineContents,
-                    protocolHandler: protocolHandler,
-                    click: buildClickProtocolHandlerString()
-                },
-                "SyntaxError": {
-                    level: "danger",
-                    symbol: "S",
-                    errorTitle: "Syntax Error",
-                    errorMessage: error.message,
-                    fileName: fileName,
-                    line: error.line,
-                    link: link,
-                    errorLineContents: error.errorLineContents,
-                    protocolHandler: protocolHandler,
-                    click: buildClickProtocolHandlerString()
-                },
-                "TypeError": {
-                    level: "danger",
-                    symbol: "T",
-                    errorTitle: "Type Error",
-                    errorMessage: error.message,
-                    fileName: fileName,
-                    line: error.line,
-                    link: link,
-                    errorLineContents: error.errorLineContents,
-                    protocolHandler: protocolHandler,
-                    click: buildClickProtocolHandlerString()
-                },
-                "RangeError": {
-                    level: "danger",
-                    symbol: "R",
-                    errorTitle: "Range Error",
-                    errorMessage: error.message,
-                    fileName: fileName,
-                    line: error.line,
-                    link: link,
-                    errorLineContents: error.errorLineContents,
-                    protocolHandler: protocolHandler,
-                    click: buildClickProtocolHandlerString()
-                },
-                "CustomError": {
-                    level: "danger",
-                    symbol: "E",
-                    errorTitle: "Error",
-                    errorMessage: error.message,
-                    fileName: fileName,
-                    line: error.line,
-                    link: link,
-                    errorLineContents: error.errorLineContents,
-                    protocolHandler: protocolHandler,
-                    click: buildClickProtocolHandlerString()
-                }
-            };
-            */
-
+            // FIXME: OMG! THIS THING IS AWFUL!
             var errors={
                 "JSReferenceError": {
                     level: "danger",
