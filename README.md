@@ -38,6 +38,20 @@ It produces the following result:
 
 ### Logging with HTML formatting
 
+Since Sketch DevTools uses WebKit for its UI there is a way to use rich text formatting in console. You can pass any HTML formatted string into `print` or `log` function and it will be rendered as HTML. I want to demonstrate it with somthing cool and totally useless! :)
+
+```JavaScript
+print("<h5>Adventure Time - Bacon Pancakes - New York remix</h5>")
+print("<iframe width='560' height='315' src='http://www.youtube.com/embed/cUYSGojUuAU' frameborder='0' allowfullscreen></iframe>");
+```
+
+The result will be:
+
+![Adventure Time - Bacon Pancakes](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/jake_the_dog.png)
+
+
+By default [Twitter Bootstrap](http://getbootstrap.com/) is used as CSS engine. Thus, you can freely use all the styles provided by the framework. Here is more useful sample that shows Bootstrap usage:
+
 ```JavaScript
 var layer=selection.firstObject();
 if(layer && layer.isKindOfClass(MSShapeGroup.class())) {
@@ -49,7 +63,7 @@ if(layer && layer.isKindOfClass(MSShapeGroup.class())) {
 }
 ```
 
-Result:
+This 'short' logging statement produces the following result:
 
 ![HTML Formatting Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/html_formatting_sample.png)
 
