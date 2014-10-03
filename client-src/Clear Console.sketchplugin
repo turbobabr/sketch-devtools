@@ -1,5 +1,33 @@
 // (option cmd shift k)
-print("COMMAND: CLEAR CONSOLE! :)");
+function loadFrameworks() {
+    if(NSClassFromString("SketchConsole")==null) {
+        var mocha=Mocha.sharedRuntime();
 
-SketchConsole.clearConsole();
+        function folderWithRelativePath(relative) {
+            var scriptPath = scriptPath || sketch.scriptPath;
+            var pluginPath = scriptPath.substring(0, scriptPath.lastIndexOf('/'));
+            return pluginPath+relative;
+        }
+
+        var frameWorkFolder=folderWithRelativePath("/frameworks/SketchConsole/Build/Products/Release");
+        return [mocha loadFrameworkWithName:"SketchConsole" inDirectory:frameWorkFolder];
+    } else {
+        return true;
+    }
+
+    return false;
+}
+
+(function() {
+
+    if(!loadFrameworks()) {
+        print("Error: Something strange has happened - Can't load external framework!");
+        return;
+    }
+
+    SketchConsole.clearConsole();
+
+})();
+
+
 

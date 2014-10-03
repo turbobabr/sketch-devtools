@@ -1,5 +1,4 @@
 // (option cmd k)
-
 function loadFrameworks() {
     if(NSClassFromString("SketchConsole")==null) {
         var mocha=Mocha.sharedRuntime();
