@@ -190,12 +190,6 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
             var error=item.error;
 
             var fileName=_.last(error.filePath.split("/"));
-
-            // txmt://open/?url=file://{{{filePath}}}&line={{line}}&column=1
-            // subl://open/?url=file://{{{filePath}}}&line={{line}}
-            // mvim://open/?url=file://{{{filePath}}}&line={{line}}&column=1
-            // atom://{{{filePath}}}
-
             function buildProtocolHandlerString() {
                 return $scope.options.defaultProtocolHandler+":"+error.filePath+":"+error.line;
             }
@@ -214,7 +208,6 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
                     line: error.line
                 });
 
-            // Новый обработчик отрывания файлов во внешнем редакторе.
             var protocolHandler=buildProtocolHandlerString();
             link = "#";
 
@@ -315,40 +308,11 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
                 actualError["callStack"]=result;
             }
 
-
             var errorHtml=Mustache.render(template,actualError);
-            // <div class="col-md-10" ng-bind-html="renderHtml(item)"></div>
-
             return $sce.trustAsHtml(Mustache.render("<div class='col-md-12' style='margin-bottom: 0px;'>{{{error}}}</div>",{
                 error: errorHtml
             }));
         }
-
-        /*
-        var contents=item.contents;
-
-        contents = contents.replace(/\n/g, '<br>');
-        contents = contents.replace(/    /g, '&nbsp;&nbsp;&nbsp;&nbsp;');
-
-        // contents = "<div style='padding-left: 5px;padding-right: 15px;'>"+contents+"</div>";
-
-        var link=Mustache.render(
-            "txmt://open/?url=file://{{{filePath}}}&line=1&column=1",{
-                filePath: item.plugin.filePath
-            });
-
-
-            var contentsHtml=Mustache.render(
-                "<div class='col-md-10'>{{{contents}}}</div><div class='col-md-2'><span class='pull-right text-muted'><small><a href='{{link}}'>{{pluginName}}</a></small></span></div>",
-                {
-                    contents: contents,
-                    pluginName: _.last(item.plugin.filePath.split("/")),
-                    link: link
-                });
-
-
-       return $sce.trustAsHtml(contentsHtml);
-       */
 
         return "<H3><span class='label label-danger'>ХРЕН ПОЙМИ ОТ КУДА ВСЕ ЭТО ПРИШЛО! :)</span></H3>";
     };
