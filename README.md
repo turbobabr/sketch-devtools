@@ -111,7 +111,11 @@ In the following image you can see the difference between these to logs:
 
 ##### Console Framework
 
-If you plan to use HTML formatting in your logs a lot, there is a ready to use solution [Sketch DevTools: Console Framework](https://github.com/turbobabr/sketch-devtools-console). This small library is very similar to WebKit Console API and contains a lot of useful methods for Sketch specific logging, HTML formatting and convenient things like timers, counters, tags, etc.
+If you plan to use HTML formatting in your logs a lot, there is a ready to use solution:
+
+- [Sketch DevTools: Console Framework](https://github.com/turbobabr/sketch-devtools-console)
+
+This small library is very similar to WebKit Console API and contains a lot of useful methods for Sketch specific logging, HTML formatting and convenient things like timers, counters, tags, etc.
 
 
 ### Jump to Code
@@ -137,6 +141,8 @@ When you click on the error box url it will be automatically opned in the editor
 
 ## Roadmap
 
+Here is the list of some half-baked ideas and prototypes I'm planning to include in future releases of Sketch DevTools:
+
 - [ ] Dedicated site for all of this.
 - [ ] A separate `console` CocoaScript module similar to the WebKit console that utilizes all the features of Sketch DevTools Console tab.
 - [ ] Automatic initialization of tools on Sketch launch.
@@ -151,6 +157,10 @@ When you click on the error box url it will be automatically opned in the editor
 ## Feedback
 
 If you discover any issue or have any suggestions for improvement of the plugin, please [open an issue](https://github.com/turbobabr/sketch-devtools/issues) or find me on twitter [@turbobabr](http://twitter.com/turbobabr).
+
+## Credits
+
+TODO: Credits go here!
 
 ## License
 
