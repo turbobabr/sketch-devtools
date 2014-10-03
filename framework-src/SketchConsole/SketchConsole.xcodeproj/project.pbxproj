@@ -15,6 +15,7 @@
 		553B6F0619C541AF00CA9A74 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6F0219C541AF00CA9A74 /* LoggerClient.m */; };
 		553B6F0719C541AF00CA9A74 /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0319C541AF00CA9A74 /* LoggerCommon.h */; };
 		553B6F0819C541AF00CA9A74 /* NSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0419C541AF00CA9A74 /* NSLogger.h */; };
+		5575798119DE78B70049D944 /* printVandalizer.js in Resources */ = {isa = PBXBuildFile; fileRef = 5575797F19DE78B70049D944 /* printVandalizer.js */; };
 		5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */; };
 		5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */; };
 		557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */; };
@@ -50,6 +51,7 @@
 		553B6F0219C541AF00CA9A74 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		553B6F0319C541AF00CA9A74 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
 		553B6F0419C541AF00CA9A74 /* NSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLogger.h; sourceTree = "<group>"; };
+		5575797F19DE78B70049D944 /* printVandalizer.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = printVandalizer.js; sourceTree = "<group>"; };
 		5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDTSwizzle.h; path = ../SDTSwizzle.h; sourceTree = "<group>"; };
 		5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDTSwizzle.m; path = ../SDTSwizzle.m; sourceTree = "<group>"; };
 		557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SketchDevTools.h"; path = "SketchConsole/NSString+SketchDevTools.h"; sourceTree = "<group>"; };
@@ -125,9 +127,18 @@
 			name = NSLogger;
 			sourceTree = "<group>";
 		};
+		5575797E19DE783F0049D944 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5575797F19DE78B70049D944 /* printVandalizer.js */,
+			);
+			name = Scripts;
+			sourceTree = "<group>";
+		};
 		559E2F8919A61E6E00774BED = {
 			isa = PBXGroup;
 			children = (
+				5575797E19DE783F0049D944 /* Scripts */,
 				553B6EFB19C40E2E00CA9A74 /* Utils */,
 				5538100519BAB63E00D10D67 /* Categories */,
 				559E2F9C19A61E6E00774BED /* SketchConsole */,
@@ -304,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5575798119DE78B70049D944 /* printVandalizer.js in Resources */,
 				559E2FA119A61E6E00774BED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

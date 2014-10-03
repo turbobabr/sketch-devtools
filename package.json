@@ -1,7 +1,7 @@
 {
   "name": "sketch-devtools",
   "version": "0.0.0",
-  "description": "A set of tools for Sketch App plugins developers",
+  "description": "A set of tools for Sketch App plugins development",
   "main": "index.js",
   "dependencies": {
     "gulp": "~3.8.8"

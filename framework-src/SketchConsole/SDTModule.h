@@ -10,8 +10,6 @@
 
 @interface SDTModule : NSObject
 
-
-
 @property NSInteger line;
 @property NSInteger internalLine;
 @property NSInteger numberOfLines;
@@ -29,18 +27,13 @@
 -(SDTModule*)findModuleByLineNumber:(NSInteger)line;
 -(BOOL)hasImports;
 
-
 -(NSDictionary*)treeAsDictionary;
-
 
 -(instancetype)initWithScriptURL:(NSURL*)url parent:(SDTModule*)parent startLine:(NSInteger)startLine;
 -(instancetype)initWithScriptSource:(NSString*)source baseURL:(NSURL*)base parent:(SDTModule*)parent startLine:(NSInteger)startLine;
 
 -(NSInteger)takesNumberOfLines;
-
 -(NSInteger)relativeLineByAbsolute:(NSInteger)absolute;
-
 -(NSString*)sourceCodeForLine:(NSInteger)line;
-
 
 @end
