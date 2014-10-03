@@ -16,7 +16,7 @@
 #import "NSString+SketchDevTools.h"
 #import "NSView+SketchDevTools.h"
 
-#import "SKDProtocolHandler.h"
+#import "SDTProtocolHandler.h"
 #import "NSLogger.h"
 
 #pragma clang diagnostic push
@@ -41,45 +41,11 @@
         // COScript.executeString:baseURL:
         [SDTSwizzle swizzleMethod:@selector(executeString:baseURL:) withMethod:@selector(executeString:baseURL:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
         
-        // Shortcuts Experiment!
-        [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
-        
-        
         // From COSPreprocessorReplacement.
         [SDTSwizzle swizzleClassMethod:@selector(preprocessForObjCStrings:) withMethod:@selector(preprocessForObjCStrings:) sClass:self pClass:NSClassFromString(@"COSPreprocessor") originalMethodPrefix:@"originalCOSPreprocessor_"];
         
     });
 }
-
-// It works like a charm! :(
-- (void)keyDown:(NSEvent*)event; {
-    
-    NSDictionary* mutableKeycodesD=
-    @{
-      @"11" : @"b", // B - Toggle border
-      @"3"  : @"f",  // F - Toggle fill
-      @"9"  : @"v",  // V - Vector tool
-      @"35" : @"p", // P - Pencil tool
-      @"17" : @"t", // T - Text tool
-      @"0"  : @"a",  // A - Artoboard tool
-      @"1"  : @"s",  // S - Slice tool
-      @"37" : @"l", // L - Line tool
-      @"15" : @"r", // R - Rectangle tool
-      @"31" : @"o", // O - Oval tool
-      @"32" : @"u"  // U - Rounded Rect tool
-      };
-    
-    NSString* preferredCharacter=[mutableKeycodesD valueForKey:[[NSNumber numberWithUnsignedShort:event.keyCode] stringValue]];
-    if(preferredCharacter!=nil && !event.isARepeat && event.characters.length==1 && /*[NSEvent modifierFlags]==0 &&*/ ![preferredCharacter isEqualToString:[event.characters lowercaseString]]) {
-        event=[NSEvent keyEventWithType:event.type location:event.locationInWindow modifierFlags:event.modifierFlags timestamp:event.timestamp windowNumber:event.windowNumber context:event.context characters:preferredCharacter charactersIgnoringModifiers:preferredCharacter isARepeat:event.isARepeat keyCode:event.keyCode];
-    }
-    
-    SEL sel=NSSelectorFromString(@"originalMSContentDrawView_keyDown");
-    if([self respondsToSelector:sel]) {
-        [self performSelector:sel withObject:event];
-    }
-};
-
 
 - (id)executeString:(NSString*)str baseURL:(NSURL*)base {
     
@@ -719,7 +685,7 @@
 };
 
 -(BOOL)openFile:(NSString*)filePath withIDE:(NSString*)ide atLine:(NSInteger)line {
-    return [SKDProtocolHandler openFile:filePath withIDE:ide atLine:line];
+    return [SDTProtocolHandler openFile:filePath withIDE:ide atLine:line];
 }
 
 +(id)testObject:(id)object {

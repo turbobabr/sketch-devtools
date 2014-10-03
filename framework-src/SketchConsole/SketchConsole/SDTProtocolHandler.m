@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Turbobabr. All rights reserved.
 //
 
-#import "SKDProtocolHandler.h"
+#import "SDTProtocolHandler.h"
 
-@implementation SKDProtocolHandler
+@implementation SDTProtocolHandler
 
 +(BOOL)openFile:(NSString*)filePath withIDE:(NSString*)ide atLine:(NSInteger)line {
     

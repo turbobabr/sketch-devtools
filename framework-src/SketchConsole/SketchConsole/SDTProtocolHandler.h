@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SKDProtocolHandler : NSObject
+@interface SDTProtocolHandler : NSObject
 
 +(BOOL)openFile:(NSString*)filePath withIDE:(NSString*)ide atLine:(NSInteger)line;
 

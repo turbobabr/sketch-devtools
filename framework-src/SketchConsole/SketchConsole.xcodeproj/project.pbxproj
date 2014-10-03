@@ -9,21 +9,12 @@
 /* Begin PBXBuildFile section */
 		5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */; };
 		5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */; };
-		5538100919BACF0A00D10D67 /* SKDProtocolHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5538100719BACF0A00D10D67 /* SKDProtocolHandler.h */; };
-		5538100A19BACF0A00D10D67 /* SKDProtocolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538100819BACF0A00D10D67 /* SKDProtocolHandler.m */; };
-		553B6EF419C3E58800CA9A74 /* SDTPanelManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6EF219C3E58800CA9A74 /* SDTPanelManager.h */; };
-		553B6EF519C3E58800CA9A74 /* SDTPanelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6EF319C3E58800CA9A74 /* SDTPanelManager.m */; };
-		553B6EFE19C40E4A00CA9A74 /* SDTFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6EFC19C40E4A00CA9A74 /* SDTFileWatcher.h */; };
-		553B6EFF19C40E4A00CA9A74 /* SDTFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6EFD19C40E4A00CA9A74 /* SDTFileWatcher.m */; };
+		5538100919BACF0A00D10D67 /* SDTProtocolHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5538100719BACF0A00D10D67 /* SDTProtocolHandler.h */; };
+		5538100A19BACF0A00D10D67 /* SDTProtocolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538100819BACF0A00D10D67 /* SDTProtocolHandler.m */; };
 		553B6F0519C541AF00CA9A74 /* LoggerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0119C541AF00CA9A74 /* LoggerClient.h */; };
 		553B6F0619C541AF00CA9A74 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6F0219C541AF00CA9A74 /* LoggerClient.m */; };
 		553B6F0719C541AF00CA9A74 /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0319C541AF00CA9A74 /* LoggerCommon.h */; };
 		553B6F0819C541AF00CA9A74 /* NSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0419C541AF00CA9A74 /* NSLogger.h */; };
-		553B6F0B19C553CD00CA9A74 /* SDTWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0919C553CD00CA9A74 /* SDTWebView.h */; };
-		553B6F0C19C553CD00CA9A74 /* SDTWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6F0A19C553CD00CA9A74 /* SDTWebView.m */; };
-		553B6F1019C56EF600CA9A74 /* SDTOmniBoxWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 553B6F0F19C56EF600CA9A74 /* SDTOmniBoxWindow.xib */; };
-		553B6F1319C56F3400CA9A74 /* SDTOmniBoxWindowController.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F1119C56F3400CA9A74 /* SDTOmniBoxWindowController.h */; };
-		553B6F1419C56F3400CA9A74 /* SDTOmniBoxWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6F1219C56F3400CA9A74 /* SDTOmniBoxWindowController.m */; };
 		5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */; };
 		5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */; };
 		557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */; };
@@ -38,10 +29,6 @@
 		559E2FB819A61E6E00774BED /* SketchConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FB719A61E6E00774BED /* SketchConsoleTests.m */; };
 		55A173BE19AF00EE00470090 /* SDTModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A173BC19AF00EE00470090 /* SDTModule.h */; };
 		55A173BF19AF00EE00470090 /* SDTModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A173BD19AF00EE00470090 /* SDTModule.m */; };
-		55CA340719C70D260095E222 /* SDTOmniBoxWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 55CA340519C70D260095E222 /* SDTOmniBoxWindow.h */; };
-		55CA340819C70D260095E222 /* SDTOmniBoxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CA340619C70D260095E222 /* SDTOmniBoxWindow.m */; };
-		55CA340B19C70E940095E222 /* SDTOmniBoxContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 55CA340919C70E940095E222 /* SDTOmniBoxContentView.h */; };
-		55CA340C19C70E940095E222 /* SDTOmniBoxContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55CA340A19C70E940095E222 /* SDTOmniBoxContentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,23 +44,14 @@
 /* Begin PBXFileReference section */
 		5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+SketchDevTools.h"; path = "SketchConsole/NSView+SketchDevTools.h"; sourceTree = "<group>"; };
 		5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+SketchDevTools.m"; path = "SketchConsole/NSView+SketchDevTools.m"; sourceTree = "<group>"; };
-		5538100719BACF0A00D10D67 /* SKDProtocolHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKDProtocolHandler.h; sourceTree = "<group>"; };
-		5538100819BACF0A00D10D67 /* SKDProtocolHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKDProtocolHandler.m; sourceTree = "<group>"; };
-		553B6EF219C3E58800CA9A74 /* SDTPanelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTPanelManager.h; sourceTree = "<group>"; };
-		553B6EF319C3E58800CA9A74 /* SDTPanelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTPanelManager.m; sourceTree = "<group>"; };
-		553B6EFC19C40E4A00CA9A74 /* SDTFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTFileWatcher.h; sourceTree = "<group>"; };
-		553B6EFD19C40E4A00CA9A74 /* SDTFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTFileWatcher.m; sourceTree = "<group>"; };
+		5538100719BACF0A00D10D67 /* SDTProtocolHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTProtocolHandler.h; sourceTree = "<group>"; };
+		5538100819BACF0A00D10D67 /* SDTProtocolHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTProtocolHandler.m; sourceTree = "<group>"; };
 		553B6F0119C541AF00CA9A74 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		553B6F0219C541AF00CA9A74 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		553B6F0319C541AF00CA9A74 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
 		553B6F0419C541AF00CA9A74 /* NSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLogger.h; sourceTree = "<group>"; };
-		553B6F0919C553CD00CA9A74 /* SDTWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTWebView.h; sourceTree = "<group>"; };
-		553B6F0A19C553CD00CA9A74 /* SDTWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTWebView.m; sourceTree = "<group>"; };
-		553B6F0F19C56EF600CA9A74 /* SDTOmniBoxWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDTOmniBoxWindow.xib; sourceTree = "<group>"; };
-		553B6F1119C56F3400CA9A74 /* SDTOmniBoxWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDTOmniBoxWindowController.h; path = SketchConsole/SDTOmniBoxWindowController.h; sourceTree = "<group>"; };
-		553B6F1219C56F3400CA9A74 /* SDTOmniBoxWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDTOmniBoxWindowController.m; path = SketchConsole/SDTOmniBoxWindowController.m; sourceTree = "<group>"; };
-		5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTSwizzle.h; sourceTree = "<group>"; };
-		5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTSwizzle.m; sourceTree = "<group>"; };
+		5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDTSwizzle.h; path = ../SDTSwizzle.h; sourceTree = "<group>"; };
+		5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDTSwizzle.m; path = ../SDTSwizzle.m; sourceTree = "<group>"; };
 		557B35D519B6D29800ECAD7B /* NSString+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SketchDevTools.h"; path = "SketchConsole/NSString+SketchDevTools.h"; sourceTree = "<group>"; };
 		557B35D619B6D29800ECAD7B /* NSString+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SketchDevTools.m"; path = "SketchConsole/NSString+SketchDevTools.m"; sourceTree = "<group>"; };
 		559E2F9319A61E6E00774BED /* SketchConsole.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SketchConsole.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,12 +69,8 @@
 		559E2FB319A61E6E00774BED /* SketchConsoleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SketchConsoleTests-Info.plist"; sourceTree = "<group>"; };
 		559E2FB519A61E6E00774BED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		559E2FB719A61E6E00774BED /* SketchConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchConsoleTests.m; sourceTree = "<group>"; };
-		55A173BC19AF00EE00470090 /* SDTModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTModule.h; sourceTree = "<group>"; };
-		55A173BD19AF00EE00470090 /* SDTModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTModule.m; sourceTree = "<group>"; };
-		55CA340519C70D260095E222 /* SDTOmniBoxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTOmniBoxWindow.h; sourceTree = "<group>"; };
-		55CA340619C70D260095E222 /* SDTOmniBoxWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTOmniBoxWindow.m; sourceTree = "<group>"; };
-		55CA340919C70E940095E222 /* SDTOmniBoxContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTOmniBoxContentView.h; sourceTree = "<group>"; };
-		55CA340A19C70E940095E222 /* SDTOmniBoxContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTOmniBoxContentView.m; sourceTree = "<group>"; };
+		55A173BC19AF00EE00470090 /* SDTModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDTModule.h; path = ../SDTModule.h; sourceTree = "<group>"; };
+		55A173BD19AF00EE00470090 /* SDTModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDTModule.m; path = ../SDTModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,23 +106,10 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		553B6EF619C3F63E00CA9A74 /* UI Elements */ = {
-			isa = PBXGroup;
-			children = (
-				553B6F0919C553CD00CA9A74 /* SDTWebView.h */,
-				553B6F0A19C553CD00CA9A74 /* SDTWebView.m */,
-			);
-			name = "UI Elements";
-			sourceTree = "<group>";
-		};
 		553B6EFB19C40E2E00CA9A74 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				553B6F0019C5419C00CA9A74 /* NSLogger */,
-				5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */,
-				5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */,
-				553B6EFC19C40E4A00CA9A74 /* SDTFileWatcher.h */,
-				553B6EFD19C40E4A00CA9A74 /* SDTFileWatcher.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -164,28 +125,11 @@
 			name = NSLogger;
 			sourceTree = "<group>";
 		};
-		5575791319DE4A3E0049D944 /* OmniBox */ = {
-			isa = PBXGroup;
-			children = (
-				553B6F0F19C56EF600CA9A74 /* SDTOmniBoxWindow.xib */,
-				55CA340519C70D260095E222 /* SDTOmniBoxWindow.h */,
-				55CA340619C70D260095E222 /* SDTOmniBoxWindow.m */,
-				55CA340919C70E940095E222 /* SDTOmniBoxContentView.h */,
-				55CA340A19C70E940095E222 /* SDTOmniBoxContentView.m */,
-				553B6F1119C56F3400CA9A74 /* SDTOmniBoxWindowController.h */,
-				553B6F1219C56F3400CA9A74 /* SDTOmniBoxWindowController.m */,
-			);
-			name = OmniBox;
-			sourceTree = "<group>";
-		};
 		559E2F8919A61E6E00774BED = {
 			isa = PBXGroup;
 			children = (
-				5575791319DE4A3E0049D944 /* OmniBox */,
 				553B6EFB19C40E2E00CA9A74 /* Utils */,
-				553B6EF619C3F63E00CA9A74 /* UI Elements */,
 				5538100519BAB63E00D10D67 /* Categories */,
-				55A173BB19AF00E500470090 /* Module */,
 				559E2F9C19A61E6E00774BED /* SketchConsole */,
 				559E2FB119A61E6E00774BED /* SketchConsoleTests */,
 				559E2F9519A61E6E00774BED /* Frameworks */,
@@ -225,12 +169,14 @@
 		559E2F9C19A61E6E00774BED /* SketchConsole */ = {
 			isa = PBXGroup;
 			children = (
+				55A173BC19AF00EE00470090 /* SDTModule.h */,
+				55A173BD19AF00EE00470090 /* SDTModule.m */,
+				5578CAB119AD0E75001E7C3B /* SDTSwizzle.h */,
+				5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */,
 				559E2FA319A61E6E00774BED /* SketchConsole.h */,
 				559E2FA419A61E6E00774BED /* SketchConsole.m */,
-				5538100719BACF0A00D10D67 /* SKDProtocolHandler.h */,
-				5538100819BACF0A00D10D67 /* SKDProtocolHandler.m */,
-				553B6EF219C3E58800CA9A74 /* SDTPanelManager.h */,
-				553B6EF319C3E58800CA9A74 /* SDTPanelManager.m */,
+				5538100719BACF0A00D10D67 /* SDTProtocolHandler.h */,
+				5538100819BACF0A00D10D67 /* SDTProtocolHandler.m */,
 				559E2F9D19A61E6E00774BED /* Supporting Files */,
 			);
 			path = SketchConsole;
@@ -264,15 +210,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		55A173BB19AF00E500470090 /* Module */ = {
-			isa = PBXGroup;
-			children = (
-				55A173BC19AF00EE00470090 /* SDTModule.h */,
-				55A173BD19AF00EE00470090 /* SDTModule.m */,
-			);
-			name = Module;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -282,15 +219,9 @@
 			files = (
 				553B6F0719C541AF00CA9A74 /* LoggerCommon.h in Headers */,
 				553B6F0819C541AF00CA9A74 /* NSLogger.h in Headers */,
-				553B6EFE19C40E4A00CA9A74 /* SDTFileWatcher.h in Headers */,
 				557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */,
-				553B6F1319C56F3400CA9A74 /* SDTOmniBoxWindowController.h in Headers */,
 				5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */,
-				5538100919BACF0A00D10D67 /* SKDProtocolHandler.h in Headers */,
-				55CA340719C70D260095E222 /* SDTOmniBoxWindow.h in Headers */,
-				553B6EF419C3E58800CA9A74 /* SDTPanelManager.h in Headers */,
-				55CA340B19C70E940095E222 /* SDTOmniBoxContentView.h in Headers */,
-				553B6F0B19C553CD00CA9A74 /* SDTWebView.h in Headers */,
+				5538100919BACF0A00D10D67 /* SDTProtocolHandler.h in Headers */,
 				55A173BE19AF00EE00470090 /* SDTModule.h in Headers */,
 				5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */,
 				553B6F0519C541AF00CA9A74 /* LoggerClient.h in Headers */,
@@ -373,7 +304,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				553B6F1019C56EF600CA9A74 /* SDTOmniBoxWindow.xib in Resources */,
 				559E2FA119A61E6E00774BED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,16 +325,10 @@
 			files = (
 				553B6F0619C541AF00CA9A74 /* LoggerClient.m in Sources */,
 				557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */,
-				553B6F0C19C553CD00CA9A74 /* SDTWebView.m in Sources */,
 				5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */,
-				553B6F1419C56F3400CA9A74 /* SDTOmniBoxWindowController.m in Sources */,
-				55CA340C19C70E940095E222 /* SDTOmniBoxContentView.m in Sources */,
 				5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */,
 				55A173BF19AF00EE00470090 /* SDTModule.m in Sources */,
-				553B6EF519C3E58800CA9A74 /* SDTPanelManager.m in Sources */,
-				553B6EFF19C40E4A00CA9A74 /* SDTFileWatcher.m in Sources */,
-				55CA340819C70D260095E222 /* SDTOmniBoxWindow.m in Sources */,
-				5538100A19BACF0A00D10D67 /* SKDProtocolHandler.m in Sources */,
+				5538100A19BACF0A00D10D67 /* SDTProtocolHandler.m in Sources */,
 				559E2FA519A61E6E00774BED /* SketchConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
