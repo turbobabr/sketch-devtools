@@ -15,11 +15,11 @@ Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](
 
 Sketch DevTools is just a regular plugin that uses some rocket since to survive in this crude world. Since it's just a plugin - there are some commands available:
 
-`Command-Option-K` - Show/Hide DevTools
+<kbd>Command-Option-K</kbd> - Show/Hide DevTools
 
-`Command-Option-Shift-K` - Clear Console
+<kbd>Command-Option-Shift-K</kbd> - Clear Console
 
-DevTools panel is like any WebKit inspector is bound to a specific document. If you want to use console in the current Sketch document you have to activate it using <kbd>Command-Option-K</kbd> shortcut. As soon as it got activated all the log statements and errors from plugins executed in the document will be automatically redirected to this console.
+DevTools panel is like any WebKit inspector is bound to a specific document. If you want to use console in the current Sketch document you have to activate it using <kbd>Command-Option-K</kbd> shortcut. As soon as it got activated all the log statements and errors from plugins executed in the document will be automatically redirected to this console. All the logging techniques are desribed below.
 
 ### Basic Logging
 
