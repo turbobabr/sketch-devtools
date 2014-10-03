@@ -16,6 +16,7 @@ Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](
 ### Shortcuts
 
 `Command-Option-K` - Show/Hide Console
+
 `Command-Option-Shift-K` - Clear Console
 
 ### Basic Logging
@@ -27,7 +28,7 @@ TODO: Text goes here!
 Console allows you to quickly open a file on certain line with your IDE of choice. Before using this feature you have to select an editor you are using for Sketch plugins development:
 ![Changing IDE](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/change_ide.png)
 
-All the default `print` statements and error boxes have an url with the name of actual file and line number that generated the record. For example lets run the following code:
+All the default `print` statements and error boxes have an url with the name of actual file and line number that generated the record. For example lets run the following script:
 
 ```JavaScript
 print(selection);
@@ -35,9 +36,11 @@ print(selection.last());
 ```
 
 It produces two records. The first one is just a print statement the second is an error box. Both records have the previously mentioned URL you can click on to go straight to the root of the problem:
+
 ![Jump to code URLs](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/jump_to_code_figure.png)
 
 When you click on the error box url it will be automatically opned in the editor (WebStorm in my case):
+
 ![File opened in IDE](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/jump_to_code_result.png)
 
 
