@@ -31,6 +31,11 @@ log("Yo! Yo! Yo!");
 print(sketch);
 ```
 
+It produces the following result:
+
+![Basic Logging Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/basic_logging_result.png)
+
+
 ### Logging with HTML formatting
 
 ```JavaScript
@@ -44,9 +49,9 @@ if(layer && layer.isKindOfClass(MSShapeGroup.class())) {
 }
 ```
 
-It produces the following result:
+Result:
 
-![Basic Logging Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/basic_logging_result.png)
+![HTML Formatting Sample](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/html_formatting_sample.png)
 
 ### Jump to Code
 
