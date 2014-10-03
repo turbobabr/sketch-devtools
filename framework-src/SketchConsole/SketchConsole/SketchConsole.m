@@ -544,19 +544,6 @@
     [splitView setPosition:viewHeight ofDividerAtIndex:0];
 }
 
-+(void)printGlobalEx:(id)s {
-
-    
-    if (![s isKindOfClass:[NSString class]]) {
-        s = [s description];
-    }
-    
-    
-    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/logs/framework_dump.js";
-    
-    [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:[s dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
-}
-
 
 +(WebView*)findWebView {
     NSView* contentView=[self getCurrentContentView];
@@ -606,7 +593,7 @@
     [SketchConsole sharedInstance].options=[NSJSONSerialization JSONObjectWithData:[options dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 }
 
-+ (NSString *) webScriptNameForSelector:(SEL)sel
++(NSString*)webScriptNameForSelector:(SEL)sel
 {
     NSString* name=@"";
     

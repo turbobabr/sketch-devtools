@@ -1,0 +1,25 @@
+{
+  "name": "sketch-devtools",
+  "version": "0.0.0",
+  "description": "A set of tools for Sketch App plugins developers",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "~3.8.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/turbobabr/sketch-devtools.git"
+  },
+  "author": "Andrey Shakhmin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/turbobabr/sketch-devtools/issues"
+  },
+  "homepage": "https://github.com/turbobabr/sketch-devtools"
+}

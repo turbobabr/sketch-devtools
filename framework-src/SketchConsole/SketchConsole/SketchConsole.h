@@ -15,8 +15,6 @@
 
 +(void)load;
 
-
-+(void)printGlobalEx:(id)s;
 +(void)clearConsole;
 
 @property (nonatomic) NSDictionary* options;
