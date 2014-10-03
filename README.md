@@ -13,7 +13,7 @@ Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](
 
 ## Usage
 
-Sketch DevTools is just a regular plugin that uses some rocket since to survive in this crude world. Since it's just a plugin - there are some commands available:
+Sketch DevTools is just a regular plugin that uses some rocket since to survive in this cruel world. Since it's just a plugin - there are some commands available:
 
 `Command-Option-K` - Show/Hide DevTools
 
