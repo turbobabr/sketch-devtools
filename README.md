@@ -1,4 +1,4 @@
-Sketch DevTools
+![Header Logo](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/header_logo.png)
 ===============
 
 #### (Work in progress...)
@@ -93,6 +93,7 @@ When you click on the error box url it will be automatically opned in the editor
 ## Roadmap
 
 - [ ] A separate `console` CocoaScript module similar to the WebKit console that utilizes all the features of Sketch DevTools Console tab.
+- [ ] Automatic initialization of tools on Sketch launch.
 - [ ] Symbols Explorer. A separate tab panel that contains a Sketch classes reference.
 - [ ] Custom script runner. The same thing as built-in Sketch custom script dialog but embedded right into DevTools panel.
 - [ ] Console prompt to quickly evaluate JS expressions.
