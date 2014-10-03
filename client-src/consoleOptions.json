@@ -1,7 +1,7 @@
 {
+  "showSessionInfo" : true,
+  "defaultProtocolHandler" : "textmate",
   "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}",
-  "defaultProtocolHandler" : "webstorm",
   "showConsoleOnError" : true,
-  "clearConsoleBeforeLaunch" : true,
-  "showSessionInfo" : true
+  "clearConsoleBeforeLaunch" : true
 }

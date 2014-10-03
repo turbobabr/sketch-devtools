@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 
 #import <WebKit/WebKit.h>
-#import "COSPreprocessorReplacement.h"
 #import "SDTSwizzle.h"
 
 #import "SDTModule.h"
@@ -39,16 +38,16 @@
         // MSPlugin.run();
         [SDTSwizzle swizzleMethod:@selector(run) withMethod:@selector(run) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
         
-        // MSPlugin.print();
-        // Временно отрубаем ради эксперимента!
-        // [SDTSwizzle swizzleMethod:@selector(print:) withMethod:@selector(print:) sClass:[self class] pClass:NSClassFromString(@"MSPlugin") originalMethodPrefix:@"originalMSPlugin_"];
-        
         // COScript.executeString:baseURL:
         [SDTSwizzle swizzleMethod:@selector(executeString:baseURL:) withMethod:@selector(executeString:baseURL:) sClass:[self class] pClass:NSClassFromString(@"COScript") originalMethodPrefix:@"originalCOScript_"];
         
-        
         // Shortcuts Experiment!
         [SDTSwizzle swizzleMethod:@selector(keyDown:) withMethod:@selector(keyDown:) sClass:[self class] pClass:NSClassFromString(@"MSContentDrawView") originalMethodPrefix:@"originalMSContentDrawView_"];
+        
+        
+        // From COSPreprocessorReplacement.
+        [SDTSwizzle swizzleClassMethod:@selector(preprocessForObjCStrings:) withMethod:@selector(preprocessForObjCStrings:) sClass:self pClass:NSClassFromString(@"COSPreprocessor") originalMethodPrefix:@"originalCOSPreprocessor_"];
+        
     });
 }
 
@@ -134,6 +133,7 @@
     return nil;
 }
 
+// Экспериментальная перегрузка для автоматической подгрузки модулей для каждого исполняемого плагина.
 +(NSString*)processPackageImports:(NSString*)script path:(NSURL*)url {
     
     script=[script stringByReplacingOccurrencesOfString:@"#import 'underscore'" withString:@"#import 'modules/underscore.js'"];
@@ -146,14 +146,13 @@
         return script;
     }
     
-    
     // Replace source file with the new imports.
     [script writeToFile:[url path] atomically:true encoding:NSUTF8StringEncoding error:nil];
     
     return script;
 };
 
-// Подмененные метод 'run' класса MSPlugin.
+// Подмененный метод 'run' класса MSPlugin.
 // Мы используем его для получения информации о сессии, а так же для получения время исполнения скрипта.
 - (id)run {
     NSLog(@"begin: MSPlugin - run");
@@ -183,23 +182,19 @@
     // Вызываем оригинальный метод MSPlugin run.
     id result=[self performSelector:NSSelectorFromString(@"originalMSPlugin_run")];
     
-    WebView* webView =[SketchConsole findWebView];
-    if(webView!=nil) {
-        id win = [webView windowScriptObject];
+    // Добавляем информацию о сессии имя плагина, таймстэмп и время исполнения.
+    if([(NSNumber*)shared.options[@"showSessionInfo"] boolValue]) {
         
-        // Добавляем информацию о сессии имя плагина, таймстэмп и время исполнения.
-        if([(NSNumber*)shared.options[@"showSessionInfo"] boolValue]) {
-            
-            // Получаем время исполнения всего скрипта (похоже что надо переносить в другой метод!).
-            NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
-
-            // Добавляем элемент сессии.
-            [win callWebScriptMethod:@"addSessionItem" withArguments:@[[baseURL lastPathComponent],@(interval)]];
-        }
-
-        // Обновляем консоль.
-        [win callWebScriptMethod:@"refreshConsoleList" withArguments:@[]];
+        // Получаем время исполнения всего скрипта (похоже что надо переносить в другой метод!).
+        NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:start];
+        
+        // Добавляем элемент сессии.
+        [SketchConsole callJSFunction:@"addSessionItem" withArguments:@[[baseURL lastPathComponent],@(interval)]];
     }
+    
+    // Обновляем консоль.
+    [SketchConsole callJSFunction:@"refreshConsoleList" withArguments:@[]];
+    
     
     NSLog(@"end: MSPlugin - run");
     
@@ -233,17 +228,6 @@
              @"folder": pluginFolderURL,
              @"index": [pluginFolderURL URLByAppendingPathComponent:@"index.html"]
              };
-
-    
-    // Времяночка, чтобы попробовать отобразить плагины! :)
-    /*
-    NSURL* pluginFolderURL=[scriptURL URLByDeletingLastPathComponent];
-    return @{
-             @"folder": pluginFolderURL,
-             @"index": [pluginFolderURL URLByAppendingPathComponent:@"plugins.html"]
-             };
-     */
-
 }
 
 +(NSView*)getCurrentContentView {
@@ -305,16 +289,6 @@
     if (![s isKindOfClass:[NSString class]]) {
         s = [[s description] sdt_escapeHTML];
     }
-
-    /*
-    WebView* webView =[SketchConsole findWebView];
-    if(webView==nil) {
-        return;
-    }
-    
-    id win = [webView windowScriptObject];
-    [win callWebScriptMethod:@"addCustomPrintItem" withArguments:@[s]];
-     */
     
     [self callJSFunction:@"addCustomPrintItem" withArguments:@[s]];
 }
@@ -353,21 +327,6 @@
         }
     }
     
-    // Блок для вызова добавлялки ошибки на стороне WebKit'a.
-    // fnName - JS функция для вызова.
-    // args - аргументы подаваемые в JS функцию.
-    BOOL(^callAddErrorJSFunction)(NSString* fnName,NSArray* args) = ^BOOL(NSString* fnName,NSArray* args) {
-        WebView* webView=[SketchConsole findWebView];
-        if(webView==nil) {
-            return false;
-        }
-
-        [SketchConsole ensureConsoleVisible];
-        [[webView windowScriptObject] callWebScriptMethod:fnName withArguments:args];
-        
-        return true;
-    };
-    
     // Check for JS errors.
     if([e.name isEqualToString:@"MOJavaScriptException"]) {
     
@@ -394,8 +353,6 @@
             }
         }
         
-        // TODO: Здесь необходимо обращаться к процессору импортов и получать актуальный файл, линию и строку ошибки!
-        //       Пока это голимая залипуха, но она все же перехватывает и перенаправляет ошибки в консоль!
         SketchConsole* shared=[SketchConsole sharedInstance];
         if(shared.cachedScriptRoot) {
             
@@ -409,11 +366,7 @@
                 NSArray* components=[call componentsSeparatedByString:@"@"];
                 
                 NSString* fn=(components.count>1) ? components[0] : @"closure";
-                // NSLog(fn);
-                
                 components=[components[components.count-1] componentsSeparatedByString:@":"];
-                // NSLog(@"Components: %@",components);
-                
                 
                 NSString* filePath=components[0];
                 NSUInteger line=[components[1] integerValue];
@@ -433,9 +386,6 @@
                                         };
                     
                     [callStack addObject:call];
-                    
-                    // Добавляем и отображаем ошибку на стороне WebKit'a.
-                    //callAddErrorJSFunction(@"addErrorItem",@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine]);
                 }
             }
             
@@ -450,7 +400,8 @@
                 NSString* sourceCodeLine=[module sourceCodeForLine:relativeLineNumer];
                 
                 // Добавляем и отображаем ошибку на стороне WebKit'a.
-                callAddErrorJSFunction(@"addErrorItem",@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]);
+                // callAddErrorJSFunction(@"addErrorItem",@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]);
+                [SketchConsole callJSFunction:@"addErrorItem" withArguments:@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]];
             } else {
                 NSLog(@"Error: Can't find source module!");
             }
@@ -464,26 +415,9 @@
     
     // Check for Mocha runtime error.
     if([e.name isEqualToString:@"MORuntimeException"]) {
-        callAddErrorJSFunction(@"addMochaErrorItem",@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]);
+        // callAddErrorJSFunction(@"addMochaErrorItem",@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]);
+        [SketchConsole callJSFunction:@"addMochaErrorItem" withArguments:@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]];
     }
-    
-
-    /*
-    // Name:
-    [SketchConsole printGlobal:@"Name: "];
-    [SketchConsole printGlobal:e.name];
-    [SketchConsole printGlobal:@" "];
-    
-    // Reason
-    [SketchConsole printGlobal:@"Reason: "];
-    [SketchConsole printGlobal:e.reason];
-    [SketchConsole printGlobal:@" "];
-    
-    // User Info
-    [SketchConsole printGlobal:@"User Info: "];
-    [SketchConsole printGlobal:e.userInfo];
-    [SketchConsole printGlobal:@" "];
-     */
 }
 
 
@@ -644,52 +578,6 @@
     [splitView setPosition:viewHeight ofDividerAtIndex:0];
 }
 
-
-+(NSDictionary*)getLineInfo:(NSUInteger)lineNumber source:(NSString*)sourceScript withBaseURL:(NSURL*)base {
-    
-    SDTModule* root=[[SDTModule alloc] initWithScriptSource:sourceScript baseURL:base parent:nil startLine:0];
-    SDTModule* module=[root findModuleByLineNumber:lineNumber];
-    if(module) {
-        
-        // [SketchConsole printGlobal:[root treeAsDictionary]];
-        
-        return @{
-                 @"line": [NSNumber numberWithInteger:[module relativeLineByAbsolute:lineNumber]],
-                 @"module": module
-                 };
-    }
-    
-    
-    
-    return nil;
-    
-}
-
-
-/*
-+(void)printGlobal:(id)s {
-
-    
-    if(!s) return;
-    
-    if (![s isKindOfClass:[NSString class]]) {
-        s = [s description];
-    }
-    
-    
-    NSString* logFilePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/logs/framework_log.txt";
-    
-    NSString* log=[NSString stringWithContentsOfFile:logFilePath encoding:NSUTF8StringEncoding error:NULL];
-    
-    
-    log=[log stringByAppendingString:@"\n"];
-    log=[log stringByAppendingString:s];
-    
-    
-    [[NSFileManager defaultManager] createFileAtPath:logFilePath contents:[log dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
-}
-*/
-
 +(void)printGlobalEx:(id)s {
 
     
@@ -736,258 +624,8 @@
     return nil;
 }
 
-+(BOOL)isMochaError:(NSString*)s {
-    
-    NSDictionary* errors=@{
-                           @"MethodArgumentsError": @[@"ObjC method ",@" requires ",@" but JavaScript passed "],
-                           @"MethodNotFoundError": @[@"Unable to locate method ",@" of class "],
-                           @"MethodParseEncodingError": @[@"Unable to parse method encoding for method ",@" of class "],
-                           @"BlockArgumentsError": @[@"Block requires ",@", but JavaScript passed "],
-                           @"FunctionNotFoundError": @[@"Unable to find function with name: "],
-                           @"CFunctionArgumentsError": @[@"C function ",@" requires ",@", but JavaScript passed "]
-                           };
-    
-    for (NSString* key in errors) {
-        NSArray* error=[errors objectForKey:key];
-        
-        NSInteger passed=0;
-        for(NSString* part in error) {
-            if([s rangeOfString:part].location!=NSNotFound) {
-                passed++;
-            }
-            
-            if(passed==error.count) {
-                return true;
-            }
-        }
-        
-    }
-    
-    return false;
-}
-
-+(BOOL)isError:(NSString*)s {
-    
-    NSInteger customErrorLocation=[s rangeOfString:@"Error: "].location;
-    if(customErrorLocation!= NSNotFound && customErrorLocation==0) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"ReferenceError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"TypeError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"SyntaxError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"RangeError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"EvalError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"InternalError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    if([s rangeOfString:@"URIError: "].location != NSNotFound) {
-        return true;
-    }
-    
-    return false;
-}
-
--(void)print:(id)s {
-    
-    if(s==nil) {
-        s=@"NULL!";
-    }
-    
-    // Invoke original MSPlugin.print() method.
-    if ([self respondsToSelector:NSSelectorFromString(@"originalMSPlugin_print")]) {
-        [self performSelector:NSSelectorFromString(@"originalMSPlugin_print") withObject:s];
-    } else {
-//        [SketchConsole printGlobal:@"Does not respond to selector!"];
-    }
-    
-    
-    // If logged value is an object we should convert it to a string.
-    if (![s isKindOfClass:[NSString class]]) {
-        // s = [s description];
-        
-        s = [[s description] sdt_escapeHTML];
-    }
-    
-    WebView* webView =[SketchConsole findWebView];
-    if(webView==nil) {
-        // [SketchConsole printGlobal:@"ERROR: CAN'T FIND WEB VIEW!!!"];
-        return;
-    }
-    
-    NSString* pluginName=[self performSelector:NSSelectorFromString(@"name")];
-    NSURL* pluginFileURL=[self performSelector:NSSelectorFromString(@"url")];
-    NSURL* pluginsRootURL=[self performSelector:NSSelectorFromString(@"root")];
-    
-    
-    // Process Mocha errors.
-    if([SketchConsole isMochaError:s]) {
-        NSArray *args = @[s,pluginName,[pluginFileURL path],[pluginsRootURL path]];
-        
-        [SketchConsole ensureConsoleVisible];
-        
-        id win = [webView windowScriptObject];
-        [win callWebScriptMethod:@"addMochaErrorItem" withArguments:args];
-        
-        return;
-    }
-    
-    // Process JavaScript standard errors.
-    if([SketchConsole isError:s]) {
-        
-        NSArray* parts = [s componentsSeparatedByString:@"\n"];
-        
-        NSInteger (^findIntProperty)(NSString* propertyName) = ^NSInteger(NSString* propertyName) {
-            NSInteger value=0;
-            for (NSString* line in parts) {
-                if([line rangeOfString:propertyName].location!=NSNotFound) {
-                    value = [[line stringByReplacingOccurrencesOfString:propertyName withString:@""] integerValue];
-                    return value;
-                }
-            }
-            
-            return 0;
-        };
-        
-        NSString* (^findStringProperty)(NSString* propertyName) = ^NSString*(NSString* propertyName) {
-            for (NSString* line in parts) {
-                if([line rangeOfString:propertyName].location!=NSNotFound) {
-                    return [line stringByReplacingOccurrencesOfString:propertyName withString:@""];
-                }
-            }
-            return nil;
-        };
-        
-        
-        NSInteger lineNumber=findIntProperty(@"line: ");
-        
-        NSString* errorType=@"Unknown";
-        NSString* errorMessage=@"Not Found";
-        
-        // Check for custom error generated by "throw Error()" code.
-        NSInteger customErrorLocation=[s rangeOfString:@"Error: "].location;
-        if(customErrorLocation!=NSNotFound && customErrorLocation==0) {
-            errorType=@"CustomError";
-            errorMessage=findStringProperty(@"Error: ");
-        } else {
-            // Standard JS errors.
-            NSArray* errors=@[@"ReferenceError: ",@"TypeError: ",@"SyntaxError: ",@"RangeError: ",@"EvalError: ",@"InternalError: ",@"URIError: "];
-            for (NSString* error in errors) {
-                
-                errorMessage=findStringProperty(error);
-                if(errorMessage!=nil) {
-                    errorType=[error stringByReplacingOccurrencesOfString:@": " withString:@""];
-                    break;
-                }
-            }
-        }
-        
-        
-        NSString* script=[self performSelector:NSSelectorFromString(@"script")];
-        NSString* processedScript=[self performSelector:NSSelectorFromString(@"processedScript")];
-        // [SketchConsole printGlobalEx:processedScript];
-    
-        
-        NSArray* lines=[processedScript componentsSeparatedByString:@"\n"];
-        NSString* errorLineContents=lines[lineNumber-1];
-        
-        
-        NSString* exceptionInfo=@"Not Defined!";
-        
-        NSDictionary* lineInfo=[SketchConsole getLineInfo:lineNumber source:script withBaseURL:pluginFileURL];
-        // [SketchConsole printGlobal:[lineInfo description]];
-        
-        // Получаем актуальную строку с ошибкой.
-        {
-            NSURL* fileURL=[lineInfo[@"module"] url];
-            
-            // Если файл в котором возникла ошибка не является кастомным плагином, то мы берем строку
-            // с ошибкой из актуального файла а не из скрипта.
-            if([[fileURL path] rangeOfString:@"/Plugins/Untitled.sketchplugin"].location==NSNotFound) {
-                NSString* fileContents=[NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
-                NSArray* sourceFileLines=[fileContents componentsSeparatedByString:@"\n"];
-                
-                errorLineContents=sourceFileLines[[lineInfo[@"line"] integerValue]-1];
-            } else {
-                
-                // В случае если ошибка возникла в кастомном скрипте, то мы берем строку кода с ошибкой
-                // из скомпилированного скрипта предоставленного классом MSPlugin.
-                NSArray* sourceFileLines=[processedScript componentsSeparatedByString:@"\n"];
-                errorLineContents=sourceFileLines[[lineInfo[@"line"] integerValue]-1];
-            }
-            
-            
-        }
-        
-        if(lineInfo!=nil) {
-            exceptionInfo = [NSString stringWithFormat:@"%@ : %@",[[lineInfo[@"module"] url] lastPathComponent],[lineInfo[@"line"] stringValue]];
-        }
-        
-        NSArray *args = @[errorType,errorMessage,[[lineInfo[@"module"] url] path],[lineInfo[@"line"] stringValue],errorLineContents];
-
-        [SketchConsole ensureConsoleVisible];
-        
-        id win = [webView windowScriptObject];
-        [win callWebScriptMethod:@"addErrorItem" withArguments:args];
-        
-        // [SketchConsole printGlobal:@"THIS IS CALLED FROM ERROR HANDLER!"];
-        
-    } else {
-        // NSArray *args = [NSArray arrayWithObjects:@"print",s,pluginName,[pluginFileURL path],[pluginsRootURL path],nil];
-        NSArray *args = @[s,pluginName,[pluginFileURL path],[pluginsRootURL path],@true];
-        
-        id win = [webView windowScriptObject];
-        [win callWebScriptMethod:@"addPrintItem" withArguments:args];
-        
-        // [SketchConsole printGlobal:@"THIS IS CALLED FROM PRINT HANDLER!"];
-        
-    }
-    
-    
-    
-    // Scroll to the bottom.
-    // [webView scrollToEndOfDocument:self];
-}
-
--(void)execScript:(NSString*)script {
-    
-    id plugin = [NSClassFromString(@"MSPlugin") alloc];
-    
-    plugin = [plugin performSelector:NSSelectorFromString(@"initWithScript:name:") withObject:script withObject:@"My Script"];
-    [plugin performSelector:NSSelectorFromString(@"processScript")];
-    [plugin performSelector:NSSelectorFromString(@"run")];
-    
-}
-
 +(void)clearConsole {
-    
-    WebView* webView =[SketchConsole findWebView];
-    if(webView==nil) {
-        // [SketchConsole printGlobal:@"ERROR: CAN'T FIND WEB VIEW!!!"];
-        return;
-    }
-    
-    if(webView) {
-        id win = [webView windowScriptObject];
-        NSArray *args = @[];
-        [win callWebScriptMethod:@"clearConsole" withArguments:args];
-    }
+    [self callJSFunction:@"clearConsole" withArguments:@[]];
 }
 
 -(void)openURL:(NSString*)url {
@@ -1006,14 +644,8 @@
 {
     NSString* name=@"";
     
-    if (sel == @selector(execScript:))
-        name = @"execScript";
-    
     if (sel == @selector(hideConsole))
         name = @"hideConsole";
-    
-    if (sel == @selector(getLineInfo:source:withBaseURL:))
-        name = @"getLineInfo";
     
     if (sel == @selector(openURL:))
         name = @"openURL";
@@ -1034,9 +666,7 @@
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
-    if (sel == @selector(execScript:)) return NO;
     if (sel == @selector(hideConsole)) return NO;
-    if (sel == @selector(getLineInfo:source:withBaseURL:)) return NO;
     if (sel == @selector(openURL:)) return NO;
     if (sel == @selector(getConsoleOptions)) return NO;
     if (sel == @selector(setConsoleOptions:)) return NO;
@@ -1122,6 +752,52 @@
              @"getter" : getter
              };
 };
+
+
++ (NSString*)preprocessForObjCStrings:(NSString*)sourceString {
+    NSMutableString *buffer = [NSMutableString string];
+    
+    id tokenizer  = objc_msgSend(NSClassFromString(@"TDTokenizer"),NSSelectorFromString(@"tokenizerWithString:"),sourceString);
+    objc_msgSend(objc_msgSend(tokenizer,NSSelectorFromString(@"whitespaceState")),NSSelectorFromString(@"setReportsWhitespaceTokens:"),YES);
+    objc_msgSend(objc_msgSend(tokenizer,NSSelectorFromString(@"commentState")),NSSelectorFromString(@"setReportsCommentTokens:"),YES);
+    
+    id eof = objc_msgSend(NSClassFromString(@"TDToken"),NSSelectorFromString(@"EOFToken"));
+    id tok = nil;
+    id nextToken = nil;
+    
+    while ((tok = objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken"))) != eof) {
+        
+        if (objc_msgSend(tok,NSSelectorFromString(@"isComment"))) {
+            
+            if([[tok stringValue] rangeOfString:@"/*"].location!=NSNotFound) {
+                
+                NSInteger numLines=[[tok stringValue] sdt_numberOfLines];
+                NSMutableString* nastyComment=[NSMutableString string];
+                for(int i=0;i<numLines;i++) {
+                    
+                    [nastyComment appendString:(i<numLines-1) ? @"// I will never ever remove block comments! (c) Gus Mueller :)\n" : @"// I will never ever remove block comments! (c) Gus Mueller :)"];
+                }
+                [buffer appendString:nastyComment];
+            }
+            
+        } else if (objc_msgSend(tok,NSSelectorFromString(@"isSymbol")) && [[tok stringValue] isEqualToString:@"@"]) {
+            
+            nextToken = objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken"));
+            if(objc_msgSend(nextToken,NSSelectorFromString(@"quotedString"))) {
+                [buffer appendFormat:@"[NSString stringWithString:%@]", [nextToken stringValue]];
+            }
+            else {
+                [buffer appendString:[tok stringValue]];
+                [buffer appendString:[nextToken stringValue]];
+            }
+        }
+        else {
+            [buffer appendString:[tok stringValue]];
+        }
+    }
+    
+    return buffer;
+}
 
 @end
 

@@ -17,13 +17,6 @@
 
 
 +(void)printGlobalEx:(id)s;
-
--(void)print:(id)s;
--(void)execScript:(NSString*)script;
-
-+ (NSString *) webScriptNameForSelector:(SEL)sel;
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
-
 +(void)clearConsole;
 
 @property (nonatomic) NSDictionary* options;

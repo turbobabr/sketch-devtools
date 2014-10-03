@@ -63,34 +63,6 @@
     }
     
     return false;
-    /*
-    
-    if([ide isEqualToString:@"sublime"]) { // Sublime
-        [NSTask launchedTaskWithLaunchPath:@"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" arguments:@[[NSString stringWithFormat:@"%@:%ld",filePath,line]]];
-    } else if([ide isEqualToString:@"textmate"]) { // TextMate.
-        [NSTask launchedTaskWithLaunchPath:@"/Applications/TextMate.app/Contents/Resources/mate" arguments:@[filePath,@"-l",[NSString stringWithFormat:@"%ld",line]]];
-    } else if([ide isEqualToString:@"atom"]) { // Atom.
-        [NSTask launchedTaskWithLaunchPath:@"/Applications/Atom.app/Contents/MacOS/Atom" arguments:@[[NSString stringWithFormat:@"%@:%ld",filePath,line]]];
-    } else if([ide isEqualToString:@"xcode"]) { // XCode.
-        [NSTask launchedTaskWithLaunchPath:@"/usr/bin/xed" arguments:@[@"--line",[NSString stringWithFormat:@"%ld",line],filePath]];
-        
-    } else if([ide isEqualToString:@"webstorm"]) { // WebStorm.
-        
-        [NSTask launchedTaskWithLaunchPath:@"/Applications/WebStorm.app/Contents/MacOS/webide" arguments:@[@"--line",[NSString stringWithFormat:@"%ld",line],filePath]];
-        
-        NSAppleScript* script = [[NSAppleScript alloc] initWithSource:@"tell application \"WebStorm\" to activate"];
-        [script executeAndReturnError:nil];
-    } else if([ide isEqualToString:@"appcode"]) { // AppCode.
-        
-        
-        [NSTask launchedTaskWithLaunchPath:@"/Applications/AppCode.app/Contents/MacOS/appcode" arguments:@[@"--line",[NSString stringWithFormat:@"%ld",line],filePath]];
-        
-        NSAppleScript* script = [[NSAppleScript alloc] initWithSource:@"tell application \"AppCode\" to activate"];
-        [script executeAndReturnError:nil];
-    } else if([ide isEqualToString:@"macvim"]) { // MacVim.
-        [NSTask launchedTaskWithLaunchPath:@"/Applications/MacVim.app/Contents/MacOS/Vim" arguments:@[filePath,@"-g",[NSString stringWithFormat:@"+%ld",line]]];
-    }
-     */
 }
 
 @end
