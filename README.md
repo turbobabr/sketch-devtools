@@ -74,7 +74,40 @@ This 'short' logging statement produces the following result:
 
 #### Logging Objects
 
-TODO: Text goes here!
+If you want to log an object combined with some text you have to escape HTML symbols first:
+
+```JavaScript
+function escapeHTML(string) {
+    var entityMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '`': '&#x60;',
+        "\n": "<br>",
+        "    ": "&nbsp;&nbsp;&nbsp;&nbsp;"
+    };
+
+    return String(string).replace(new RegExp("[&<>\"'\/\\n]",'g'), function (s) {
+        return entityMap[s];
+    }).replace(/    /g, "&nbsp;&nbsp;&nbsp;&nbsp;");
+}
+
+var layer=selection.firstObject();
+if(layer) {
+
+    // No HTML escaping.
+    print("<strong>Layer:</strong> "+layer);
+
+    // HTML symbols are escaped.
+    print("<strong>Layer:</strong> "+escapeHTML(layer.toString()));
+}
+```
+
+In the following image you can see the difference between these to logs:
+
+![HTML Escaping](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/html_escaping.png)
 
 ### Jump to Code
 
