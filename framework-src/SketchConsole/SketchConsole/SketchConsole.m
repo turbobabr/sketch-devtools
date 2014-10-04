@@ -298,6 +298,14 @@
                 NSUInteger relativeLineNumer=[module relativeLineByAbsolute:lineNumber];
                 NSString* sourceCodeLine=[module sourceCodeForLine:relativeLineNumer];
                 [SketchConsole callJSFunction:@"addErrorItem" withArguments:@[errorType,message,[module.url path],@(relativeLineNumer),sourceCodeLine,callStackObj]];
+                
+                
+                // Auto-highlight line number in case we are running in custom script editor.
+                // FIXME: There should be more sophisticated way to know whether we are running in custom script editor!
+                if([[module.url lastPathComponent] isEqualToString:@"Untitled.sketchplugin"]) {
+                    [shared showCustomScriptWindow:relativeLineNumer];
+                }
+                
             } else {
                 // NSLog(@"Error: Can't find source module!");
             }
@@ -563,7 +571,24 @@
 
 
 -(void)showCustomScriptWindow:(NSInteger)lineNumber {
-    NSWindowController* sheet=objc_msgSend(NSClassFromString(@"MSRunCustomScriptSheet"),NSSelectorFromString(@"runForWindow:"),[[NSApplication sharedApplication] mainWindow]);
+    
+    // Looking for already opened sheet.
+    NSWindowController* sheet=nil;
+    
+    NSWindow* mainWindow=[[NSApplication sharedApplication] mainWindow];
+    if(mainWindow==nil) return;
+    
+    if(mainWindow.attachedSheet!=nil) {
+        NSWindowController* controller=(NSWindowController*)mainWindow.attachedSheet.delegate;
+        if(controller!=nil && [controller isKindOfClass:NSClassFromString(@"MSRunCustomScriptSheet")]) {
+            sheet=controller;
+        }
+    }
+
+    // If it doesn't exist we have to show it first.
+    if(sheet==nil) {
+        sheet=objc_msgSend(NSClassFromString(@"MSRunCustomScriptSheet"),NSSelectorFromString(@"runForWindow:"),[[NSApplication sharedApplication] mainWindow]);
+    }
     
     NSTextView* (^findScriptTextView)(void) = ^NSTextView*(void) {
         
@@ -598,8 +623,14 @@
         NSRange selectedrange=NSMakeRange(count, [lines[lineNumber-1] length]);
         [textView setSelectedRange:selectedrange];
         [textView scrollRangeToVisible:selectedrange];
+        
+        // FIXME: Not sure it's the best solution.. may be it might be better to keep system selection color?
+        NSDictionary* attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSColor colorWithRed:219.0/255.0 green:82.0/255.0 blue:75.0/255.0 alpha:1], NSBackgroundColorAttributeName, /* something obvious so I can see it */
+                                    [NSColor whiteColor], NSForegroundColorAttributeName,
+                                    nil];
+        [textView setSelectedTextAttributes:attributes];
     }
-    
 };
 
 -(BOOL)openFile:(NSString*)filePath withIDE:(NSString*)ide atLine:(NSInteger)line {
@@ -656,7 +687,7 @@
                 
                 NSInteger numLines=[[tok stringValue] sdt_numberOfLines];
                 NSMutableString* nastyComment=[NSMutableString string];
-                for(int i=0;i<numLines;i++) {                    
+                for(int i=0;i<numLines;i++) {
                     [nastyComment appendString:(i<numLines-1) ? @"/* I will never ever remove block comments! (c) Gus Mueller :) */\n" : @"/* I will never ever remove block comments! (c) Gus Mueller :) */"];
                 }
                 [buffer appendString:nastyComment];
