@@ -133,26 +133,22 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         }
 
         if(item.type=="extendedPrint") {
-            var link=Mustache.render(
-                "txmt://open/?url=file://{{{filePath}}}&line=1&column=1",{
-                    filePath: item.filePath
-                });
 
-            var clickHandler=Mustache.render('SketchDevTools.openFileWithIDE("{{{file}}}","{{ide}}",{{line}})',{
+            var fileName=_.last(item.filePath.split("/"));
+            var isCustomScript=fileName=="Untitled.sketchplugin";
+
+            var clickHandler=(isCustomScript) ? "SketchDevTools.showCustomScriptWindow("+item.line+")" : Mustache.render('SketchDevTools.openFileWithIDE("{{{file}}}","{{ide}}",{{line}})',{
                     ide: $scope.options.defaultProtocolHandler,
                     file: item.filePath,
                     line: item.line.toString()
                 });
 
             var contentsHtml=Mustache.render(
-                "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='{{link}}' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div>",
+                "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div>",
                 {
                     contents: item.contents,
-                    file: _.last(item.filePath.split("/")),
-                    link: "#",
+                    file: isCustomScript ? "Custom Script" : fileName,
                     line: item.line,
-                    timestamp: moment(item.timestamp).format("HH:mm:ss.SSS"),
-                    tag: "log",
                     click: clickHandler
                 });
 
@@ -287,6 +283,12 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
             } else {
                 // actualError["click"]="";
             }
+
+
+
+
+
+
 
             // Call stack
             {
