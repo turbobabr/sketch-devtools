@@ -19,11 +19,13 @@
 
 @property (nonatomic) NSDictionary* options;
 @property (nonatomic) NSURL* scriptURL;
+@property (nonatomic) NSMutableArray* brokenImports;
 
 @property BOOL isNewSession;
 @property SDTModule* cachedScriptRoot;
 
 +(SketchConsole*)sharedInstance;
++(void)reportBrokenImport:(NSDictionary*)info;
 
 
 @end

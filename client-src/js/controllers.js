@@ -8,6 +8,15 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         $scope.options=JSON.parse(SketchDevTools.getConsoleOptions());
     }
 
+    $scope.addBrokenImportItem = function(path,filePath,line) {
+
+        $scope.items.push({
+            type: "brokenImport",
+            path: path,
+            filePath: filePath,
+            line: line
+        });
+    };
 
     $scope.addCustomPrintItem = function(contents) {
         $scope.items.push({
@@ -109,6 +118,27 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
     };
 
     $scope.renderHtml = function(item) {
+
+        if(item.type=="brokenImport") {
+
+            function buildClickProtocolHandlerStringEx() {
+                return Mustache.render('SketchDevTools.openFileWithIDE("{{{file}}}","{{ide}}",{{line}})',{
+                    ide: $scope.options.defaultProtocolHandler,
+                    file: item.filePath,
+                    line: item.line.toString()
+                });
+            }
+
+            var template="<div class='col-md-12' style='margin-bottom: 0px;'><div class='bs-callout bs-callout-danger'><h4><span class='label label-danger'>#</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4> <p><a href='#' onclick='{{click}}'>{{fileName}}, Line: {{line}}</a></p></div></div>";
+            return $sce.trustAsHtml(Mustache.render(template,
+                {
+                    errorTitle: "Module Import Error",
+                    fileName: _.last(item.filePath.split("/")),
+                    errorMessage: "Could not #import '"+item.path+"'",
+                    line: item.line,
+                    click: buildClickProtocolHandlerStringEx()
+                }));
+        }
 
         if(item.type=="custom") {
             return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{contents}}}</div>",item));

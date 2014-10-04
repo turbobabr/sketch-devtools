@@ -1,6 +1,6 @@
 {
   "clearConsoleBeforeLaunch" : true,
-  "defaultProtocolHandler" : "sublime",
+  "defaultProtocolHandler" : "textmate",
   "showSessionInfo" : true,
   "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}",
   "showConsoleOnError" : true

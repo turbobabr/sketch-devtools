@@ -31,6 +31,10 @@
             return angular.element($("#myBody")).scope();
         }
 
+        function addBrokenImportItem(path,filePath,line) {
+            scope().addBrokenImportItem(path,filePath,line);
+        }
+
         function addCustomPrintItem(contents) {
             scope().addCustomPrintItem(contents);
         }

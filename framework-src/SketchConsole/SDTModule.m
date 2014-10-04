@@ -9,6 +9,9 @@
 #import "SDTModule.h"
 #import "NSString+SketchDevTools.h"
 
+#import "NSLogger.h"
+#import "SketchConsole.h"
+
 /*
  #import "TDTokenizer.h"
  #import "TDToken.h"
@@ -47,6 +50,18 @@
     
     self.imports=[NSMutableArray array];
     self.url=base;
+    self.parent=parent;
+    self.line=startLine;
+    
+    [self parseImports:source withBaseURL:base];
+    
+    return self;
+}
+
+-(instancetype)initWithScriptSource:(NSString*)source baseURL:(NSURL*)base parent:(SDTModule*)parent startLine:(NSInteger)startLine url:(NSURL*)url {
+    
+    self.imports=[NSMutableArray array];
+    self.url=url;
     self.parent=parent;
     self.line=startLine;
     
@@ -255,24 +270,35 @@
                     
                     if (base) {
                         
+                        NSInteger curLine=[collector sdt_numberOfLines];
+                        
                         NSURL *importURL = [[base URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
                         
                         NSError *outErr = nil;
                         NSString *s = [NSString stringWithContentsOfURL:importURL encoding:NSUTF8StringEncoding error:&outErr];
                         
+                        
                         if (s) {
                             
-                            NSInteger curLine=[collector sdt_numberOfLines];
+                            
                             // SDTModule* subModule=[[SDTModule alloc] initWithScriptURL:importURL parent:self startLine:curLine-1];
                             
                             
                             NSString* subScriptSource=[NSString stringWithContentsOfURL:importURL encoding:NSUTF8StringEncoding error:nil];
-                            SDTModule* subModule=[[SDTModule alloc] initWithScriptSource:subScriptSource baseURL:base parent:self startLine:curLine-1];
-                            subModule.url=importURL;
+                            SDTModule* subModule=[[SDTModule alloc] initWithScriptSource:subScriptSource baseURL:base parent:self startLine:curLine-1 url:importURL];
+                            // subModule.url=importURL;
                             [self.imports addObject:subModule];
                         }
                         else {
                             // [buffer appendFormat:@"'Unable to import %@ becase %@'", path, [outErr localizedFailureReason]];
+                            NSDictionary* importExceptionInfo =
+                            @{
+                              @"url": self.url,
+                              @"line": @(curLine),
+                              @"path": path
+                            };
+                            
+                            [SketchConsole reportBrokenImport:importExceptionInfo];
                         }
                         
                         

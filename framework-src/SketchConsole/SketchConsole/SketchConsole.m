@@ -95,6 +95,8 @@
     SketchConsole* shared=[SketchConsole sharedInstance];
     shared.isNewSession=true;
     if(shared.isNewSession) {
+        shared.brokenImports=nil;
+        
         SDTModule* module=[[SDTModule alloc] initWithScriptSource:script baseURL:baseURL parent:nil startLine:0];
         shared.cachedScriptRoot=module;
         
@@ -104,6 +106,16 @@
     // Clear console before script launch.
     if([(NSNumber*)shared.options[@"clearConsoleBeforeLaunch"] boolValue]) {
         [SketchConsole clearConsole];
+    }
+    
+    if(shared.brokenImports!=nil) {
+        for(NSDictionary* importException in shared.brokenImports) {
+            [SketchConsole callJSFunction:@"addBrokenImportItem" withArguments:@[importException[@"path"],[importException[@"url"] path],importException[@"line"]]];
+        }
+        
+        [SketchConsole callJSFunction:@"refreshConsoleList" withArguments:@[]];
+        
+        return nil;
     }
     
     // Invoke original MSPlugin.run method.
@@ -710,6 +722,14 @@
     }
     
     return buffer;
+}
+
++(void)reportBrokenImport:(NSDictionary*)info {
+    if([self sharedInstance].brokenImports==nil) {
+        [self sharedInstance].brokenImports=[NSMutableArray array];
+    }
+    
+    [[self sharedInstance].brokenImports addObject:info];
 }
 
 @end
