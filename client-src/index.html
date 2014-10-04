@@ -103,13 +103,13 @@
 
     <div style="overflow-y: auto; overflow-x: hidden; padding-right: 0px;margin-right: 0px;" id="contentView">
         <div style="background-color: #ffffff; border: 1px solid #F0F0F0; margin: 5px; padding: 10px 5px 15px 15px; box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);" ng-if="isOptionsOpened">
-            <!-- Header -->
+
             <div>
                 <h4 style="padding-right: 20px;">Console Settings <a href="#" style="color: #333333;" ng-click="hideSettings()"><i class="fa fa-times pull-right"></i></a></h4>
                 <hr>
             </div>
             <div style="padding-left: 20px;">
-                <!-- Console settings -->
+
                 <form role="form">
                     <div class="form-group">
                         <label for="protocolHandlerId">Jump to Code Editor: &nbsp;&nbsp;</label>
@@ -137,7 +137,28 @@
         <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px; padding-right: 12px;"></div>
     </div>
 
-    <br>
+    <!--
+    <div class="row well">
+        <div class="col-lg-8">
+            <h3>A new version of Sketch DevTools is available!</h3>
+            <hr>
+            <h6>Version 0.2.1 (10/12/2014)</h6>
+            <h6>RELEASE NOTES:</h6>
+            <ul>
+                <li>Auto initialize integration</li>
+                <li>Integrated console framework</li>
+                <li>Console now has prompt line to quickly evaluate JS expressions</li>
+                <li>Fixed bug with incorrect imports tree building: now all the nested imports work correctly</li>
+                <li>etc..</li>
+            </ul>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-success pull-right btn-lg">GET IT NOW!</button>
+        </div>
+    </div>
+    -->
+
+
 </div>
 </body>
 </html>

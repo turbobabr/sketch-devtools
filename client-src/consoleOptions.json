@@ -1,7 +1,7 @@
 {
-  "showSessionInfo" : true,
+  "clearConsoleBeforeLaunch" : true,
   "defaultProtocolHandler" : "sublime",
+  "showSessionInfo" : true,
   "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}",
-  "showConsoleOnError" : true,
-  "clearConsoleBeforeLaunch" : true
+  "showConsoleOnError" : true
 }

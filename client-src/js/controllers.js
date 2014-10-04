@@ -126,7 +126,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
             return $sce.trustAsHtml(Mustache.render(
                 "<div class='col-md-12'><span class='text-success'>{{timestamp}}: {{name}} - Script executed in {{duration}}</span></div>",{
-                    name: item.name,
+                    name: (item.name=="Untitled.sketchplugin") ? "Custom Script" : item.name,
                     duration: humanizeDuration(item.duration),
                     timestamp: moment(item.timestamp).format("HH:mm:ss.SSS")
                 }));
