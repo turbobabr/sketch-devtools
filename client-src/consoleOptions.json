@@ -1,7 +1,7 @@
 {
-  "clearConsoleBeforeLaunch" : true,
-  "defaultProtocolHandler" : "textmate",
-  "showSessionInfo" : true,
   "protocolHandlerTemplate" : "txmt:\/\/open\/?url=file:\/\/{{{filePath}}}&line={{line}}",
-  "showConsoleOnError" : true
+  "defaultProtocolHandler" : "textmate",
+  "showConsoleOnError" : true,
+  "clearConsoleBeforeLaunch" : false,
+  "showSessionInfo" : true
 }

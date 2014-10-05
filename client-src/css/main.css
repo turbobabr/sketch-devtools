@@ -25,7 +25,11 @@
 .navbar-primary .navbar .nav.pull-right {margin-left: 10px; margin-right: 0;}
 
 
-.navbar-xs .navbar-primary .navbar { min-height:26px; height: 26px; }
+.navbar-xs .navbar-primary .navbar {
+    min-height:26px;
+    height: 26px;
+    z-index: 9;
+}
 
 .navbar-xs .navbar-primary .navbar .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 28px; }
 
@@ -336,4 +340,43 @@
 }
 
 
+.settings-popover-bg {
+    content: "";
+    display: block;
+    background: rgba(255,255,255,.6);
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 10;
+}
 
+.settings-popover-form {
+    z-index: 11;
+
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+
+    background-color: #ffffff;
+    border: 1px solid #F0F0F0;
+    margin: 10px 10px 10px 10px;
+    padding: 10px 5px 15px 15px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.35);
+}
+
+.settings-popover-close {
+    display: inline;
+    font-size: 14px;
+    color: #333333;
+    margin: 0;
+    padding: 1px 4px 3px 4px;
+
+    border-radius: 3px;
+
+    transition: background-color 0.2s ease;
+}
+
+.settings-popover-close:hover {
+    color: #ffffff;
+    background-color: #43C0FF;
+
+    transition: background-color 0.2s ease;
+}

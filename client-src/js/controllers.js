@@ -111,6 +111,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
     $scope.showSettings = function() {
         $scope.isOptionsOpened=true;
+
     };
 
     $scope.hideSettings = function() {
@@ -395,7 +396,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
 
     //  Options popup.
-    $scope.isOptionsOpened = false;
+    $scope.isOptionsOpened = true;
 
     $scope.editors = [
         {
