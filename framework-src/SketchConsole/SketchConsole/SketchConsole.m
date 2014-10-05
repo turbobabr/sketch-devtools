@@ -80,9 +80,17 @@
     return nil;
 }
 
+// FIXME: This is a dirty hack to fix the problem with not refreshing console when print() function called from timer or target action function.
+//        Should be replaced with a holistic solution. ))
++(void)refreshConsole {
+    [SketchConsole callJSFunction:@"refreshConsoleList" withArguments:@[]];
+}
+
 // MSPlugin.run()
 // This swizzled method is used to cache imports tree, collect information about current session and refresh client view.
 - (id)run {
+    
+    
 
     // Session start timestamp.
     NSDate *start = [NSDate date];
@@ -95,6 +103,9 @@
     SketchConsole* shared=[SketchConsole sharedInstance];
     
     shared.sessionScriptURL=baseURL;
+    
+    // FIXME: Need it for the dirty hack with refreshing.
+    shared.finished = false;
     
     shared.isNewSession=true;
     if(shared.isNewSession) {
@@ -132,6 +143,9 @@
     
     // Referesh console client view.
     [SketchConsole callJSFunction:@"refreshConsoleList" withArguments:@[]];
+    
+    // FIXME: Need it for the dirty hack with refreshing.
+    shared.finished = true;
     
     return result;
 }

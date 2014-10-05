@@ -31,6 +31,7 @@
 @property SDTModule* cachedScriptRoot;
 
 @property NSURL* sessionScriptURL;
+@property BOOL finished;
 
 
 

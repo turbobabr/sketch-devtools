@@ -1,6 +1,9 @@
  (function(){
   return function(obj) {
   
+  // Mirror log to stderr.
+  coscript.print(obj);
+  
   function isDevToolsInitialized() {
   return NSClassFromString("SketchConsole")!=null;
   }
@@ -52,17 +55,18 @@
   // Call extended print on
   SketchConsole.extendedPrint_info_sourceScript_(obj,logCall,coscript.printController().script());
   
-  // Mirror log to stderr.
-  coscript.print(obj);
+  if(SketchConsole.sharedInstance().finished()) {
+    SketchConsole.refreshConsole();
+  }
   
   } else {
   // No log call?
-  coscript.print(obj);
+  // coscript.print(obj);
   }
   
   } else {
   // Print object without console.
-  coscript.print(obj);
+  // coscript.print(obj);
   }
   }
   };
