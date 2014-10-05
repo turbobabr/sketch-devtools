@@ -126,7 +126,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
                 });
             }
 
-            var template="<div class='col-md-12' style='margin-bottom: 0px;'><div class='bs-callout bs-callout-danger'><h4><span class='label label-danger'>#</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4> <p><a href='#' onclick='{{click}}'>{{fileName}}, Line: {{line}}</a></p></div></div>";
+            var template="<div class='col-lg-12' style='margin-bottom: 0px;'><div class='bs-callout bs-callout-danger'><h4><span class='label label-danger'>#</span> {{errorTitle}}: <span style='color: #545454;'>{{errorMessage}}</span></h4> <p><a href='#' onclick='{{click}}'>{{fileName}}, Line: {{line}}</a></p></div></div>";
             return $sce.trustAsHtml(Mustache.render(template,
                 {
                     errorTitle: "Module Import Error",
@@ -138,7 +138,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         }
 
         if(item.type=="custom") {
-            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{contents}}}</div>",item));
+            return $sce.trustAsHtml(Mustache.render("<div class='col-lg-12'>{{{contents}}}</div>",item));
         }
 
         if(item.type=="session" && $scope.options.showSessionInfo) {
@@ -152,7 +152,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
             }
 
             return $sce.trustAsHtml(Mustache.render(
-                "<div class='col-md-12'><span class='text-success'>{{timestamp}}: {{name}} - Script executed in {{duration}}</span></div>",{
+                "<div class='col-lg-12'><span class='text-success'>{{timestamp}}: {{name}} - Script executed in {{duration}}</span></div>",{
                     name: (item.name=="Untitled.sketchplugin") ? "Custom Script" : item.name,
                     duration: humanizeDuration(item.duration),
                     timestamp: moment(item.timestamp).format("HH:mm:ss.SSS")
@@ -171,7 +171,8 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
                 });
 
             var contentsHtml=Mustache.render(
-                "<div class='col-md-11'>{{{contents}}}</div><div class='col-md-1'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div>",
+                // "<div class='col-lg-11'>{{{contents}}}</div><div class='col-lg-1'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div>",
+                "<div class='col-lg-12'><div class='print-statement-content'>{{{contents}}}</div><div class='print-statement-meta'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div></div>",
                 {
                     contents: item.contents,
                     file: isCustomScript ? "Custom Script" : fileName,
@@ -206,7 +207,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
                     click: click
                 });
 
-            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12' style='margin-bottom: 0;'>{{{error}}}</div>",{
+            return $sce.trustAsHtml(Mustache.render("<div class='col-lg-12' style='margin-bottom: 0;'>{{{error}}}</div>",{
                 error: errorHtml
             }));
         }
@@ -341,7 +342,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
             }
 
             var errorHtml=Mustache.render(template,actualError);
-            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12' style='margin-bottom: 0px;'>{{{error}}}</div>",{
+            return $sce.trustAsHtml(Mustache.render("<div class='col-lg-12' style='margin-bottom: 0px;'>{{{error}}}</div>",{
                 error: errorHtml
             }));
         }
@@ -468,4 +469,11 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
     $scope.$watch('options.showSessionInfo', function() {
         SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
     });
+
+
+    // EXPERIMENTAL STUFF
+    $scope.isRed = false;
+    $scope.showMeRed = function(show) {
+        $scope.isRed = show;
+    }
 });

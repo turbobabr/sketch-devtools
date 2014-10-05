@@ -55,7 +55,8 @@ gulp.task('componentsJS', ['clean'], function() {
         "client-src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         "client-src/bower_components/moment/moment.js",
         "client-src/bower_components/underscore/underscore.js",
-        "client-src/bower_components/mustache/mustache.js"
+        "client-src/bower_components/mustache/mustache.js",
+        "client-src/bower_components/keyboardjs/keyboardjs.js"
     ]).pipe(gulp.dest('dist/build/js'));
 });
 
@@ -69,6 +70,7 @@ gulp.task('index', ['clean'], function() {
         .pipe(replace("./bower_components/moment/", "./js/"))
         .pipe(replace("./bower_components/underscore/", "./js/"))
         .pipe(replace("./bower_components/mustache/", "./js/"))
+        .pipe(replace("./bower_components/keyboardjs/", "./js/"))
         .pipe(gulp.dest('dist/build'));
 });
 

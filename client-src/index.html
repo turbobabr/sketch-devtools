@@ -13,6 +13,7 @@
     <script src="./bower_components/moment/moment.js"></script>
     <script src="./bower_components/underscore/underscore.js"></script>
     <script src="./bower_components/mustache/mustache.js"></script>
+    <script src="./bower_components/keyboardjs/keyboardjs.js"></script>
 
     <script src="./js/controllers.js"></script>
     <script src="./js/services.js"></script>
@@ -72,6 +73,20 @@
         $(document).ready(function() {
             $("#contentView").css("height", window.innerHeight-32);
             $("#settingsContentView").css("height", window.innerHeight-(92+20));
+
+            // Experimental!
+            /*
+            KeyboardJS.on('ctrl', function() {
+                console.log('CONTROL DOWN!');
+                scope().showMeRed(true);
+                scope().$apply();
+            },function() {
+                console.log('CONTROL UP!!!');
+                scope().showMeRed(false);
+                scope().$apply();
+            });
+            */
+
         });
 
 
@@ -139,11 +154,19 @@
 <div class="container-fluid" style="padding-top: 30px; padding-right: 0px;">
 
     <div style="overflow-y: auto; overflow-x: hidden; padding-right: 0px;margin-right: 0px;" id="contentView">
-        <div class="row" ng-show="showLogo()" style="padding-right:">
-            <div class="col-md-12" style="position: relative;">
+
+        <!-- EXPERIMENTING WITH MODIFIERS! -->
+        <div class="row" ng-show="isRed">
+            <div class="col-lg-12"><img src="http://th04.deviantart.net/fs70/PRE/i/2013/025/6/1/jake_the_dog_by_epicmanphilip-d5snxe5.jpg" class="center-block"></div>
+        </div>
+
+
+        <div class="row" ng-show="showLogo()">
+            <div class="col-lg-12" style="position: relative;">
                 <img src="images/background-logo.png" class="background-logo">
             </div>
         </div>
+
         <div class="row" ng-repeat="item in items" ng-bind-html="renderHtml(item)" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px; padding-right: 12px;"></div>
     </div>
 
