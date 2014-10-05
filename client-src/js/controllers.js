@@ -54,16 +54,12 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
     };
 
-    $scope.addMochaErrorItem = function(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
+    $scope.addMochaErrorItem = function(contents,filePath) {
 
         var newItem={
             type: "mochaError",
             contents: contents,
-            plugin: {
-                name: pluginName,
-                filePath: pluginFilePath,
-                rootFolderPath: pluginRootFolderPath
-            }
+            filePath: filePath
         };
 
         $scope.items.push(newItem);
@@ -189,12 +185,15 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
         if(item.type=="mochaError") {
 
-            var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: </h4><p>{{errorMessage}}</p> <p><a href='{{link}}'>{{fileName}}</a></p></div>";
+            var fileName = _.last(item.filePath.split("/"));
+            var isCustomScript = (fileName=="Untitled.sketchplugin") ? true : false;
+            var template="<div class='bs-callout bs-callout-{{level}}'><h4><span class='label label-{{level}}'>{{symbol}}</span> {{errorTitle}}: </h4><p>{{errorMessage}}</p> <p><a href='#' onclick='{{click}}'>{{fileName}}</a></p></div>";
 
-            var link=Mustache.render(
-                "txmt://open/?url=file://{{{filePath}}}&line=1&column=1",{
-                    filePath: item.plugin.filePath
-                });
+            var click= isCustomScript ? "SketchDevTools.showCustomScriptWindow(1)" :  Mustache.render('SketchDevTools.openFileWithIDE("{{{file}}}","{{ide}}",{{line}})',{
+                ide: $scope.options.defaultProtocolHandler,
+                file: item.filePath,
+                line: 1
+            });
 
             var errorHtml=Mustache.render(
                 template,
@@ -203,11 +202,11 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
                     symbol: "M",
                     errorTitle: "Mocha RunTime Error",
                     errorMessage: item.contents,
-                    fileName: _.last(item.plugin.filePath.split("/")),
-                    link: link
+                    fileName: isCustomScript ? "Custom Script" : fileName,
+                    click: click
                 });
 
-            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12'>{{{error}}}</div>'",{
+            return $sce.trustAsHtml(Mustache.render("<div class='col-md-12' style='margin-bottom: 0;'>{{{error}}}</div>",{
                 error: errorHtml
             }));
         }
@@ -347,7 +346,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
             }));
         }
 
-        return "<H3><span class='label label-danger'>ХРЕН ПОЙМИ ОТ КУДА ВСЕ ЭТО ПРИШЛО! :)</span></H3>";
+        return "<H3><span class='label label-danger'>UNKNOWN ITEM</span></H3>";
     };
 
 
@@ -396,7 +395,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
 
     //  Options popup.
-    $scope.isOptionsOpened = true;
+    $scope.isOptionsOpened = false;
 
     $scope.editors = [
         {

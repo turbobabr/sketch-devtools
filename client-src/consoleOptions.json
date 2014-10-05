@@ -3,5 +3,5 @@
   "defaultProtocolHandler" : "textmate",
   "showConsoleOnError" : true,
   "clearConsoleBeforeLaunch" : false,
-  "showSessionInfo" : true
+  "showSessionInfo" : false
 }

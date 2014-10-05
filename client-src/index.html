@@ -51,8 +51,8 @@
             scope().addItemEx(contents,filePath,line);
         }
 
-        function addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
-            scope().addMochaErrorItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
+        function addMochaErrorItem(contents,filePath) {
+            scope().addMochaErrorItem(contents,filePath);
         }
 
         function addErrorItem(errorType,errorMessage,filePath,line,errorLineContents,callStack) {

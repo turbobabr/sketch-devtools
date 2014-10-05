@@ -93,6 +93,9 @@
     
     // Caching imports tree for future use in print and exceptions handlers.
     SketchConsole* shared=[SketchConsole sharedInstance];
+    
+    shared.sessionScriptURL=baseURL;
+    
     shared.isNewSession=true;
     if(shared.isNewSession) {
         shared.brokenImports=nil;
@@ -331,8 +334,10 @@
     
     // Check for Mocha runtime error.
     if([e.name isEqualToString:@"MORuntimeException"]) {
-        // TODO: This should be reaplced with correct script path!
-        [SketchConsole callJSFunction:@"addMochaErrorItem" withArguments:@[e.reason,@"/no/path/plg.sketchplugin",@"/no/path"]];
+        SketchConsole* shared=[SketchConsole sharedInstance];
+        if(shared) {
+            [SketchConsole callJSFunction:@"addMochaErrorItem" withArguments:@[e.reason,[shared.sessionScriptURL path]]];
+        }
     }
 }
 
