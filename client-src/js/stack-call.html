@@ -1,0 +1,9 @@
+<button type="button" class="btn btn-default btn-xs" ng-click="onExpanderClick()"><i ng-class="expanderClass()"></i> CALL STACK&nbsp;</button>
+<small>
+    <table ng-show='isExpanded' class="table table-condensed table-bordered " style="background-color: #ffffff; width: 50%;">
+        <tr ng-repeat="call in stack">
+            <td>&nbsp;<i class="fa fa-chevron-right text-muted"></i> {{fnName(call.fn)}}</td>
+            <td><a href='#' jump-to-code='{{jumpToCodeForCall(call)}}'>{{scriptFileName(call)}}, Line: {{call.line}}</a></td>
+        </tr>
+    </table>
+</small>

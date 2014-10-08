@@ -1,0 +1,8 @@
+<div class='console-row-col'>
+    <div class='bs-callout bs-callout-danger'>
+        <h4><span class='label label-danger'>{{errorInfo(item).symbol}}</span> {{errorInfo(item).title}}: <span style='color: #545454;'>{{item.message}}</span></h4>
+        <p>» {{item.errorLineContents}} «</p>
+        <stack-call stack="item.stack"></stack-call>
+        <p><a href='#' jump-to-code='{{prepareJumpToCode(item)}}'>{{scriptFileName(item)}}, Line: {{item.line}}</a></p>
+    </div>
+</div>

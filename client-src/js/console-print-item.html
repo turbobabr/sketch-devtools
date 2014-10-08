@@ -1,0 +1,10 @@
+<div class='console-row-col'>
+    <div class='print-statement-content' ng-bind-html='renderAsHtml(item.contents)'></div>
+    <div class='print-statement-meta'>
+        <span class='pull-right text-muted'>
+            <small>
+            <a href='#' jump-to-code='{{prepareJumpToCode(item)}}'>{{scriptFileName(item)}}:{{item.line}}</a>
+            </small>
+        </span>
+    </div>
+</div>

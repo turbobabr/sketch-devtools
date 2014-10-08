@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class SDTModule;
+@class SDTFileWatcher;
 
 @interface SketchConsole : NSObject
 
@@ -19,11 +20,14 @@
 
 @property (nonatomic) NSDictionary* options;
 @property (nonatomic) NSURL* scriptURL;
+
 @property (nonatomic) NSMutableArray* brokenImports;
+@property (nonatomic) NSMutableDictionary* validImports;
 
 
 +(SketchConsole*)sharedInstance;
 +(void)reportBrokenImport:(NSDictionary*)info;
++(void)reportValidImport:(NSString*)importFilePath atFile:(NSString*)filePath atLine:(NSInteger)line;
 
 
 // Session
@@ -33,6 +37,9 @@
 @property NSURL* sessionScriptURL;
 @property BOOL finished;
 
+// Internal
+// @property NSMutableArray* fileWatchers;
+@property SDTFileWatcher* fileWatcher;
 
 
 @end

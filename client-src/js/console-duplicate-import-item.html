@@ -1,0 +1,12 @@
+<div class="console-row-col">
+    <div class='bs-callout bs-callout-warning'>
+        <h4><span class='label label-warning'>#</span> Duplicate Module Import!</h4>
+        <hr>
+
+        <h5><span style='color: #545454;'> Module <strong><span class="text-danger">{{ scriptFileName(item) }}</span></strong> was imported several times at following locations:</span></h5>
+        <div style="padding-left: 25px;">
+            <p ng-repeat="import in item.imports"><a href='#' jump-to-code='{{prepareJumpToCode(import)}}'>{{scriptFileName(import)}}, Line: {{import.line}}</a></p>
+        </div>
+    </div>
+</div>
+

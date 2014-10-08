@@ -1,12 +1,23 @@
 var module = angular.module('SketchConsole', ['ui.bootstrap']);
 
-module.controller('SketchConsoleController', function ($scope,$http,$sce,$location,$anchorScroll,$compile) {
+module.controller('SketchConsoleController', function ($scope,$http,$sce,$element) {
     $scope.items = [];
 
     // Initialize options object.
     if(angular.isUndefined($scope.options)) {
         $scope.options=JSON.parse(SketchDevTools.getConsoleOptions());
     }
+
+    $scope.addDuplicateImportItem = function(info) {
+        console.log("DUPLICATE:");
+        console.log(info);
+
+        $scope.items.push({
+            type: "duplicateImport",
+            filePath: info.filePath,
+            imports: info.imports
+        });
+    };
 
     $scope.addBrokenImportItem = function(path,filePath,line) {
 
@@ -40,14 +51,14 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
         var newItem={
             type: "error",
-            error: {
-                type: type,
-                message: message,
-                filePath: filePath,
-                line: line,
-                errorLineContents: errorLineContents,
-                stack: JSON.parse(callStack)
-            }
+
+            errorType: type,
+            message: message,
+            filePath: filePath,
+            line: line,
+            errorLineContents: errorLineContents,
+            stack: JSON.parse(callStack)
+
         };
 
         $scope.items.push(newItem);
@@ -59,7 +70,8 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         var newItem={
             type: "mochaError",
             contents: contents,
-            filePath: filePath
+            filePath: filePath,
+            line: 1
         };
 
         $scope.items.push(newItem);
@@ -79,6 +91,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
         $scope.items.push(newItem);
     };
+
 
     $scope.addItemEx = function(contents,filePath,line) {
 
@@ -172,7 +185,7 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
 
             var contentsHtml=Mustache.render(
                 // "<div class='col-lg-11'>{{{contents}}}</div><div class='col-lg-1'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div>",
-                "<div class='col-lg-12'><div class='print-statement-content'>{{{contents}}}</div><div class='print-statement-meta'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div></div>",
+                "<div class='col-lg-12'><div class='jump-to-code-popover'></div><div class='print-statement-content'>{{{contents}}}</div><div class='print-statement-meta'><span class='pull-right text-muted'><small><a href='#' onclick='{{click}}'>{{file}}:{{line}}</a></small></span></div></div>",
                 {
                     contents: item.contents,
                     file: isCustomScript ? "Custom Script" : fileName,
@@ -351,32 +364,6 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
     };
 
 
-    $scope.isError = function(log) {
-
-        if($scope.isSyntaxError(log)) return true;
-        if($scope.isReferenceError(log)) return true;
-        if($scope.isTypeError(log)) return true;
-        if($scope.isCustomError(log)) return true;
-
-        return false;
-    };
-
-    $scope.isCustomError = function(log) {
-        return log.indexOf("Error:")==0;
-    };
-
-    $scope.isSyntaxError = function(log) {
-        return log.indexOf("SyntaxError:")>-1;
-    };
-
-    $scope.isReferenceError = function(log) {
-        return log.indexOf("ReferenceError:")>-1;
-    };
-
-    $scope.isTypeError = function(log) {
-        return log.indexOf("TypeError:")>-1;
-    };
-
     $scope.hideConsole = function() {
         SketchDevTools.hideConsole();
     };
@@ -394,9 +381,8 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         SketchDevTools.setConsoleOptions(JSON.stringify(options,null,4));
     };
 
-
     //  Options popup.
-    $scope.isOptionsOpened = false;
+    $scope.isOptionsOpened = true;
 
     $scope.editors = [
         {
@@ -433,6 +419,11 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
             name: "MacVim",
             icon: "MacVim.png",
             key: "macvim"
+        },
+        {
+            name: "Custom Protocol Handler",
+            icon: "Custom.png",
+            key: "custom"
         }
     ];
 
@@ -440,11 +431,21 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         return "./images/editors/"+editor.icon;
     };
 
+
     $scope.currentEditor = function()  {
         return _.find($scope.editors,function(editor) {
             return $scope.options.defaultProtocolHandler==editor.key;
         });
     };
+
+    $scope.needsSeparator = function(editor) {
+        return editor.key=="custom";
+    };
+
+
+    $scope.showProtocolHandlerTemplate = function() {
+        return $scope.currentEditor().key=="custom";
+    }
 
     $scope.onEditorChange = function(editor) {
         $scope.options.defaultProtocolHandler=editor.key;
@@ -470,10 +471,55 @@ module.controller('SketchConsoleController', function ($scope,$http,$sce,$locati
         SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
     });
 
+    $scope.$watch('options.protocolHandlerTemplate', function() {
+        SketchDevTools.setConsoleOptions(JSON.stringify($scope.options,null,4));
+    });
 
     // EXPERIMENTAL STUFF
     $scope.isRed = false;
     $scope.showMeRed = function(show) {
-        $scope.isRed = show;
+        // $scope.isRed = show;
+
+
+        // console.log($scope.hoveredItem.$element);
+        // console.log($element.scope());
+        console.log(angular.element($scope.hoveredItem));
+
+        /*
+        var item=$scope.hoveredItem;
+        if(item!=null) {
+
+            if(show) {
+                item.tempMessage=item.error.message;
+                item.error.message="Go kill yourself! :)";
+
+            } else {
+
+                item.error.message=item.tempMessage;
+            }
+
+
+            console.log("Мы сюда попадаем??");
+        }
+        */
+
     }
+
+
+    $scope.mouseIn=function(item) {
+        // console.log("MouseIn:");
+        $scope.hoveredItem=item;
+    };
+
+    $scope.mouseOut=function(item) {
+        $scope.hoveredItem=null;
+    };
+
+    $scope.hoveredItem = null;
+
+
+
+
+
+
 });

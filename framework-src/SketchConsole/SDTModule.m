@@ -279,15 +279,15 @@
                         
                         
                         if (s) {
-                            
-                            
-                            // SDTModule* subModule=[[SDTModule alloc] initWithScriptURL:importURL parent:self startLine:curLine-1];
-                            
+                            [SketchConsole reportValidImport:[importURL path] atFile:[self.url path] atLine:curLine];
                             
                             NSString* subScriptSource=[NSString stringWithContentsOfURL:importURL encoding:NSUTF8StringEncoding error:nil];
                             SDTModule* subModule=[[SDTModule alloc] initWithScriptSource:subScriptSource baseURL:base parent:self startLine:curLine-1 url:importURL];
                             // subModule.url=importURL;
                             [self.imports addObject:subModule];
+                            
+                            // [SketchConsole reportValidImport:[importURL path]];
+                            
                         }
                         else {
                             // [buffer appendFormat:@"'Unable to import %@ becase %@'", path, [outErr localizedFailureReason]];

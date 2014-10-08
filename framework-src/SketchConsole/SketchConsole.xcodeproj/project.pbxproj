@@ -30,6 +30,8 @@
 		559E2FB819A61E6E00774BED /* SketchConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 559E2FB719A61E6E00774BED /* SketchConsoleTests.m */; };
 		55A173BE19AF00EE00470090 /* SDTModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A173BC19AF00EE00470090 /* SDTModule.h */; };
 		55A173BF19AF00EE00470090 /* SDTModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A173BD19AF00EE00470090 /* SDTModule.m */; };
+		55A5AD1D19E27C7300194A96 /* SDTFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD1B19E27C7300194A96 /* SDTFileWatcher.h */; };
+		55A5AD1E19E27C7300194A96 /* SDTFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD1C19E27C7300194A96 /* SDTFileWatcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		559E2FB719A61E6E00774BED /* SketchConsoleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchConsoleTests.m; sourceTree = "<group>"; };
 		55A173BC19AF00EE00470090 /* SDTModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDTModule.h; path = ../SDTModule.h; sourceTree = "<group>"; };
 		55A173BD19AF00EE00470090 /* SDTModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDTModule.m; path = ../SDTModule.m; sourceTree = "<group>"; };
+		55A5AD1B19E27C7300194A96 /* SDTFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTFileWatcher.h; sourceTree = "<group>"; };
+		55A5AD1C19E27C7300194A96 /* SDTFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTFileWatcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,8 @@
 		553B6EFB19C40E2E00CA9A74 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				55A5AD1B19E27C7300194A96 /* SDTFileWatcher.h */,
+				55A5AD1C19E27C7300194A96 /* SDTFileWatcher.m */,
 				553B6F0019C5419C00CA9A74 /* NSLogger */,
 			);
 			name = Utils;
@@ -232,6 +238,7 @@
 				553B6F0819C541AF00CA9A74 /* NSLogger.h in Headers */,
 				557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */,
 				5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */,
+				55A5AD1D19E27C7300194A96 /* SDTFileWatcher.h in Headers */,
 				5538100919BACF0A00D10D67 /* SDTProtocolHandler.h in Headers */,
 				55A173BE19AF00EE00470090 /* SDTModule.h in Headers */,
 				5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */,
@@ -339,6 +346,7 @@
 				557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */,
 				5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */,
 				5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */,
+				55A5AD1E19E27C7300194A96 /* SDTFileWatcher.m in Sources */,
 				55A173BF19AF00EE00470090 /* SDTModule.m in Sources */,
 				5538100A19BACF0A00D10D67 /* SDTProtocolHandler.m in Sources */,
 				559E2FA519A61E6E00774BED /* SketchConsole.m in Sources */,

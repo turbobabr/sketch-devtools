@@ -19,6 +19,8 @@
 #import "SDTProtocolHandler.h"
 #import "NSLogger.h"
 
+#import "SDTFileWatcher.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -90,8 +92,6 @@
 // This swizzled method is used to cache imports tree, collect information about current session and refresh client view.
 - (id)run {
     
-    
-
     // Session start timestamp.
     NSDate *start = [NSDate date];
 
@@ -110,6 +110,7 @@
     shared.isNewSession=true;
     if(shared.isNewSession) {
         shared.brokenImports=nil;
+        shared.validImports=nil;
         
         SDTModule* module=[[SDTModule alloc] initWithScriptSource:script baseURL:baseURL parent:nil startLine:0];
         shared.cachedScriptRoot=module;
@@ -122,6 +123,7 @@
         [SketchConsole clearConsole];
     }
     
+    // Check for broken imports.
     if(shared.brokenImports!=nil) {
         for(NSDictionary* importException in shared.brokenImports) {
             [SketchConsole callJSFunction:@"addBrokenImportItem" withArguments:@[importException[@"path"],[importException[@"url"] path],importException[@"line"]]];
@@ -130,6 +132,33 @@
         [SketchConsole callJSFunction:@"refreshConsoleList" withArguments:@[]];
         
         return nil;
+    }
+    
+    // Check for duplicate imports.
+    if(shared.validImports!=nil) {
+        for(NSString* key in shared.validImports.allKeys) {
+            NSMutableDictionary* import=shared.validImports[key];
+            if([import[@"count"] integerValue]>1) {
+                NSDictionary* duplicateImportInfo =
+                @{
+                  @"filePath": key,
+                  @"imports": import[@"imports"]
+                  };
+                
+                
+                NSString* json=[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:duplicateImportInfo options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+        
+                /*
+                LogMessage(@"IMPORT", 0, @"%@",key);
+                LogMessage(@"IMPORT", 0, @"%@",import);
+                 */
+                
+                [SketchConsole callJSFunction:@"addDuplicateImportItem" withArguments:@[json]];
+            }
+        }
+        
+        [SketchConsole callJSFunction:@"refreshConsoleList" withArguments:@[]];
+        
     }
     
     // Invoke original MSPlugin.run method.
@@ -160,11 +189,20 @@
 }
 
 +(NSView*)getCurrentContentView {
+    
+    /*
     NSDocumentController* controller=[NSDocumentController sharedDocumentController];
     NSDocument* doc=controller.currentDocument;
     if(doc==nil) return nil;
     
     return doc.windowForSheet.contentView;
+     */
+    
+    // FIXME: Should be clarified!
+    id document=[(NSClassFromString(@"MSDocument")) performSelector:NSSelectorFromString(@"currentDocument")];
+    
+    NSWindow* window=[document valueForKey:@"documentWindow"];
+    return window.contentView;
 }
 
 
@@ -253,7 +291,7 @@
     [SketchConsole ensureConsoleVisible];
     
     // Invoke original COScript.printException() method.
-    if(false) {
+    if(true) {
         if ([self respondsToSelector:NSSelectorFromString(@"originalCOScript_printException")]) {
             [self performSelector:NSSelectorFromString(@"originalCOScript_printException") withObject:e];
         } else {
@@ -311,8 +349,9 @@
                     NSDictionary* call=@{
                                         @"fn": fn,
                                         @"filePath" : [module.url path],
-                                        @"line": @(line),
-                                        @"column": @(column)
+                                        @"line": @(relativeLineNumer),
+                                        @"column": @(column),
+                                        @"lineSrc": sourceCodeLine
                                         };
                     
                     [callStack addObject:call];
@@ -360,6 +399,9 @@
     
     [SketchConsole sharedInstance].scriptURL=scriptURL;
     
+    // FIXME: File Watchers!
+    [self initFileWatchers];
+    
     // Initialize Panel
     NSView* contentView=[self getCurrentContentView];
     if(contentView==nil) return false;
@@ -393,14 +435,24 @@
     [splitView setPosition:viewHeight-defaultConsoleHeight ofDividerAtIndex:0];
     
     
-    // Expose script executer!
+    /// FIXME: File Watchers!
+    [webView setFrameLoadDelegate:[self sharedInstance]];
+    
+    // Expose script executer
+    /*
     id win = [webView windowScriptObject];
     [win setValue:[[SketchConsole alloc] init] forKey:@"SketchDevTools"];
+     */
+    
+    // FIXME: Should be optional!
     
     // Load web-page and initialize console.
     NSDictionary* files=[self getExternalFiles:scriptURL];
     NSString* indexPageContents=[NSString stringWithContentsOfFile:[files[@"index"] path] encoding:NSUTF8StringEncoding error:nil];
     [[webView mainFrame] loadHTMLString:indexPageContents baseURL:files[@"folder"]];
+    
+    
+    
     
     return true;
 }
@@ -568,6 +620,9 @@
 {
     NSString* name=@"";
     
+    if (sel == @selector(filePathToFileURL:))
+        name = @"filePathToFileURL";
+    
     if (sel == @selector(hideConsole))
         name = @"hideConsole";
     
@@ -590,6 +645,7 @@
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
+    if (sel == @selector(filePathToFileURL:)) return NO;
     if (sel == @selector(hideConsole)) return NO;
     if (sel == @selector(openURL:)) return NO;
     if (sel == @selector(getConsoleOptions)) return NO;
@@ -600,6 +656,9 @@
     return YES;
 }
 
+-(NSString*)filePathToFileURL:(NSString*)filePath {
+    return [[NSURL fileURLWithPath:filePath] description];
+}
 
 -(void)showCustomScriptWindow:(NSInteger)lineNumber {
     
@@ -749,6 +808,126 @@
     }
     
     [[self sharedInstance].brokenImports addObject:info];
+}
+
++(void)reportValidImport:(NSString*)importFilePath atFile:(NSString*)filePath atLine:(NSInteger)line {
+    SketchConsole* shared=[self sharedInstance];
+    if(shared.validImports==nil) {
+        shared.validImports=[NSMutableDictionary dictionary];
+    }
+    
+    if(shared.validImports[importFilePath]) {
+        NSMutableDictionary* dict=shared.validImports[importFilePath];
+        dict[@"count"]=@([dict[@"count"] integerValue]+1);
+        [dict[@"imports"] addObject:@{ @"filePath":filePath, @"line":@(line) }];
+    } else {
+        shared.validImports[importFilePath]=[NSMutableDictionary dictionaryWithDictionary:
+        @{
+          @"count": @(1),
+          @"imports" : [NSMutableArray arrayWithObject: @{ @"filePath":filePath, @"line":@(line) }]
+          }];
+    }
+}
+
+
+
++(void)initFileWatchers {
+    
+    
+    SketchConsole* shared=[self sharedInstance];
+    
+    NSDictionary* files=[self getExternalFiles:shared.scriptURL];
+    
+    
+    
+    NSLog(@"%@",files);
+    
+    NSString* filePath=[files[@"index"] path];
+    NSLog(@"%@",filePath);
+    
+    
+    // [shared.fileWatchers addObject:[SDTFileWatcher fileWatcherWithPath:filePath delegate:shared]];
+    // [shared addFileWatcher:filePath];
+    
+    NSLog(@"INITI FILE WATCHERS!!");
+    
+    // NSString* filePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/index.html";
+    NSArray* pathsToWatch=
+  @[
+    @"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/index.html",
+    @"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/consoleOptions.json",
+    @"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/js",
+    @"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/css"
+    ];
+    // NSString* filePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/gulpfile.js";
+    shared.fileWatcher=[SDTFileWatcher fileWatcherWithPaths:pathsToWatch delegate:shared];
+}
+
+-(void)addFileWatcher:(NSString*)filePath {
+    if(![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        return;
+    }
+  
+    /*
+    if(self.fileWatchers==nil) self.fileWatchers=[NSMutableArray array];
+    NSLog(@"ADDING WATCHER!");
+    [self.fileWatchers addObject:[SDTFileWatcher fileWatcherWithPath:filePath delegate:self]];
+     */
+}
+
+- (void)fileWatcherDidRecieveFSEvent:(SDTFileWatcher*)fw {
+    NSLog(@"FS Event: %@",fw);
+    NSLog(@"%@",fw.path);
+    
+    [SketchConsole reloadWebView];
+}
+
++(void)reloadWebView {
+    
+    NSLog(@"RELOAD VIEW: 1");
+    
+    WebView* webView=[self findWebView];
+    if(webView==nil) {
+        return;
+    }
+    
+    NSLog(@"RELOAD VIEW: 2");
+    
+    SketchConsole* shared=[self sharedInstance];
+    
+    // Expose script executer!
+    /*
+    id win = [webView windowScriptObject];
+    [win setValue:[[SketchConsole alloc] init] forKey:@"SketchDevTools"];
+     */
+    
+    // Load web-page and initialize console.
+    NSDictionary* files=[self getExternalFiles:shared.scriptURL];
+    NSString* indexPageContents=[NSString stringWithContentsOfFile:[files[@"index"] path] encoding:NSUTF8StringEncoding error:nil];
+    
+    NSString* ts=[NSString stringWithFormat:@"?ts=%f",[[NSDate date] timeIntervalSince1970]];
+    indexPageContents = [indexPageContents stringByReplacingOccurrencesOfString:@"?ts=NO_CACHE" withString:ts];
+    
+    
+    [[webView mainFrame] loadHTMLString:indexPageContents baseURL:files[@"folder"]];
+    
+    
+}
+
+- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject forFrame:(WebFrame *)frame {
+    id win = [sender windowScriptObject];
+    [win setValue:[[SketchConsole alloc] init] forKey:@"SketchDevTools"];
+}
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+    [SketchConsole execPluginWithPath:@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/Playground/Playground.sketchplugin"];
+}
+
++(void)execPluginWithPath:(NSString*)filePath {
+    
+    id appController=[NSApplication sharedApplication].delegate;
+    NSLog([appController className]);
+    [appController performSelector:NSSelectorFromString(@"runPluginAtURL:") withObject:[NSURL fileURLWithPath:filePath]];
 }
 
 @end
