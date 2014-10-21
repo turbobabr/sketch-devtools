@@ -17,8 +17,10 @@
                     if(parts.length>1) {
                         var customSchema=parts[0];
                         if(!_.contains(allowedSchemas,customSchema)) {
+                            /*
                             console.log("Adding Custom Schema:");
                             console.log(customSchema);
+                            */
                             allowedSchemas.push(customSchema);
                         }
                     }

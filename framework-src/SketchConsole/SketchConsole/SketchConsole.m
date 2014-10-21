@@ -30,7 +30,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 
-#define INIT_FILE_WATCHERS true
+#define INIT_FILE_WATCHERS false
 
 
 
@@ -799,6 +799,9 @@
 }
 
 +(void)reportBrokenImport:(NSDictionary*)info {
+    // FIXME: http://github.com/turbobabr/sketch-devtools/issues/20
+    return;
+    
     if([self sharedInstance].brokenImports==nil) {
         [self sharedInstance].brokenImports=[NSMutableArray array];
     }

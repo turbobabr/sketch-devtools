@@ -221,7 +221,6 @@
     font-weight: bold;
 }
 
-
 .background-logo {
     position: absolute;
 
@@ -229,6 +228,8 @@
     top: 50%;
 
     -webkit-transform: translate(-50%, -50%);
+
+    z-index: 1;
 }
 
 
@@ -377,7 +378,7 @@
 
     min-height:26px;
     height: 26px;
-    z-index: 9;
+    z-index: 5;
 }
 
 .toolbar-title-block {
