@@ -1,0 +1,17 @@
+<div>
+    <div>
+        <textarea ng-show="isEditing" class="form-control input-sm" ng-model="contents" ng-blur="finishEditing()"
+                ng-keypress="onKeyPress($event)"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                id="idEditorArea"
+                rows="10"></textarea>
+    </div>
+    <div ng-show="!contents && !isEditing">
+        <a class="text-muted" href="#" ng-click="startEditing()"><p>{{placeholder}}</p></a>
+    </div>
+    <div ng-show="contents && !isEditing" ng-click="startEditing()">
+        <p ng-bind-html="produceHtmlContent()"></p>
+    </div>
+</div>

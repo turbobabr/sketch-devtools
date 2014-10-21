@@ -1,0 +1,48 @@
+<div class="settings-popover-bg">
+    <div class="settings-popover-form">
+
+        <div>
+            <h4 style="padding-right: 20px;">Settings <a href="#" ng-click="hideSettings()"><div class="settings-popover-close pull-right"><i class="fa fa-times"></i></div></a></h4>
+            <hr>
+        </div>
+
+        <div style="padding-left: 20px; overflow-x: hidden;overflow-y: auto;" id="settingsContentView">
+            <form role="form">
+                <div class="form-group">
+                    <!--<label class="control-label" for="protocolHandlerId">Jump to Code Editor:</label>-->
+                    <div style="display: inline-block; width: 150px; margin-right: 8px;" class="text-right"><strong>Jumpt To Code Editor:</strong></div>
+                    <div style="display: inline-block;">
+                        <div class="btn-group" dropdown is-open="status.isopen" id="protocolHandlerId">
+                            <button type="button" class="btn btn-default dropdown-toggle btn-sm"><span><img ng-src="{{iconForEditor(currentEditor())}}" width="24" height="24"> {{currentEditor().name}} &nbsp;</span><span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <!--
+                                <li ng-repeat="editor in editors"><a href="#" ng-click="onEditorChange(editor)"><img ng-src="{{iconForEditor(editor)}}" width="24" height="24"> {{ editor.name }}</a></li>
+                                -->
+
+                                <div ng-repeat-start="editor in editors"></div>
+                                <li ng-if="needsSeparator(editor)" class="divider"></li>
+                                <li><a href="#" ng-click="onEditorChange(editor)"><img ng-src="{{iconForEditor(editor)}}" width="18" height="18"><div style="display: inline-block; padding-left: 8px;">{{ editor.name }}</div></a></li>
+                                <div ng-repeat-end=""></div>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group" ng-show="showProtocolHandlerTemplate()">
+                    <div style="display: inline-block; width: 150px; margin-right: 8px;" class="text-right"><strong>Template:</strong></div>
+                    <div style="display: inline-block; width: 450px;">
+                        <input type="text" class="form-control input-sm" id="templateFieldID" ng-model="options.protocolHandlerTemplate">
+                    </div>
+
+                </div>
+                <hr>
+                <p><input type="checkbox" ng-model="options.showConsoleOnError"> <a class="options-checkbox" href="#" ng-click="options.showConsoleOnError=!options.showConsoleOnError">Show console on Error</a></p>
+                <p><input type="checkbox" ng-model="options.clearConsoleBeforeLaunch"> <a class="options-checkbox" href="#" ng-click="options.clearConsoleBeforeLaunch=!options.clearConsoleBeforeLaunch">Clear console before new session</a></p>
+                <p><input type="checkbox" ng-model="options.showSessionInfo"> <a class="options-checkbox" href="#" ng-click="options.showSessionInfo=!options.showSessionInfo">Show session info</a></p>
+            </form>
+        </div>
+    </div>
+
+</div>

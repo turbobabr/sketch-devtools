@@ -11,17 +11,17 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>A5A2C878167F2447D116A111F8B32764FC16ACEF</key>
-		<string>ssh://github.com/turbobabr/sketch-devtools.git</string>
+		<string>github.com:turbobabr/sketch-devtools.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>framework-src/SketchConsole/SketchConsole.xcodeproj/project.xcworkspace</string>
+	<string>framework-src/SketchConsole/SketchConsole.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>A5A2C878167F2447D116A111F8B32764FC16ACEF</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/turbobabr/sketch-devtools.git</string>
+	<string>github.com:turbobabr/sketch-devtools.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

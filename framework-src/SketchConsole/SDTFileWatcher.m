@@ -17,12 +17,8 @@
 + (id) fileWatcherWithPath:(NSString*)filePath delegate:(id)delegate {
     
     SDTFileWatcher *fw = [self new];
-    
-    // fw.path = filePath;
     fw.paths=@[filePath];
-    
     fw.delegate = delegate;
-    
     [fw setupEventStreamRef];
     
     return fw;
@@ -32,7 +28,6 @@
 + (id) fileWatcherWithPaths:(NSArray*)paths delegate:(id)delegate {
     SDTFileWatcher *fw = [self new];
     
-    // fw.path = filePath;
     fw.paths=paths;
     fw.delegate = delegate;
     [fw setupEventStreamRef];
@@ -71,16 +66,7 @@ static void fsevents_callback(FSEventStreamRef streamRef, SDTFileWatcher *fw, in
     CFAbsoluteTime latency = 1.0;
     
     FSEventStreamContext  context = {0, (__bridge void *)self, NULL, NULL, NULL};
-    // NSArray              *pathsToWatch = [NSArray arrayWithObject:[_path stringByDeletingLastPathComponent]];
-    
-    
-    // NSString *clientFolder = @"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src";
-    
-    // NSArray *pathsToWatch = [NSArray arrayWithObjects:_path,nil];
     NSArray* pathsToWatch = self.paths;
-    NSLog(@"%@",pathsToWatch);
-
-    
     streamRef = FSEventStreamCreate(kCFAllocatorDefault,
                                     (FSEventStreamCallback)&fsevents_callback,
                                     &context,

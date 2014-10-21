@@ -15,11 +15,18 @@
     <script src="./bower_components/mustache/mustache.js"></script>
     <script src="./bower_components/keyboardjs/keyboardjs.js"></script>
 
+    <script src="./bower_components/markdown/lib/markdown.js"></script>
+
     <script src="./js/controllers.js?ts=NO_CACHE"></script>
+    <script src="./js/wtf.js?ts=NO_CACHE"></script>
     <script src="./js/services.js?ts=NO_CACHE"></script>
+    <script src="./js/settings-popover.js?ts=NO_CACHE"></script>
+    <script src="./js/toolbar.js?ts=NO_CACHE"></script>
 
     <link rel='stylesheet' href='./css/bs-callout.css?ts=NO_CACHE'>
     <link rel='stylesheet' href='./css/main.css?ts=NO_CACHE'>
+    <link rel='stylesheet' href='./css/console.css?ts=NO_CACHE'>
+
 
     <script>
         function refreshConsoleList() {
@@ -30,6 +37,10 @@
 
         function scope() {
             return angular.element($("#myBody")).scope();
+        }
+
+        function addWtfItem(data) {
+            scope().addWtfItem(JSON.parse(data));
         }
 
         function addDuplicateImportItem(info) {
@@ -44,16 +55,12 @@
             scope().addCustomPrintItem(contents);
         }
 
-        function addSessionItem(scriptName,duration) {
-            scope().addSessionItem(scriptName,duration);
-        }
-
-        function addPrintItem(contents,pluginName,pluginFilePath,pluginRootFolderPath) {
-            scope().addItem(contents,pluginName,pluginFilePath,pluginRootFolderPath);
+        function addSessionItem(filePath,duration) {
+            scope().addSessionItem(filePath,duration);
         }
 
         function addPrintItemEx(contents,filePath,line) {
-            scope().addItemEx(contents,filePath,line);
+            scope().addPrintItem(contents,filePath,line);
         }
 
         function addMochaErrorItem(contents,filePath) {
@@ -71,168 +78,39 @@
         $(window).resize(function() {
             $("#contentView").css("height", window.innerHeight-32);
             $("#settingsContentView").css("height", window.innerHeight-(92+20));
-
         });
 
         var isCmdKey=false;
-
         $(document).ready(function() {
-
 
             $("#contentView").css("height", window.innerHeight-32);
             $("#settingsContentView").css("height", window.innerHeight-(92+20));
 
-            // Experimental!
-
 
             KeyboardJS.on('command', function() {
-                // console.log('CONTROL DOWN!');
-                // scope().showMeRed(true);
                 isCmdKey=true;
                 scope().$apply();
             },function() {
-                // console.log('CONTROL UP!!!');
-                // scope().showMeRed(false);
                 isCmdKey=false;
                 scope().$apply();
             });
-
         });
-
-
     </script>
 </head>
 <body ng-controller="SketchConsoleController" id="myBody" style="overflow: hidden;">
+    <settings-popover ng-show="showSettings" on-hide="showSettings=false;"></settings-popover>
+    <toolbar on-clear="clear()" on-settings="showSettings=true" on-close="hideConsole()"></toolbar>
 
-
-
-<!-- Settings Popover -->
-<div class="settings-popover-bg" ng-show="isOptionsOpened">
-    <div class="settings-popover-form">
-
-        <div>
-            <h4 style="padding-right: 20px;">Console Settings <a href="#" ng-click="hideSettings()"><div class="settings-popover-close pull-right"><i class="fa fa-times"></i></div></a></h4>
-            <hr>
-        </div>
-
-        <div style="padding-left: 20px; overflow-x: hidden;overflow-y: auto;" id="settingsContentView">
-
-
-            <form role="form">
-                <div class="form-group">
-                    <!--<label class="control-label" for="protocolHandlerId">Jump to Code Editor:</label>-->
-                    <div style="display: inline-block; width: 150px; margin-right: 8px;" class="text-right"><strong>Jumpt To Code Editor:</strong></div>
-                    <div style="display: inline-block;">
-                    <div class="btn-group" dropdown is-open="status.isopen" id="protocolHandlerId">
-                        <button type="button" class="btn btn-default dropdown-toggle btn-sm"><span><img ng-src="{{iconForEditor(currentEditor())}}" width="24" height="24"> {{currentEditor().name}} &nbsp;</span><span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu">
-                            <!--
-                            <li ng-repeat="editor in editors"><a href="#" ng-click="onEditorChange(editor)"><img ng-src="{{iconForEditor(editor)}}" width="24" height="24"> {{ editor.name }}</a></li>
-                            -->
-
-                            <div ng-repeat-start="editor in editors"></div>
-                            <li ng-if="needsSeparator(editor)" class="divider"></li>
-                            <li><a href="#" ng-click="onEditorChange(editor)"><img ng-src="{{iconForEditor(editor)}}" width="18" height="18"><div style="display: inline-block; padding-left: 8px;">{{ editor.name }}</div></a></li>
-                            <div ng-repeat-end=""></div>
-                        </ul>
-                    </div>
-                    </div>
-
+    <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
+        <div class="console-content-view" id="contentView">
+            <a href="#" default-browser="http://github.com/turbobabr/sketch-devtools" ng-show="showLogo()">
+                <div class="background-logo">
+                    <img src="images/background-logo.png">
                 </div>
-
-
-                <div class="form-group" ng-show="showProtocolHandlerTemplate()">
-                    <div style="display: inline-block; width: 150px; margin-right: 8px;" class="text-right"><strong>Template:</strong></div>
-                    <div style="display: inline-block; width: 450px;">
-                        <input type="text" class="form-control input-sm" id="templateFieldID" ng-model="options.protocolHandlerTemplate">
-                    </div>
-
-                </div>
-                <hr>
-                <p><input type="checkbox" ng-model="options.showConsoleOnError"> <a class="options-checkbox" href="#" ng-click="options.showConsoleOnError=!options.showConsoleOnError">Show console on Error</a></p>
-                <p><input type="checkbox" ng-model="options.clearConsoleBeforeLaunch"> <a class="options-checkbox" href="#" ng-click="options.clearConsoleBeforeLaunch=!options.clearConsoleBeforeLaunch">Clear console before new session</a></p>
-                <p><input type="checkbox" ng-model="options.showSessionInfo"> <a class="options-checkbox" href="#" ng-click="options.showSessionInfo=!options.showSessionInfo">Show session info</a></p>
-            </form>
+            </a>
+            <consoleitem ng-repeat="item in items" item="item"></consoleitem>
         </div>
     </div>
-
-</div>
-
-<div class="navbar-xs">
-    <div class="navbar-primary">
-    <div class="navbar navbar-fixed-top navbar-sketch-toolbox" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header" style="padding-top: 1px;">
-                <!--<span style="color:#545454;"><small><strong>Sketch DevTools: Console</strong></small></span>-->
-                <!--
-                <img src="./images/console-icon.png" style="vertical-align: top;padding-top: 5px;margin-right: 3px;">
-                -->
-                <div class="sketch-toolbox-console-icon"></div>
-                <span class="sketch-devtools-console-title">Sketch DevTools: Console</span>
-            </div>
-
-            <div class="navbar-collapse">
-                <form class="navbar-right" role="form">
-                    <button class="sketch-toolbox-clear-button" ng-click="clear()"></button>
-                    <button class="sketch-toolbox-settings-button" ng-click="showSettings()" style="margin-left: 4px;margin-right: 6px;"></button>
-                    <button class="sketch-toolbox-close-button" ng-click="hideConsole()"></button>
-                </form>
-            </div>
-        </div>
-    </div>
-        </div>
-</div>
-
-
-
-
-<div class="container-fluid" style="padding-top: 30px; padding-right: 0px; padding-left: 0px;">
-
-    <div style="overflow-y: auto; overflow-x: hidden; padding-right: 0px;margin-right: 0px;margin-left: 0px;padding-left: 0px;" id="contentView">
-
-        <div class="row" ng-show="showLogo()">
-            <div class="col-lg-12" style="position: relative;">
-                <img src="images/background-logo.png" class="background-logo">
-            </div>
-        </div>
-
-        <!--
-        <div ng-bind-html="renderHtml(item)" class="row" ng-repeat="item in items" style="border-bottom: 1px solid #F0F0F0; padding-top: 2px; padding-bottom: 2px; padding-right: 12px;" ng-mouseenter="mouseIn(item)" ng-mouseleave="mouseOut(item)"></div>
-        -->
-        <consoleitem ng-repeat="item in items" item="item"></consoleitem>
-
-        <!--
-        <div><p>{{hoveredItem}}</p></div>
-        -->
-    </div>
-
-    <!--
-    <div class="row well">
-        <div class="col-lg-8">
-            <h3>A new version of Sketch DevTools is available!</h3>
-            <hr>
-            <h6>Version 0.2.1 (10/12/2014)</h6>
-            <h6>RELEASE NOTES:</h6>
-            <ul>
-                <li>Auto initialize integration</li>
-                <li>Integrated console framework</li>
-                <li>Console now has prompt line to quickly evaluate JS expressions</li>
-                <li>Fixed bug with incorrect imports tree building: now all the nested imports work correctly</li>
-                <li>etc..</li>
-            </ul>
-        </div>
-        <div class="col-lg-4">
-            <button class="btn btn-success pull-right btn-lg">GET IT NOW!</button>
-        </div>
-    </div>
-    -->
-
-
-
-
-</div>
-
-
 
 </body>
 </html>

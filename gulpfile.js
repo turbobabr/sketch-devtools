@@ -13,6 +13,11 @@ gulp.task('scripts', ['clean'], function() {
         .pipe(gulp.dest('dist/build/js'));
 });
 
+gulp.task('templates', ['clean'], function() {
+    return gulp.src("client-src/templates/**/*.html")
+        .pipe(gulp.dest('dist/build/templates'));
+});
+
 gulp.task('images', ['clean'], function() {
     return gulp.src("client-src/images/**/*")
         .pipe(gulp.dest('dist/build/images'));
@@ -71,10 +76,11 @@ gulp.task('index', ['clean'], function() {
         .pipe(replace("./bower_components/underscore/", "./js/"))
         .pipe(replace("./bower_components/mustache/", "./js/"))
         .pipe(replace("./bower_components/keyboardjs/", "./js/"))
+        .pipe(replace("?ts=NO_CACHE","?ts="+(new Date().valueOf()).toString()))
         .pipe(gulp.dest('dist/build'));
 });
 
-gulp.task('zip',['frameworks','scripts','styles','plugin','images','componentsCSS','componentsJS','index','fontAwesome'],function() {
+gulp.task('zip',['frameworks','scripts','templates','styles','plugin','images','componentsCSS','componentsJS','index','fontAwesome'],function() {
     return gulp.src('dist/build/**/*')
         .pipe(zip('Sketch DevTools.zip'))
         .pipe(gulp.dest('dist'));

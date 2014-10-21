@@ -3,7 +3,7 @@
 //  SketchConsole
 //
 //  Created by Andrey on 21/08/14.
-//  Copyright (c) 2014 Turbobabr. All rights reserved.
+//  Copyright (c) 2014 Andrey Shakhmin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,7 +19,7 @@
 +(void)clearConsole;
 
 @property (nonatomic) NSDictionary* options;
-@property (nonatomic) NSURL* scriptURL;
+@property (nonatomic) NSURL* scriptURL; // sketch-devtools/Console.sketchplugin
 
 @property (nonatomic) NSMutableArray* brokenImports;
 @property (nonatomic) NSMutableDictionary* validImports;
@@ -38,9 +38,10 @@
 @property BOOL finished;
 
 // Internal
-// @property NSMutableArray* fileWatchers;
 @property SDTFileWatcher* fileWatcher;
 
+
+@property (weak,setter=setMyObjectName:,getter=getMyObjectName) NSString* objectName;
 
 @end
 

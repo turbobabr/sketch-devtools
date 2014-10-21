@@ -1,0 +1,95 @@
+<div>
+    <p class="symbol-name-title">{{classInfo.name}}</p>
+    <p>Click here to add class description...</p>
+    <p>{{classInfo.description}}</p>
+    <ol class="breadcrumb">
+        <li ng-repeat="ancestor in classInfo.ancestors"><a href="#">{{ancestor}}</a></li>
+        <li class="active">{{classInfo.name}}</li>
+    </ol>
+
+    <p class="symbol-group-title">Properties</p>
+    <div ng-repeat="p in classInfo.properties">
+        <p>
+        <a href="#" class="api-item-title" ng-click="p.expanded=!p.expanded">{{p.name}}</a>
+        </p>
+        <div class="symbol" ng-show="p.expanded">
+            <div>
+                <p>{{p.description}}</p>
+            </div>
+            <p><strong>Declaration</strong></p>
+            <div class="declaration-code-block">
+                <p>
+                    <div class="rfs-code">
+                        <span class="rfs-k">@property</span><span ng-bind-html="listPropAttributes(p)"></span>
+                        <a default-browser="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CGGeometry/#//apple_ref/c/tdef/CGRect" href="#"><span class="rfs-n">{{propType(p)}}</span></a>
+                        <span class="rfs-p">{{propSuffix(p)}}</span><span class="rfs-n">{{p.name}}</span>
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <p class="symbol-group-title">Instance Methods</p>
+    <div ng-repeat="m in classInfo.methods">
+        <p>
+            <a href="#" class="api-item-title" ng-click="m.expanded=!m.expanded">- {{m.selector}}</a>
+        </p>
+        <div class="symbol" ng-show="m.expanded">
+            <p><strong>Description</strong></p>
+            <div>
+                <p ng-show="m.description">{{m.description}}</p>
+            </div>
+            <p><strong>Declaration</strong></p>
+            <div class="declaration-code-block">
+                <p>
+                    <div class="rfs-code" ng-if="m.parameters.length>0">
+                        - ({{m.returnValue.type.typeName}})<span ng-repeat="prm in m.parameters">{{prm.selector}}:({{prm.type.typeName}}){{prm.name}}&nbsp;</span>
+                    </div>
+                    <div class="rfs-code" ng-if="m.parameters.length<1">
+                        -({{m.returnValue.type.typeName}})<span>{{m.selector}}</span>
+                    </div>
+                </p>
+            </div>
+            <div ng-if="m.parameters.length>0">
+                <p><strong>Parameters</strong></p>
+                <table class="rfs-params-table" border="0" cellspacing="0" cellpadding="5">
+                    <tbody>
+                    <tr ng-repeat="prm in m.parameters" scope="row">
+                        <td style="border:1px solid rgba(233,233,233,1);text-align: right;padding: 7px;vertical-align: top;word-break: normal;width: 40px;">
+                            <a ng-show="!prm.editParamName" href="#" ng-click="prm.editParamName=true"><em class="term">{{prm.name}}</em></a>
+                            <input ng-keydown="onParamEditNameKeyDown($event,prm)" type="text" style="width: 150px;" ng-model="prm.name" class="form-control input-sm" ng-show="prm.editParamName"></input>
+                        </td>
+
+                        <td style="border:1px solid rgba(233,233,233,1); margin:0; padding: 5px 25px 5px 10px;">
+                            <a ng-show="!prm.isEditingParamDescription" href="#" ng-click="startParamDescriptionEditing(prm)"><span ng-hide="prm.description">Click to add parameter description...</span> {{prm.description}}</a>
+                            <textarea  ng-blur="finishParamDescriptionEditing(prm)" rows="8"  ng-keypress="onParamEditDescriptionKeyDown($event,prm)" style="width: 100%;" ng-model="prm.description" class="form-control input-sm" ng-show="prm.isEditingParamDescription"></textarea>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <p><strong>Return Value</strong></p>
+                <p>{{m.returnValue.description}}</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="symbol-group-title">Class Methods</p>
+    <div ng-repeat="m in classInfo.classMethods">
+        <p>
+            <a href="#" class="api-item-title" ng-click="p.expanded=!p.expanded">+ {{m.selector}}</a>
+        </p>
+        <div class="symbol">
+            <p><strong>Declaration</strong></p>
+            <div class="declaration-code-block">
+                <p>
+                    <div class="rfs-code">
+                        sdf
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

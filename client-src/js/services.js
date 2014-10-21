@@ -7,7 +7,7 @@
             function( $compileProvider)
             {
                 // A list of allowed protocol handlers.
-                var allowedSchemas=[/*"subl","txmt",*/"sdtsubl","sdtwstorm","sdtappcode","sdtatom","sdtxcode","sdtmvim"];
+                var allowedSchemas=["subl","txmt","skdtsubl","skdtwstorm","skdtappcode","skdtatom","skdtxcode","skdtmvim"];
 
                 // Adding custom protocol handler if exists.
                 if(angular.isDefined(SketchDevTools)) {
@@ -35,42 +35,46 @@
         var loadingList=[
             {
                 name: "error",
-                url: "./js/console-error-item.html"
+                url: "console-error-item.html"
             },
             {
                 name: "extendedPrint",
-                url: "./js/console-print-item.html"
+                url: "console-print-item.html"
             },
             {
                 name: "session",
-                url: "./js/console-session-item.html"
+                url: "console-session-item.html"
             },
             {
                 name: "mochaError",
-                url: "./js/console-mocha-error-item.html"
+                url: "console-mocha-error-item.html"
             },
             {
                 name: "brokenImport",
-                url: "./js/console-broken-import-item.html"
+                url: "console-broken-import-item.html"
             },
             {
                 name: "custom",
-                url: "./js/console-custom-item.html"
+                url: "console-custom-item.html"
             },
             {
                 name: "stackCall",
-                url: "./js/stack-call.html"
+                url: "stack-call.html"
             },
             {
                 name: "duplicateImport",
-                url: "./js/console-duplicate-import-item.html"
+                url: "console-duplicate-import-item.html"
+            },
+            {
+                name: "wtf",
+                url: "console-wtf-item.html"
             }
         ];
 
         var templates = {};
 
         _.each(loadingList,function(obj){
-            templates[obj.name]=$.ajax({type: "GET",url: obj.url,async: false}).responseText;
+            templates[obj.name]=$.ajax({type: "GET",url: "./templates/"+obj.url,async: false}).responseText;
         });
 
         return templates;
@@ -102,8 +106,22 @@
         };
     });
 
+    // Open in default brower.
+    module.directive('defaultBrowser', function() {
+        return {
+            restrict: 'A',
+            link: function(scope , element,attributes){
+                element.bind("click", function(e){
+                    SketchDevTools.openURL(attributes.defaultBrowser);
+                });
+            }
+        };
+    });
+
+
     module.directive('stackCall', function($compile,DynamicTemplates,JumpToCode,Preferences) {
         var template=DynamicTemplates.stackCall;
+        var prefs=Preferences.get();
         return {
             restrict: 'E',
             replace: true,
@@ -128,7 +146,7 @@
                 };
 
                 $scope.jumpToCodeForCall = function(call) {
-                    var ide=$scope.isCustomScript(call) ? "sketch" : Preferences.defaultProtocolHandler;
+                    var ide=$scope.isCustomScript(call) ? "sketch" : prefs.defaultProtocolHandler;
                     return JumpToCode.encode(ide,call.filePath,call.line);
                 };
 
@@ -163,6 +181,9 @@
                 item: "="
             },
             controller: function($scope,Preferences,JumpToCode) {
+
+                var prefs=Preferences.get();
+
                 $scope.humanizeDuration = function(duration) {
                     if(Math.floor(duration)>0) return Math.floor(duration)+"s "+(((duration-Math.floor(duration)))*1000).toFixed()+"ms";
                     return (duration*1000).toFixed()+" ms";
@@ -183,7 +204,7 @@
 
                 $scope.prepareJumpToCode = function(item) {
                     if(!$scope.hasJumpToCode(item)) return "";
-                    var ide=$scope.isCustomScript(item) ? "sketch" : Preferences.defaultProtocolHandler;
+                    var ide=$scope.isCustomScript(item) ? "sketch" : prefs.defaultProtocolHandler;
                     return JumpToCode.encode(ide,item.filePath,item.line);
                 };
 
@@ -210,7 +231,7 @@
                 };
 
                 $scope.hasJumpToCode = function(item) {
-                    var types=["error","extendedPrint","mochaError","brokenImport"];
+                    var types=["error","extendedPrint","mochaError","brokenImport","duplicateImport"];
                     return _.contains(types,item.type);
                 };
 
@@ -239,9 +260,12 @@
     });
 
     module.factory('Preferences', function() {
-        return JSON.parse(SketchDevTools.getConsoleOptions());
+        return {
+            get: function() {
+                return JSON.parse(SketchDevTools.getConsoleOptions())
+            }
+        };
     });
-
 
     module.factory('JumpToCode', function(Preferences) {
 
@@ -262,8 +286,6 @@
                 if(angular.isDefined(SketchDevTools)) {
                     if(params.ide=="sketch") {
                         SketchDevTools.showCustomScriptWindow(params.line);
-                    } else {
-                        SketchDevTools.openFileWithIDE(params.path,params.ide,params.line);
                     }
 
                 } else {
@@ -273,10 +295,12 @@
 
             protocolHandler: function(obj) {
 
+                var prefs=Preferences.get();
+
                 var params = (_.isString(obj)) ? this.decode(obj) : obj;
                 if(params.ide=="custom") {
 
-                    var template=Preferences.protocolHandlerTemplate;
+                    var template=prefs.protocolHandlerTemplate;
                     template = template.replace(/\{/g, '{{{');
                     template = template.replace(/\}/g, '}}}');
 
@@ -288,7 +312,7 @@
                 }
 
                 var href=Mustache.render("{{schema}}://open?url={{{url}}}&line={{line}}&column={{column}}",{
-                    schema: this.schemaMap[Preferences.defaultProtocolHandler],
+                    schema: this.schemaMap[prefs.defaultProtocolHandler],
                     url: SketchDevTools.filePathToFileURL(params.path),
                     line: params.line,
                     column: "1"
@@ -297,13 +321,178 @@
                 return href;
             },
             schemaMap: {
-                "sublime": "sdtsubl",
+                "sublime": "skdtsubl",
                 "textmate": "txmt",
-                "webstorm": "sdtwstorm",
-                "appcode": "sdtappcode",
-                "atom": "sdtatom",
-                "xcode": "sdtxcode",
-                "macvim": "sdtmvim"
+                "webstorm": "skdtwstorm",
+                "appcode": "skdtappcode",
+                "atom": "skdtatom",
+                "xcode": "skdtxcode",
+                "macvim": "skdtmvim"
+            }
+        };
+    });
+
+
+    module.factory('APIReference', function() {
+        return {
+            findSymbol: function(scope,symbol) {
+                var cls=this.data[scope];
+                if(_.isUndefined(cls)) return;
+
+                if(symbol.charAt(0)==='@') {
+                    if(_.isUndefined(cls.properties)) return;
+                    return cls.properties[symbol];
+                }
+
+                if(symbol.charAt(0)==='-') {
+                    if(_.isUndefined(cls.methods)) return;
+                    return cls.methods[symbol];
+                }
+
+                if(symbol.charAt(0)==='+') {
+                    if(_.isUndefined(cls.classMethods)) return;
+                    return cls.methods[symbol];
+                }
+
+                return cls[symbol];
+            },
+            findClass: function(className) {
+                return this.data[className];
+            },
+            findClassOrCreate: function(className) {
+                var classSymbol=this.findClass(className);
+                if(_.isUndefined(classSymbol)) {
+                    classSymbol={};
+                    this.data[className]=classSymbol;
+                }
+
+                return classSymbol;
+            },
+            findProperty: function(scope,propName) {
+                return this.findSymbol(scope,"@"+propName);
+            },
+            findInstanceMethod: function(scope,selector) {
+                return this.findSymbol(scope,"-"+selector);
+            },
+            findInstanceMethodOrCreate: function(scope,selector) {
+                var classSymbol=this.findClassOrCreate(scope);
+                if(_.isUndefined(classSymbol.methods)) {
+                    classSymbol.methods={};
+                }
+
+                var method=this.findInstanceMethod(scope,selector);
+                if(_.isUndefined(method)) {
+                    method={};
+                    classSymbol.methods["-"+selector]=method;
+                }
+
+                return method;
+            },
+            findClassMethod: function(scope,selector) {
+                return this.findSymbol(scope,"+"+selector);
+            },
+
+            synchronize: function() {
+                try {
+                    var str=JSON.stringify(this.data,null,4);
+                    SketchDevTools.synchronizeSymbols(str);
+
+                } catch(e) {
+                    throw new Erro("Unable to synchronize symbols!");
+                }
+
+            },
+            initialize: function() {
+
+
+            },
+            data: (function(){
+                var json=$.ajax({type: "GET",url: "./data/symbols.json",async: false}).responseText;
+                return JSON.parse(json);
+            })()
+            /*
+            data: {
+                "MSColor": {
+                    description: "A model object that represents Color.",
+
+                    properties: {
+                        "@red": {
+                            description: "red color"
+                        },
+                        "@green": {
+                            description: "green color"
+                        },
+                        "@blue": {
+                            description: "blue color"
+                        },
+                        "@alpha": {
+                            description: "alpha channel"
+                        }
+                    },
+
+                    methods: {
+                        "-isWhite": {
+                            description: "Whether color is white.",
+                            returnValue: {
+                                description: "The BOOL value",
+                                type: {
+                                    typeName: "BOOL"
+                                }
+                            }
+                        },
+                        "-hexValue": {
+                            description: "A hex representation of the color",
+                            returnValue: {
+                                description: "A hex string value of the color without `#` symbol, e.g. 'FF0000'",
+                                type: {
+                                    isTypedObject: true,
+                                    typeName: "NSString"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            */
+        };
+    });
+
+    module.directive('inlineTextarea', function() {
+        return {
+            restrict: "E",
+            replace: true,
+            templateUrl: "./templates/inline-textarea.html",
+            scope: {
+                contents: "="
+            },
+            controller: function($scope,$sce,$element) {
+
+                $scope.placeholder="Click here to add some content...";
+
+                $scope.startEditing = function() {
+
+
+                    $scope.isEditing=true;
+                };
+
+                $scope.finishEditing = function() {
+                    $scope.isEditing=false;
+                };
+
+                $scope.onKeyPress = function(event) {
+
+                    if((event.keyCode===13 && event.metaKey) || event.keyCode===27) {
+                        $scope.finishEditing();
+                    }
+                };
+
+                $scope.produceHtmlContent = function() {
+                    return $sce.trustAsHtml(markdown.toHTML($scope.contents));
+                };
+
+            },
+            link: function(scope, element, attrs) {
+
             }
         };
     });

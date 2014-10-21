@@ -1,0 +1,95 @@
+<div>
+    <!-- Symbols List -->
+    <div>
+        <ul>
+            <li ng-repeat="cls in classes"><a class="api-item-title" href="#">{{cls}}</a></li>
+        </ul>
+    </div>
+    <!--Instance Methods -->
+    <div>
+        <p class="symbol-name-title">{{data.name}}</p>
+        <p>{{data.description}}</p>
+        <ol class="breadcrumb">
+            <li ng-repeat="ancestor in data.ancestors"><a href="#">{{ancestor.name}}</a></li>
+            <li class="active">{{data.name}}</li>
+        </ol>
+        <p class="symbol-group-title">Instance Methods</p>
+        <div>
+            <div ng-repeat="method in data.instanceMethods">
+                <a href="#" class="api-item-title" ng-click="method.expanded=!method.expanded">- {{method.selector}}</a>
+                <div ng-show="method.expanded" class="symbol">
+                    <p>{{method.description}}</p>
+                    <p><strong>Declaration</strong></p>
+                    <blockquote>
+                        <div class="method-part">-(<span class="method-type-color">{{method.returnValue.type.name}}</span><span ng-show="method.returnValue.type.isObject">*</span>)</div>
+                        <div ng-repeat="param in method.params" class="method-part" ng-if="method.hasParams">
+                            {{param.selector}}:(<span class="method-type-color">{{param.type.name}}</span><span ng-show="param.type.isObject">*</span>){{param.name}}&nbsp;
+                        </div>
+                        <div class="method-part" ng-if="!method.hasParams">
+                            {{method.selector}}
+                        </div>
+                    </blockquote>
+                    <div ng-if="method.hasParams">
+                        <p><strong>Parameters</strong></p>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr ng-repeat="param in method.params">
+                                <td>{{param.name}}</td>
+                                <td>{{param.description}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>Return Value</strong></p>
+                    <p>{{method.returnValue.description}}</p>
+                </div>
+            </div>
+        </div>
+        <p></p>
+
+        <p class="symbol-group-title">Class Methods</p>
+        <div>
+            <div ng-repeat="method in data.classMethods">
+                <a href="#" class="api-item-title" ng-click="method.expanded=!method.expanded">+ {{method.selector}}</a>
+                <div ng-show="method.expanded" class="symbol">
+                    <p>{{method.description}}</p>
+                    <p><strong>Declaration</strong></p>
+                    <blockquote>
+                        <div class="method-part">+(<span class="method-type-color">{{method.returnValue.type.name}}</span><span ng-show="method.returnValue.type.isObject">*</span>)</div>
+                        <div ng-repeat="param in method.params" class="method-part" ng-if="method.hasParams">
+                            {{param.selector}}:(<span class="method-type-color">{{param.type.name}}</span><span ng-show="param.type.isObject">*</span>){{param.name}}&nbsp;
+                        </div>
+                        <div class="method-part" ng-if="!method.hasParams">
+                            {{method.selector}}
+                        </div>
+                    </blockquote>
+                    <div ng-if="method.hasParams">
+                        <p><strong>Parameters</strong></p>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr ng-repeat="param in method.params">
+                                <td>{{param.name}}</td>
+                                <td>{{param.description}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><strong>Return Value</strong></p>
+                    <p>{{method.returnValue.description}}</p>
+                    <p><strong>Discussion:</strong></p>
+                    <p>{{method.discussion}}</p>
+                </div>
+            </div>
+        </div>
+        <p></p>
+
+        <p class="symbol-group-title">Properties</p>
+        <ul>
+            <li ng-repeat="property in data.properties">{{property.name}}</li>
+        </ul>
+        <p class="symbol-group-title">Protocols</p>
+        <ul>
+            <li ng-repeat="protocol in data.protocols">{{protocol.name}}</li>
+        </ul>
+    </div>
+</div>

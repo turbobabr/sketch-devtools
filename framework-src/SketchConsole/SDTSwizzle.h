@@ -3,7 +3,7 @@
 //  SketchConsole
 //
 //  Created by Andrey on 27/08/14.
-//  Copyright (c) 2014 Turbobabr. All rights reserved.
+//  Copyright (c) 2014 Andrey Shakhmin. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

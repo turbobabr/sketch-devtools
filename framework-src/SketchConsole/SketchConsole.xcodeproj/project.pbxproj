@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */; };
 		5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */; };
-		5538100919BACF0A00D10D67 /* SDTProtocolHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5538100719BACF0A00D10D67 /* SDTProtocolHandler.h */; };
-		5538100A19BACF0A00D10D67 /* SDTProtocolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5538100819BACF0A00D10D67 /* SDTProtocolHandler.m */; };
 		553B6F0519C541AF00CA9A74 /* LoggerClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0119C541AF00CA9A74 /* LoggerClient.h */; };
 		553B6F0619C541AF00CA9A74 /* LoggerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 553B6F0219C541AF00CA9A74 /* LoggerClient.m */; };
 		553B6F0719C541AF00CA9A74 /* LoggerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 553B6F0319C541AF00CA9A74 /* LoggerCommon.h */; };
@@ -32,6 +30,34 @@
 		55A173BF19AF00EE00470090 /* SDTModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A173BD19AF00EE00470090 /* SDTModule.m */; };
 		55A5AD1D19E27C7300194A96 /* SDTFileWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A5AD1B19E27C7300194A96 /* SDTFileWatcher.h */; };
 		55A5AD1E19E27C7300194A96 /* SDTFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A5AD1C19E27C7300194A96 /* SDTFileWatcher.m */; };
+		55D0E65319EF738400EE5C01 /* NSString-CDExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D0E65119EF738400EE5C01 /* NSString-CDExtensions.h */; };
+		55D0E65419EF738400EE5C01 /* NSString-CDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D0E65219EF738400EE5C01 /* NSString-CDExtensions.m */; };
+		55D0E65719EF741900EE5C01 /* NSScanner-CDExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D0E65519EF741900EE5C01 /* NSScanner-CDExtensions.h */; };
+		55D0E65819EF741900EE5C01 /* NSScanner-CDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D0E65619EF741900EE5C01 /* NSScanner-CDExtensions.m */; };
+		55D0E65B19EF74E000EE5C01 /* NSData-CDExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D0E65919EF74E000EE5C01 /* NSData-CDExtensions.h */; };
+		55D0E65C19EF74E000EE5C01 /* NSData-CDExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D0E65A19EF74E000EE5C01 /* NSData-CDExtensions.m */; };
+		55D0E66019EF751F00EE5C01 /* CDOCInstanceVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 55D0E65E19EF751F00EE5C01 /* CDOCInstanceVariable.h */; };
+		55D0E66119EF751F00EE5C01 /* CDOCInstanceVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D0E65F19EF751F00EE5C01 /* CDOCInstanceVariable.m */; };
+		55F256AD19EF70740006BA48 /* CDBalanceFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F2569F19EF70740006BA48 /* CDBalanceFormatter.h */; };
+		55F256AE19EF70740006BA48 /* CDBalanceFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256A019EF70740006BA48 /* CDBalanceFormatter.m */; };
+		55F256AF19EF70740006BA48 /* CDMethodType.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256A119EF70740006BA48 /* CDMethodType.h */; };
+		55F256B019EF70740006BA48 /* CDMethodType.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256A219EF70740006BA48 /* CDMethodType.m */; };
+		55F256B119EF70740006BA48 /* CDType.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256A319EF70740006BA48 /* CDType.h */; };
+		55F256B219EF70740006BA48 /* CDType.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256A419EF70740006BA48 /* CDType.m */; };
+		55F256B319EF70740006BA48 /* CDTypeFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256A519EF70740006BA48 /* CDTypeFormatter.h */; };
+		55F256B419EF70740006BA48 /* CDTypeFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256A619EF70740006BA48 /* CDTypeFormatter.m */; };
+		55F256B519EF70740006BA48 /* CDTypeLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256A719EF70740006BA48 /* CDTypeLexer.h */; };
+		55F256B619EF70740006BA48 /* CDTypeLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256A819EF70740006BA48 /* CDTypeLexer.m */; };
+		55F256B719EF70740006BA48 /* CDTypeName.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256A919EF70740006BA48 /* CDTypeName.h */; };
+		55F256B819EF70740006BA48 /* CDTypeName.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256AA19EF70740006BA48 /* CDTypeName.m */; };
+		55F256B919EF70740006BA48 /* CDTypeParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256AB19EF70740006BA48 /* CDTypeParser.h */; };
+		55F256BA19EF70740006BA48 /* CDTypeParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256AC19EF70740006BA48 /* CDTypeParser.m */; };
+		55F256CF19EF724A0006BA48 /* CDStructureTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256C919EF724A0006BA48 /* CDStructureTable.h */; };
+		55F256D019EF724A0006BA48 /* CDStructureTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256CA19EF724A0006BA48 /* CDStructureTable.m */; };
+		55F256D119EF724A0006BA48 /* CDTypeController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256CB19EF724A0006BA48 /* CDTypeController.h */; };
+		55F256D219EF724A0006BA48 /* CDTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256CC19EF724A0006BA48 /* CDTypeController.m */; };
+		55F256D319EF724A0006BA48 /* CDStructureInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F256CD19EF724A0006BA48 /* CDStructureInfo.h */; };
+		55F256D419EF724A0006BA48 /* CDStructureInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 55F256CE19EF724A0006BA48 /* CDStructureInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +73,6 @@
 /* Begin PBXFileReference section */
 		5538100119BAB63500D10D67 /* NSView+SketchDevTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+SketchDevTools.h"; path = "SketchConsole/NSView+SketchDevTools.h"; sourceTree = "<group>"; };
 		5538100219BAB63500D10D67 /* NSView+SketchDevTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+SketchDevTools.m"; path = "SketchConsole/NSView+SketchDevTools.m"; sourceTree = "<group>"; };
-		5538100719BACF0A00D10D67 /* SDTProtocolHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTProtocolHandler.h; sourceTree = "<group>"; };
-		5538100819BACF0A00D10D67 /* SDTProtocolHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTProtocolHandler.m; sourceTree = "<group>"; };
 		553B6F0119C541AF00CA9A74 /* LoggerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerClient.h; sourceTree = "<group>"; };
 		553B6F0219C541AF00CA9A74 /* LoggerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoggerClient.m; sourceTree = "<group>"; };
 		553B6F0319C541AF00CA9A74 /* LoggerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoggerCommon.h; sourceTree = "<group>"; };
@@ -77,6 +101,34 @@
 		55A173BD19AF00EE00470090 /* SDTModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDTModule.m; path = ../SDTModule.m; sourceTree = "<group>"; };
 		55A5AD1B19E27C7300194A96 /* SDTFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTFileWatcher.h; sourceTree = "<group>"; };
 		55A5AD1C19E27C7300194A96 /* SDTFileWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTFileWatcher.m; sourceTree = "<group>"; };
+		55D0E65119EF738400EE5C01 /* NSString-CDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-CDExtensions.h"; sourceTree = "<group>"; };
+		55D0E65219EF738400EE5C01 /* NSString-CDExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-CDExtensions.m"; sourceTree = "<group>"; };
+		55D0E65519EF741900EE5C01 /* NSScanner-CDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner-CDExtensions.h"; sourceTree = "<group>"; };
+		55D0E65619EF741900EE5C01 /* NSScanner-CDExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner-CDExtensions.m"; sourceTree = "<group>"; };
+		55D0E65919EF74E000EE5C01 /* NSData-CDExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-CDExtensions.h"; sourceTree = "<group>"; };
+		55D0E65A19EF74E000EE5C01 /* NSData-CDExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-CDExtensions.m"; sourceTree = "<group>"; };
+		55D0E65E19EF751F00EE5C01 /* CDOCInstanceVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDOCInstanceVariable.h; sourceTree = "<group>"; };
+		55D0E65F19EF751F00EE5C01 /* CDOCInstanceVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDOCInstanceVariable.m; sourceTree = "<group>"; };
+		55F2569F19EF70740006BA48 /* CDBalanceFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDBalanceFormatter.h; sourceTree = "<group>"; };
+		55F256A019EF70740006BA48 /* CDBalanceFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDBalanceFormatter.m; sourceTree = "<group>"; };
+		55F256A119EF70740006BA48 /* CDMethodType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMethodType.h; sourceTree = "<group>"; };
+		55F256A219EF70740006BA48 /* CDMethodType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMethodType.m; sourceTree = "<group>"; };
+		55F256A319EF70740006BA48 /* CDType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDType.h; sourceTree = "<group>"; };
+		55F256A419EF70740006BA48 /* CDType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDType.m; sourceTree = "<group>"; };
+		55F256A519EF70740006BA48 /* CDTypeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTypeFormatter.h; sourceTree = "<group>"; };
+		55F256A619EF70740006BA48 /* CDTypeFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTypeFormatter.m; sourceTree = "<group>"; };
+		55F256A719EF70740006BA48 /* CDTypeLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTypeLexer.h; sourceTree = "<group>"; };
+		55F256A819EF70740006BA48 /* CDTypeLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTypeLexer.m; sourceTree = "<group>"; };
+		55F256A919EF70740006BA48 /* CDTypeName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTypeName.h; sourceTree = "<group>"; };
+		55F256AA19EF70740006BA48 /* CDTypeName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTypeName.m; sourceTree = "<group>"; };
+		55F256AB19EF70740006BA48 /* CDTypeParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTypeParser.h; sourceTree = "<group>"; };
+		55F256AC19EF70740006BA48 /* CDTypeParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTypeParser.m; sourceTree = "<group>"; };
+		55F256C919EF724A0006BA48 /* CDStructureTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDStructureTable.h; sourceTree = "<group>"; };
+		55F256CA19EF724A0006BA48 /* CDStructureTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDStructureTable.m; sourceTree = "<group>"; };
+		55F256CB19EF724A0006BA48 /* CDTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTypeController.h; sourceTree = "<group>"; };
+		55F256CC19EF724A0006BA48 /* CDTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTypeController.m; sourceTree = "<group>"; };
+		55F256CD19EF724A0006BA48 /* CDStructureInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDStructureInfo.h; sourceTree = "<group>"; };
+		55F256CE19EF724A0006BA48 /* CDStructureInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDStructureInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +196,7 @@
 		559E2F8919A61E6E00774BED = {
 			isa = PBXGroup;
 			children = (
+				55F2569D19EF70330006BA48 /* ClassDump */,
 				5575797E19DE783F0049D944 /* Scripts */,
 				553B6EFB19C40E2E00CA9A74 /* Utils */,
 				5538100519BAB63E00D10D67 /* Categories */,
@@ -192,8 +245,6 @@
 				5578CAB219AD0E75001E7C3B /* SDTSwizzle.m */,
 				559E2FA319A61E6E00774BED /* SketchConsole.h */,
 				559E2FA419A61E6E00774BED /* SketchConsole.m */,
-				5538100719BACF0A00D10D67 /* SDTProtocolHandler.h */,
-				5538100819BACF0A00D10D67 /* SDTProtocolHandler.m */,
 				559E2F9D19A61E6E00774BED /* Supporting Files */,
 			);
 			path = SketchConsole;
@@ -227,6 +278,73 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		55D0E65019EF737800EE5C01 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				55D0E65919EF74E000EE5C01 /* NSData-CDExtensions.h */,
+				55D0E65A19EF74E000EE5C01 /* NSData-CDExtensions.m */,
+				55D0E65519EF741900EE5C01 /* NSScanner-CDExtensions.h */,
+				55D0E65619EF741900EE5C01 /* NSScanner-CDExtensions.m */,
+				55D0E65119EF738400EE5C01 /* NSString-CDExtensions.h */,
+				55D0E65219EF738400EE5C01 /* NSString-CDExtensions.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		55D0E65D19EF751400EE5C01 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				55D0E65E19EF751F00EE5C01 /* CDOCInstanceVariable.h */,
+				55D0E65F19EF751F00EE5C01 /* CDOCInstanceVariable.m */,
+			);
+			name = "Objective-C";
+			sourceTree = "<group>";
+		};
+		55F2569D19EF70330006BA48 /* ClassDump */ = {
+			isa = PBXGroup;
+			children = (
+				55D0E65D19EF751400EE5C01 /* Objective-C */,
+				55D0E65019EF737800EE5C01 /* Extensions */,
+				55F256C819EF72380006BA48 /* Structure/Union Handling */,
+				55F2569E19EF705D0006BA48 /* Type Parsing/Lexing */,
+			);
+			name = ClassDump;
+			sourceTree = "<group>";
+		};
+		55F2569E19EF705D0006BA48 /* Type Parsing/Lexing */ = {
+			isa = PBXGroup;
+			children = (
+				55F2569F19EF70740006BA48 /* CDBalanceFormatter.h */,
+				55F256A019EF70740006BA48 /* CDBalanceFormatter.m */,
+				55F256A119EF70740006BA48 /* CDMethodType.h */,
+				55F256A219EF70740006BA48 /* CDMethodType.m */,
+				55F256A319EF70740006BA48 /* CDType.h */,
+				55F256A419EF70740006BA48 /* CDType.m */,
+				55F256A519EF70740006BA48 /* CDTypeFormatter.h */,
+				55F256A619EF70740006BA48 /* CDTypeFormatter.m */,
+				55F256A719EF70740006BA48 /* CDTypeLexer.h */,
+				55F256A819EF70740006BA48 /* CDTypeLexer.m */,
+				55F256A919EF70740006BA48 /* CDTypeName.h */,
+				55F256AA19EF70740006BA48 /* CDTypeName.m */,
+				55F256AB19EF70740006BA48 /* CDTypeParser.h */,
+				55F256AC19EF70740006BA48 /* CDTypeParser.m */,
+			);
+			name = "Type Parsing/Lexing";
+			sourceTree = "<group>";
+		};
+		55F256C819EF72380006BA48 /* Structure/Union Handling */ = {
+			isa = PBXGroup;
+			children = (
+				55F256C919EF724A0006BA48 /* CDStructureTable.h */,
+				55F256CA19EF724A0006BA48 /* CDStructureTable.m */,
+				55F256CB19EF724A0006BA48 /* CDTypeController.h */,
+				55F256CC19EF724A0006BA48 /* CDTypeController.m */,
+				55F256CD19EF724A0006BA48 /* CDStructureInfo.h */,
+				55F256CE19EF724A0006BA48 /* CDStructureInfo.m */,
+			);
+			name = "Structure/Union Handling";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -234,13 +352,26 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F256B719EF70740006BA48 /* CDTypeName.h in Headers */,
 				553B6F0719C541AF00CA9A74 /* LoggerCommon.h in Headers */,
+				55D0E65319EF738400EE5C01 /* NSString-CDExtensions.h in Headers */,
 				553B6F0819C541AF00CA9A74 /* NSLogger.h in Headers */,
 				557B35D719B6D29800ECAD7B /* NSString+SketchDevTools.h in Headers */,
+				55F256D119EF724A0006BA48 /* CDTypeController.h in Headers */,
+				55F256B119EF70740006BA48 /* CDType.h in Headers */,
+				55F256B319EF70740006BA48 /* CDTypeFormatter.h in Headers */,
 				5538100319BAB63500D10D67 /* NSView+SketchDevTools.h in Headers */,
+				55F256AF19EF70740006BA48 /* CDMethodType.h in Headers */,
+				55D0E66019EF751F00EE5C01 /* CDOCInstanceVariable.h in Headers */,
+				55F256CF19EF724A0006BA48 /* CDStructureTable.h in Headers */,
+				55F256B519EF70740006BA48 /* CDTypeLexer.h in Headers */,
+				55D0E65B19EF74E000EE5C01 /* NSData-CDExtensions.h in Headers */,
+				55F256AD19EF70740006BA48 /* CDBalanceFormatter.h in Headers */,
+				55F256B919EF70740006BA48 /* CDTypeParser.h in Headers */,
 				55A5AD1D19E27C7300194A96 /* SDTFileWatcher.h in Headers */,
-				5538100919BACF0A00D10D67 /* SDTProtocolHandler.h in Headers */,
 				55A173BE19AF00EE00470090 /* SDTModule.h in Headers */,
+				55F256D319EF724A0006BA48 /* CDStructureInfo.h in Headers */,
+				55D0E65719EF741900EE5C01 /* NSScanner-CDExtensions.h in Headers */,
 				5578CAB319AD0E75001E7C3B /* SDTSwizzle.h in Headers */,
 				553B6F0519C541AF00CA9A74 /* LoggerClient.h in Headers */,
 			);
@@ -342,13 +473,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F256AE19EF70740006BA48 /* CDBalanceFormatter.m in Sources */,
 				553B6F0619C541AF00CA9A74 /* LoggerClient.m in Sources */,
+				55D0E65819EF741900EE5C01 /* NSScanner-CDExtensions.m in Sources */,
 				557B35D819B6D29800ECAD7B /* NSString+SketchDevTools.m in Sources */,
+				55F256B419EF70740006BA48 /* CDTypeFormatter.m in Sources */,
 				5538100419BAB63500D10D67 /* NSView+SketchDevTools.m in Sources */,
+				55F256B619EF70740006BA48 /* CDTypeLexer.m in Sources */,
+				55D0E65C19EF74E000EE5C01 /* NSData-CDExtensions.m in Sources */,
+				55F256B819EF70740006BA48 /* CDTypeName.m in Sources */,
+				55F256BA19EF70740006BA48 /* CDTypeParser.m in Sources */,
 				5578CAB419AD0E75001E7C3B /* SDTSwizzle.m in Sources */,
 				55A5AD1E19E27C7300194A96 /* SDTFileWatcher.m in Sources */,
+				55F256D219EF724A0006BA48 /* CDTypeController.m in Sources */,
+				55F256B219EF70740006BA48 /* CDType.m in Sources */,
+				55D0E65419EF738400EE5C01 /* NSString-CDExtensions.m in Sources */,
+				55F256D419EF724A0006BA48 /* CDStructureInfo.m in Sources */,
+				55D0E66119EF751F00EE5C01 /* CDOCInstanceVariable.m in Sources */,
+				55F256D019EF724A0006BA48 /* CDStructureTable.m in Sources */,
 				55A173BF19AF00EE00470090 /* SDTModule.m in Sources */,
-				5538100A19BACF0A00D10D67 /* SDTProtocolHandler.m in Sources */,
+				55F256B019EF70740006BA48 /* CDMethodType.m in Sources */,
 				559E2FA519A61E6E00774BED /* SketchConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
