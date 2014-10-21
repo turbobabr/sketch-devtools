@@ -1,0 +1,79 @@
+{
+    "MSColor": {
+        "description": "A model object that represents Color.",
+        "properties": {
+            "@red": {
+                "description": "red color"
+            },
+            "@green": {
+                "description": "green color"
+            },
+            "@blue": {
+                "description": "blue color"
+            },
+            "@alpha": {
+                "description": "alpha channel"
+            }
+        },
+        "methods": {
+            "-isWhite": {
+                "description": "Whether color is white.",
+                "returnValue": {
+                    "description": "The BOOL value",
+                    "type": {
+                        "typeName": "BOOL"
+                    }
+                }
+            },
+            "-hexValue": {
+                "description": "A hex representation of the color",
+                "returnValue": {
+                    "description": "A hex string value of the color without `#` symbol, e.g. 'FF0000'",
+                    "type": {
+                        "isTypedObject": true,
+                        "typeName": "NSString"
+                    }
+                }
+            }
+        }
+    },
+    "MSRect": {
+        "methods": {
+            "-subtractHeight:": {
+                "parameters": {
+                    "0": {
+                        "description": "Value in points to be substracted from current height."
+                    }
+                }
+            },
+            "-initWithRect:": {
+                "parameters": {
+                    "0": {
+                        "description": "A rectangle for the frame."
+                    }
+                }
+            },
+            "-scaleBy:": {
+                "parameters": {
+                    "0": {
+                        "description": "Scales rectangle by a given factor."
+                    }
+                }
+            },
+            "-intersectsWithRect:": {
+                "parameters": {
+                    "0": {
+                        "description": "MSRect object to test intersection with."
+                    }
+                }
+            },
+            "-addHeight:": {
+                "parameters": {
+                    "0": {
+                        "description": "Value in points to be added to the current height."
+                    }
+                }
+            }
+        }
+    }
+}
