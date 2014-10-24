@@ -1,7 +1,7 @@
 ![Header Logo](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/header_logo.png)
 ===============
 
-Sketch DevTools is a set of tools & utilities that helps in development of [Sketch App](http://bohemiancoding.com/sketch/) plugins.
+Sketch DevTools is a set of tools & utilities that help in development of [Sketch App](http://bohemiancoding.com/sketch/) plugins.
 
 The Sketch App itself provides a very limited number of tools for plugins developers. The most annoying things are the lack of convenient debugging tools and lack of documentation of available APIs. The aim of this project is to solve these two problems and provide newbie developers with a comprehensive information on plugins development for Sketch App.
 
@@ -50,7 +50,7 @@ Since Sketch DevTools uses WebKit for its UI there is a way to use rich text for
 
 ##### Demo
 
-I want to demonstrate it with somthing cool and totally useless! :) Here is an example of HTML formatted logging:
+I want to demonstrate it with something cool and totally useless! :) Here is an example of HTML formatted logging:
 
 ```JavaScript
 print("<h5>Adventure Time - Bacon Pancakes - New York remix</h5>")
@@ -63,7 +63,7 @@ The result will be:
 
 ##### Using Bootstrap
 
-By default [Twitter Bootstrap](http://getbootstrap.com/) is used as CSS engine. Thus, you can freely use all the styles provided by it. Here is more useful sample that shows Bootstrap usage:
+By default [Twitter Bootstrap](http://getbootstrap.com/) is used as CSS engine. Thus, you can freely use all the styles provided by it. Here is more useful example of HTML formatting that shows Bootstrap usage:
 
 ```JavaScript
 var layer=selection.firstObject();
@@ -113,7 +113,7 @@ if(layer) {
 }
 ```
 
-In the following image you can see the difference between these to logs:
+In the following image you can see the difference between these two print statements:
 
 ![HTML Escaping](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/html_escaping.png)
 
@@ -151,10 +151,10 @@ You can use a `Quick Jump To Code` feature to save some time:
 
 ## Roadmap
 
-Here is the list of some half-baked ideas and prototypes I'm planning to include in future releases of Sketch DevTools:
+Here is the list of some half-baked ideas and features I'm planning to include in the future releases of Sketch DevTools:
 
 - [ ] Dedicated site for all of this.
-- [ ] A separate `console` CocoaScript module similar to the WebKit console that utilizes all the features of Sketch DevTools Console tab.
+- [ ] A separate `console` CocoaScript module similar to the WebKit console object that utilizes all the features of Sketch DevTools Console tab.
 - [ ] Automatic initialization of tools on Sketch launch.
 - [ ] Symbols Explorer. A separate tab panel that contains a Sketch classes reference.
 - [ ] Custom script runner. The same thing as built-in Sketch custom script dialog but embedded right into DevTools panel.
@@ -167,7 +167,7 @@ Here is the list of some half-baked ideas and prototypes I'm planning to include
 
 ## Feedback
 
-If you discover any issue or have any suggestions for improvement of the plugin, please [open an issue](https://github.com/turbobabr/sketch-devtools/issues) or find me on twitter [@turbobabr](http://twitter.com/turbobabr).
+If you discover any issue or have any suggestions, please [open an issue](https://github.com/turbobabr/sketch-devtools/issues) or find me on twitter [@turbobabr](http://twitter.com/turbobabr).
 
 ## Credits
 
