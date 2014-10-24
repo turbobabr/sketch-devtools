@@ -9,11 +9,12 @@ Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](
 1. [Download Sketch DevTools.zip archive file](https://github.com/turbobabr/sketch-devtools/blob/master/dist/Sketch%20DevTools.zip?raw=true).
 2. Reveal plugins folder in finder ('Sketch App Menu' -> 'Plugins' -> 'Reveal Plugins Folder...').
 3. Copy downloaded zip file to the revealed folder and un-zip it.
-4. You are ready to go! :)
+4. Install [Sketch DevTools Assistant](https://github.com/turbobabr/sketch-devtools-assistant) application.
+5. You are ready to go! :)
 
 ## Usage
 
-Sketch DevTools is just a regular plugin that uses some rocket since to survive in this cruel world. Since it's just a plugin - there are some commands available:
+Sketch DevTools is just a regular plugin that uses some rocket science to survive in this cruel world. Since it's just a plugin - there are some commands available:
 
 `Command-Option-K` - Show/Hide DevTools
 
