@@ -49,9 +49,6 @@
 
 static void fsevents_callback(FSEventStreamRef streamRef, SDTFileWatcher *fw, int numEvents, const char *const eventPaths[], const FSEventStreamEventFlags *eventMasks, const uint64_t *eventIDs)
 {
-    for(int i=0;i<numEvents;i++) {
-        NSLog(@"%s",eventPaths[i]);
-    }
     
     id delegate = [fw delegate];
     

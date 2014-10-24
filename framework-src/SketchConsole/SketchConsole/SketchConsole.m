@@ -871,43 +871,6 @@
     // FIXME: Why? :)
 }
 
-
-+(NSString*)formatMethod:(NSString*)name withType:(NSString*)typeString {
-    CDTypeFormatter *methodTypeFormatter = [[CDTypeFormatter alloc] init];
-    methodTypeFormatter.shouldExpand = NO;
-    methodTypeFormatter.shouldAutoExpand = NO;
-    methodTypeFormatter.baseLevel = 0;
-    
-    return [methodTypeFormatter formatMethodName:name typeString:typeString];
-}
-
-+(NSString*)formatVariableWithName:(NSString*)name type:(NSString*)typeString {
-    /*
-    CDTypeFormatter *methodTypeFormatter = [[CDTypeFormatter alloc] init];
-    methodTypeFormatter.shouldExpand = NO;
-    methodTypeFormatter.shouldAutoExpand = NO;
-    methodTypeFormatter.baseLevel = 0;
-    
-    return [methodTypeFormatter formatMethodName:name typeString:typeString];
-     */
-    
-    CDTypeFormatter *ivarTypeFormatter = [[CDTypeFormatter alloc] init];
-    ivarTypeFormatter.shouldExpand = NO;
-    ivarTypeFormatter.shouldAutoExpand = NO;
-    ivarTypeFormatter.baseLevel = 0;
-    
-    CDOCInstanceVariable *var = [[CDOCInstanceVariable alloc] initWithName:name typeString:typeString offset:0];
-    return [ivarTypeFormatter formatVariable:name type:var.type];
-}
-
--(void)synchronizeSymbols:(NSString*)symbols {
-    /*
-    NSString* filePath=@"/Users/andrey/Library/Application Support/com.bohemiancoding.sketch3/Plugins/sketch-devtools/client-src/data/symbols.json";
-    [symbols writeToFile:filePath atomically:NO encoding:NSUTF8StringEncoding error:nil];
-     */
-}
-
-
 @end
 
 
