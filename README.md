@@ -121,14 +121,16 @@ In the following image you can see the difference between these to logs:
 
 If you plan to use HTML formatting in your logs a lot, there is a ready to use solution:
 
-- [Sketch DevTools: Console Framework](https://github.com/turbobabr/sketch-devtools-console)
+- [Sketch DevTools: Console Framework (Under Development)](https://github.com/turbobabr/sketch-devtools-console)
 
 This small library is very similar to WebKit Console API and contains a lot of useful methods for Sketch specific logging, HTML formatting and convenient things like timers, counters, tags, etc.
 
 
 ### Jump to Code
 
-Console allows you to quickly open a file on certain line with your IDE of choice. Prior using this feature be sure that [Sketch DevTools Assistant](http://github.com/turbobabr/sketch-devtools-assistant) is installed and running then you have to select an editor you are using for Sketch plugins development:
+Console allows you to quickly open a file on certain line with your IDE of choice. Prior using this feature be sure that [Sketch DevTools Assistant](http://github.com/turbobabr/sketch-devtools-assistant) is installed and running.
+
+Then you have to select an editor you are using for Sketch plugins development. To do that, follow the instructions below:
 
 ![Changing IDE](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/change_ide.png)
 
