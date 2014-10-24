@@ -128,7 +128,8 @@ This small library is very similar to WebKit Console API and contains a lot of u
 
 ### Jump to Code
 
-Console allows you to quickly open a file on certain line with your IDE of choice. Before using this feature you have to select an editor you are using for Sketch plugins development:
+Console allows you to quickly open a file on certain line with your IDE of choice. Prior using this feature be sure that [Sketch DevTools Assistant](http://github.com/turbobabr/sketch-devtools-assistant) is installed and running then you have to select an editor you are using for Sketch plugins development:
+
 ![Changing IDE](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/change_ide.png)
 
 All the default `print` statements and error boxes have an url with the name of actual file and line number that generated the record. For example lets run the following script:
@@ -138,14 +139,13 @@ print(selection);
 print(selection.last());
 ```
 
-It produces two records. The first one is just a print statement the second is an error box. Both records have the previously mentioned URL you can click on to go straight to the root of the problem:
+It produces two records. The first one is just a print statement the second is an error box. Both records have the previously mentioned URL you can click on to go straight to the root of the problem or reveal the print statement location to quickly disable it:
 
 ![Jump to code URLs](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/jump_to_code_figure.png)
 
-When you click on the error box url it will be automatically opned in the editor (WebStorm in my case):
+You can use a `Quick Jump To Code` feature to save some time:
 
-![File opened in IDE](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/jump_to_code_result.png)
-
+![Quick Jumpt To Code](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/quick_jump_to_code.png)
 
 ## Roadmap
 
