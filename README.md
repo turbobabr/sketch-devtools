@@ -1,29 +1,35 @@
 ![Header Logo](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/header_logo.png)
 ===============
 
-#### (Work in progress...)
-Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](http://bohemiancoding.com/sketch/) plugins.
+Sketch DevTools is a set of tools & utilities that helps in development of [Sketch App](http://bohemiancoding.com/sketch/) plugins.
+
+The Sketch App itself provides a very limited number of tools for plugins developers. The most annoying things are the lack of convenient debugging tools and lack of documentation of available APIs. The aim of this project is to solve these two problems and provide newbie developers with a comprehensive information on plugins development for Sketch App.
+
+Currently the most valuable feature of DevTools is a built-in console that makes it a breeze to debug your plugins and scripts. I plan to work on this project futher to make development process even more easier! :)
+
+> Sketch DevTools uses a lot of undocmented and hidden APIs of Sketch App, thus it might stop working with any update of the application.
 
 ## Installation
 
 1. [Download Sketch DevTools.zip archive file](https://github.com/turbobabr/sketch-devtools/blob/master/dist/Sketch%20DevTools.zip?raw=true).
 2. Reveal plugins folder in finder ('Sketch App Menu' -> 'Plugins' -> 'Reveal Plugins Folder...').
 3. Copy downloaded zip file to the revealed folder and un-zip it.
-4. You are ready to go! :)
+4. Install [Sketch DevTools Assistant](https://github.com/turbobabr/sketch-devtools-assistant) application.
+5. You are ready to go! :)
 
 ## Usage
 
-Sketch DevTools is just a regular plugin that uses some rocket since to survive in this cruel world. Since it's just a plugin - there are some commands available:
+Sketch DevTools is just a regular plugin that uses some rocket science to survive in this cruel world. Since it's just a plugin - there are some commands available:
 
 `Command-Option-K` - Show/Hide DevTools
 
 `Command-Option-Shift-K` - Clear Console
 
-DevTools panel is like any WebKit inspector is bound to a specific document. If you want to use console in the current Sketch document you have to activate it using `Command-Option-K` shortcut. As soon as it got activated all the log statements and errors from plugins executed in the document will be automatically redirected to this console. All the logging techniques are desribed below.
+DevTools panel like any WebKit inspector is bound to a specific document. If you want to use console in the current Sketch document you have to activate it using `Command-Option-K` shortcut. As soon as you activate it - all the log statements and errors from plugins executed in the document will be automatically redirected to this console. All the logging techniques are desribed below.
 
 ### Basic Logging
 
-Sketch DevTools console automatically handles all the exceptions and print statements. You use the same print/log function for logging in custom script editor or external sketchplugin/js file without any additional libs.
+Sketch DevTools console automatically handles all the exceptions and print statements. You use the same `print` or `log` function for logging in custom script editor or external sketchplugin/js file without any additional libs.
 
 Just run the following script in the custom script editor:
 
@@ -152,9 +158,10 @@ Here is the list of some half-baked ideas and prototypes I'm planning to include
 - [ ] Custom script runner. The same thing as built-in Sketch custom script dialog but embedded right into DevTools panel.
 - [ ] Console prompt to quickly evaluate JS expressions.
 
-## Version history
+## Change Log
 
-> The project is under development...
+#### v0.1.0: October 24, 2014
+- Initial release with a bunch of bugs! :)
 
 ## Feedback
 
@@ -162,7 +169,9 @@ If you discover any issue or have any suggestions for improvement of the plugin,
 
 ## Credits
 
-TODO: Credits go here!
+- Some code from [CocoaScript](http://github.com/ccgus/CocoaScript) framework by [August Mueller](http://github.com/ccgus) is used in the project.
+- The [flat Sketch icon desing](http://dribbble.com/shots/1705797-Sketch-App-Icon-Yosemite-Edition?list=users&offset=0) for the logo was shamelessly borrowed from [Mehmet Gozetlik](http://dribbble.com/Antrepo). Thanks you Mehmet for the great work! :)
+- Excelent [NSLogger](https://github.com/fpillet/NSLogger) is used here! :)
 
 ## License
 
