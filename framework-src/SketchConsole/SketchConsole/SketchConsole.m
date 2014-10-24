@@ -37,6 +37,9 @@
 @implementation SketchConsole
 
 +(void)load {
+    
+        NSLog(@"Поехали! :)");
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
@@ -334,9 +337,14 @@
         SketchConsole* shared=[SketchConsole sharedInstance];
         if(shared.cachedScriptRoot) {
             
+            NSLog(@"Call Stack Item:");
+            NSLog(@"%@",e.userInfo);
+            
             // Process call stack.
             NSArray* stack=[e.userInfo[@"stack"] componentsSeparatedByString:@"\n"];
             NSMutableArray* callStack = [NSMutableArray arrayWithArray:@[]];
+            
+            NSLog(@"%@",e.userInfo[@"stack"]);
             
             for(NSString* call in stack) {
                 NSArray* components=[call componentsSeparatedByString:@"@"];
@@ -360,6 +368,8 @@
                                         @"lineSrc": sourceCodeLine
                                         };
                     
+                    NSLog(@"Call Stack Item:");
+                    NSLog(@"%@",call);
                     [callStack addObject:call];
                 }
             }
