@@ -153,9 +153,10 @@ Here is the list of some half-baked ideas and prototypes I'm planning to include
 - [ ] Custom script runner. The same thing as built-in Sketch custom script dialog but embedded right into DevTools panel.
 - [ ] Console prompt to quickly evaluate JS expressions.
 
-## Version history
+## Change Log
 
-> The project is under development...
+#### v0.1.0: October 24, 2014
+- Initial release with a bunch of bugs! :)
 
 ## Feedback
 
@@ -163,7 +164,9 @@ If you discover any issue or have any suggestions for improvement of the plugin,
 
 ## Credits
 
-TODO: Credits go here!
+- Some code from [CocoaScript](http://github.com/ccgus/CocoaScript) framework by [August Mueller](http://github.com/ccgus) is used in the project.
+- The [flat Sketch icon desing](http://dribbble.com/shots/1705797-Sketch-App-Icon-Yosemite-Edition?list=users&offset=0) for the logo was shamelessly borrowed from [Mehmet Gozetlik](http://dribbble.com/Antrepo). Thanks you Mehmet for the great work! :)
+- Excelent [NSLogger](https://github.com/fpillet/NSLogger) is used here! :)
 
 ## License
 
