@@ -1,8 +1,13 @@
 ![Header Logo](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/header_logo.png)
 ===============
 
-#### (Work in progress...)
-Sketch DevTools is a set of tools & utilities that help to develop [Sketch App](http://bohemiancoding.com/sketch/) plugins.
+Sketch DevTools is a set of tools & utilities that helps in development of [Sketch App](http://bohemiancoding.com/sketch/) plugins.
+
+The Sketch App itself provides a very limited number of tools for plugins developers. The most annoying things are the lack of convenient debugging tools and lack of documentation of available APIs. The aim of this project is to solve these two problems and provide newbie developers with a comprehensive information on plugins development for Sketch App.
+
+Currently the most valuable feature of DevTools is a built-in console that makes it a breeze to debug your plugins and scripts. I plan to work on this project futher to make development process even more easier! :)
+
+> Sketch DevTools uses a lot of undocmented and hidden APIs of Sketch App, thus it might stop working with any update of the application.
 
 ## Installation
 
@@ -20,7 +25,7 @@ Sketch DevTools is just a regular plugin that uses some rocket science to surviv
 
 `Command-Option-Shift-K` - Clear Console
 
-DevTools panel is like any WebKit inspector is bound to a specific document. If you want to use console in the current Sketch document you have to activate it using `Command-Option-K` shortcut. As soon as it got activated all the log statements and errors from plugins executed in the document will be automatically redirected to this console. All the logging techniques are desribed below.
+DevTools panel like any WebKit inspector is bound to a specific document. If you want to use console in the current Sketch document you have to activate it using `Command-Option-K` shortcut. As soon as you activate it - all the log statements and errors from plugins executed in the document will be automatically redirected to this console. All the logging techniques are desribed below.
 
 ### Basic Logging
 
