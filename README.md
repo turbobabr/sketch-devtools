@@ -29,7 +29,7 @@ DevTools panel like any WebKit inspector is bound to a specific document. If you
 
 ### Basic Logging
 
-Sketch DevTools console automatically handles all the exceptions and print statements. You use the same print/log function for logging in custom script editor or external sketchplugin/js file without any additional libs.
+Sketch DevTools console automatically handles all the exceptions and print statements. You use the same `print` or `log` function for logging in custom script editor or external sketchplugin/js file without any additional libs.
 
 Just run the following script in the custom script editor:
 
