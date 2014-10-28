@@ -157,6 +157,30 @@
     
 }
 
+-(NSString*)resolveModulePath:(NSString*)relativeFilePath basePath:(NSString*)baseFilePath {
+
+    NSString* pluginsRoot=[(NSURL*)objc_msgSend(NSClassFromString(@"MSPlugin"),NSSelectorFromString(@"pluginsURL")) path];
+    
+    NSString* scriptRoot=[baseFilePath stringByDeletingLastPathComponent];
+    NSMutableArray* route=[NSMutableArray arrayWithArray:[[scriptRoot stringByReplacingOccurrencesOfString:pluginsRoot withString:@""] componentsSeparatedByString:@"/"]];
+
+    NSInteger count=route.count;
+    for(int i=0;i<count;i++) {
+        
+        NSString* basePath=[pluginsRoot stringByAppendingString:[route componentsJoinedByString:@"/"]];
+        // NSString.sdt_resolvePath - resolves relative paths like "./module.js", "./../module.js", etc.
+        NSString* resolvedPath=[relativeFilePath sdt_resolvePath:basePath];
+        if([[NSFileManager defaultManager] fileExistsAtPath:resolvedPath]) {
+            return resolvedPath;
+            break;
+        }
+        
+        [route removeLastObject];
+    }
+    
+    return nil;
+}
+
 -(SDTModule*)parseImports:(NSString*)source withBaseURL:(NSURL*)base {
     
     self.source=source;
@@ -267,19 +291,23 @@
                     NSString *pathInQuotes = [objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken")) stringValue];
                     
                     NSString *path = [pathInQuotes substringWithRange:NSMakeRange(1, [pathInQuotes length]-2)];
-                    
                     if (base) {
                         
                         NSInteger curLine=[collector sdt_numberOfLines];
                         
-                        NSURL *importURL = [[base URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
+                        NSString* resolvedModulePath=[self resolveModulePath:path basePath:[base path]];
+                        // NSURL *importURL = [[base URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
+                        // NSURL *importURL = [NSURL fileURLWithPath:resolvedModulePath];
                         
+                        /*
                         NSError *outErr = nil;
                         NSString *s = [NSString stringWithContentsOfURL:importURL encoding:NSUTF8StringEncoding error:&outErr];
+                         */
                         
-                        
-                        if (s) {
-                            [SketchConsole reportValidImport:[importURL path] atFile:[self.url path] atLine:curLine];
+                        if (resolvedModulePath) {
+                            NSURL *importURL = [NSURL fileURLWithPath:resolvedModulePath];
+                            
+                            [SketchConsole reportValidImport:resolvedModulePath atFile:[self.url path] atLine:curLine];
                             
                             NSString* subScriptSource=[NSString stringWithContentsOfURL:importURL encoding:NSUTF8StringEncoding error:nil];
                             SDTModule* subModule=[[SDTModule alloc] initWithScriptSource:subScriptSource baseURL:base parent:self startLine:curLine-1 url:importURL];

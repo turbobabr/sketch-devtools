@@ -30,7 +30,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 
-#define INIT_FILE_WATCHERS false
+#define INIT_FILE_WATCHERS true
 
 
 
@@ -802,7 +802,6 @@
 
 +(void)reportBrokenImport:(NSDictionary*)info {
     // FIXME: http://github.com/turbobabr/sketch-devtools/issues/20
-    return;
     
     if([self sharedInstance].brokenImports==nil) {
         [self sharedInstance].brokenImports=[NSMutableArray array];
@@ -833,7 +832,7 @@
 +(void)initFileWatchers {
     SketchConsole* shared=[self sharedInstance];
     NSString* rootPath=[[shared.scriptURL URLByDeletingLastPathComponent] path];
-    NSArray* toObserve=@[@"index.html",@"consoleOptions.json",@"js",@"css",@"templates"];
+    NSArray* toObserve=@[@"index.html",@"consoleOptions.json",@"js",@"css",@"templates",@"changelog.json"];
     NSMutableArray* pathsToWatch=[NSMutableArray array];
     for(NSString* name in toObserve) {
         [pathsToWatch addObject:[NSString stringWithFormat:@"%@/%@",rootPath,name]];

@@ -22,6 +22,7 @@
     <script src="./js/services.js?ts=NO_CACHE"></script>
     <script src="./js/settings-popover.js?ts=NO_CACHE"></script>
     <script src="./js/toolbar.js?ts=NO_CACHE"></script>
+    <script src="./js/new-version-popover.js?ts=NO_CACHE"></script>
 
     <link rel='stylesheet' href='./css/bs-callout.css?ts=NO_CACHE'>
     <link rel='stylesheet' href='./css/main.css?ts=NO_CACHE'>
@@ -98,8 +99,10 @@
     </script>
 </head>
 <body ng-controller="SketchConsoleController" id="myBody" style="overflow: hidden;">
+    <new-version-popover ng-show="showChangelog" title="'A new version of Sketch DevTools is available!'" on-hide="showChangelog=false;" mode="'new-version'">></new-version-popover>
     <settings-popover ng-show="showSettings" on-hide="showSettings=false;"></settings-popover>
     <toolbar on-clear="clear()" on-settings="showSettings=true" on-close="hideConsole()"></toolbar>
+
 
     <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
         <div class="console-content-view" id="contentView">

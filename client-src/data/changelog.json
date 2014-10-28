@@ -1,0 +1,21 @@
+{
+    "currentVersion": "0.1.0",
+    "versions": [
+        {
+            "version": "0.2.0",
+            "releaseDate": "2014.10.28",
+            "items": [
+                "Bug Fix: Fixed bug with `@\"\"` literal is not being processed correctly. [Issue #25](https://github.com/turbobabr/sketch-devtools/issues/25)",
+                "Bug Fix: Relative paths in `#import` statements are now processed with excatly the same way Sketch App does it. [Issue #25](https://github.com/turbobabr/sketch-devtools/issues/25)",
+                "New Feature: Wrong `#import` statements are now reported as an error with the error box like this:"
+            ]
+        },
+        {
+            "version": "0.1.0",
+            "releaseDate": "2014.10.24",
+            "items": [
+                "Initial release! There will be bugs! :)"
+            ]
+        }
+    ]
+}

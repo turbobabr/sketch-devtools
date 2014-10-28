@@ -115,5 +115,6 @@ module.controller('SketchConsoleController', function ($scope) {
 
     //  Options popup.
     $scope.showSettings = false;
+    $scope.showChangelog = true;
 
 });
