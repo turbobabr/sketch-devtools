@@ -1,6 +1,23 @@
 var module = angular.module('SketchConsole', ['ui.bootstrap']);
 
-module.controller('SketchConsoleController', function ($scope) {
+module.controller('SketchConsoleController', function ($scope,$http) {
+
+
+    // Load remote changelog.
+    $http.get('https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/client-src/data/changelog.json').
+        success(function(data, status) {
+            $scope.remoteChangelog=data;
+
+            console.log("Remote changelog is loaded, with version: "+data.currentVersion);
+
+            $http.get('./data/changelog.json').
+                success(function(data, status) {
+                    $scope.localChangelog=data;
+
+                    console.log("Local changelog is loaded, with version: "+data.currentVersion);
+                });
+        });
+
     $scope.items = [];
 
     // Initialize options object.
