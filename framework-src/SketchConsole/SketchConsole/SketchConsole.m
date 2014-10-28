@@ -56,6 +56,7 @@
         // COSPreprocessor.preprocessForObjCStrings:
         // Fixing bug with block comments being ripped off.
         [SDTSwizzle swizzleClassMethod:@selector(preprocessForObjCStrings:) withMethod:@selector(preprocessForObjCStrings:) sClass:self pClass:NSClassFromString(@"COSPreprocessor") originalMethodPrefix:@"originalCOSPreprocessor_"];
+
     });
 }
 
@@ -783,7 +784,7 @@
         } else if (objc_msgSend(tok,NSSelectorFromString(@"isSymbol")) && [[tok stringValue] isEqualToString:@"@"]) {
             
             nextToken = objc_msgSend(tokenizer,NSSelectorFromString(@"nextToken"));
-            if(objc_msgSend(nextToken,NSSelectorFromString(@"quotedString"))) {
+            if([nextToken valueForKey:@"quotedString"]) {
                 [buffer appendFormat:@"[NSString stringWithString:%@]", [nextToken stringValue]];
             }
             else {

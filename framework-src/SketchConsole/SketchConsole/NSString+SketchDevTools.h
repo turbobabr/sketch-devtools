@@ -15,4 +15,6 @@
 
 + (NSString *)sdt_escapeHTML:(NSString*)str;
 
+-(NSString*)sdt_resolvePath:(NSString*)baseDirPath;
+
 @end
