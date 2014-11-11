@@ -1,4 +1,7 @@
-var module = angular.module('SketchConsole', ['ui.bootstrap','ui.ace']);
+
+// FIXME: Editor
+// var module = angular.module('SketchConsole', ['ui.bootstrap','ui.ace']);
+var module = angular.module('SketchConsole', ['ui.bootstrap']);
 
 module.controller('SketchConsoleController', function ($scope,$http) {
 
@@ -145,6 +148,8 @@ module.controller('SketchConsoleController', function ($scope,$http) {
     //  Options popup.
     $scope.showSettings = false;
 
+    // FIXME: Editor.
+    /*
     $scope.scriptSource = "";
     $scope.showScriptEditor = false;
 
@@ -187,6 +192,7 @@ module.controller('SketchConsoleController', function ($scope,$http) {
             readOnly: false // false if this command should not apply in readOnly mode
         });
     };
+    */
 
 
 

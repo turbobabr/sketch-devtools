@@ -17,7 +17,7 @@ Currently the most valuable feature of DevTools is a built-in console that makes
 4. Install [Sketch DevTools Assistant](https://github.com/turbobabr/sketch-devtools-assistant) application.
 5. You are ready to go! :)
 
-## Update
+## Updating
 
 Starting from version 0.2.0, Sketch DevTools supports automatic notifications about new releases. As soon as new version is available you will see the following popover screen with detailed info about the new release:
 
@@ -31,7 +31,10 @@ Unfortunately automatic updates are not supported yet, thus you have to update e
 4. [Download Sketch DevTools.zip archive file](https://github.com/turbobabr/sketch-devtools/blob/master/dist/Sketch%20DevTools.zip?raw=true).
 5. Copy downloaded zip file to the plugins folder and un-zip it.
 6. IMPORTANT: Reinstall [Sketch DevTools Assistant](https://github.com/turbobabr/sketch-devtools-assistant) application.
-7. Restart Sketch App
+7. Launch Sketch App
+8. Launch DevTools using `Command-Option-K`
+9. Setup `Jump to Code` editor and other preferences as described in [Jump To Code](https://github.com/turbobabr/sketch-devtools#jump-to-code) section.
+10. Mission complete! :)
 
 ## Change Log
 
