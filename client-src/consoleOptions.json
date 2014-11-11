@@ -1,5 +1,5 @@
 {
-  "clearConsoleBeforeLaunch" : true,
+  "clearConsoleBeforeLaunch" : false,
   "defaultProtocolHandler" : "sublime",
   "showSessionInfo" : true,
   "protocolHandlerTemplate" : "txmt:\/\/open?url={file}&line={line}&column={column}",

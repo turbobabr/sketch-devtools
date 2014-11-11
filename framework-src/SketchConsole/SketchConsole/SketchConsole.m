@@ -30,7 +30,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
 
-#define INIT_FILE_WATCHERS true
+#define INIT_FILE_WATCHERS false
 
 
 
@@ -637,8 +637,8 @@
     if (sel == @selector(showCustomScriptWindow:))
         name = @"showCustomScriptWindow";
     
-    if (sel == @selector(synchronizeSymbols:))
-        name = @"synchronizeSymbols";
+    if (sel == @selector(runScript:))
+        name = @"runScript";
     
     
     
@@ -653,7 +653,7 @@
     if (sel == @selector(getConsoleOptions)) return NO;
     if (sel == @selector(setConsoleOptions:)) return NO;
     if (sel == @selector(showCustomScriptWindow:)) return NO;
-    if (sel == @selector(synchronizeSymbols:)) return NO;
+    if (sel == @selector(runScript:)) return NO;
 
     return YES;
 }
@@ -829,6 +829,11 @@
     }
 }
 
+-(void)runScript:(NSString*)scriptSource {
+    [[NSApp delegate] performSelector:NSSelectorFromString(@"runPluginScript:") withObject:scriptSource];
+};
+
+
 +(void)initFileWatchers {
     SketchConsole* shared=[self sharedInstance];
     NSString* rootPath=[[shared.scriptURL URLByDeletingLastPathComponent] path];
@@ -870,6 +875,7 @@
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     // FIXME: Why? :)
 }
+
 
 @end
 

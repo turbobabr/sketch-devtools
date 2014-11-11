@@ -3,11 +3,13 @@
     "versions": [
         {
             "version": "0.2.0",
-            "releaseDate": "2014.10.28",
+            "releaseDate": "2014.11.11",
             "items": [
                 "Bug Fix: Fixed bug with `@\"\"` literal is not being processed correctly. [Issue #25](https://github.com/turbobabr/sketch-devtools/issues/25)",
-                "Bug Fix: Relative paths in `#import` statements are now processed with excatly the same way Sketch App does it. [Issue #25](https://github.com/turbobabr/sketch-devtools/issues/25)",
-                "New Feature: Wrong `#import` statements are now reported as an error with the error box like this:"
+                "Bug Fix: Relative paths in `#import` statements are now processed with excatly the same way Sketch App does it. [Issue #20](https://github.com/turbobabr/sketch-devtools/issues/20)",
+                "Bug Fix: `Jump To Code` feature didn't recognize Sublime 2 during protocol handling routine. [Sketch DevTools Assistant: Issue #1](https://github.com/turbobabr/sketch-devtools-assistant/issues/1)",
+                "New Feature: Invalid `#import` statements are now reported as a nice looking error box.",
+                "New Feature: Notifications about new releases are now supported! [Issue #10](https://github.com/turbobabr/sketch-devtools/issues/10)"
             ]
         },
         {

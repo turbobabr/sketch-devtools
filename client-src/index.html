@@ -17,6 +17,10 @@
 
     <script src="./bower_components/markdown/lib/markdown.js"></script>
 
+    <script type="text/javascript" src="./bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="./bower_components/angular-ui-ace/ui-ace.js"></script>
+
+
     <script src="./js/controllers.js?ts=NO_CACHE"></script>
     <script src="./js/wtf.js?ts=NO_CACHE"></script>
     <script src="./js/services.js?ts=NO_CACHE"></script>
@@ -76,17 +80,23 @@
             scope().clear();
         }
 
-        $(window).resize(function() {
+        function updateScrollableViews() {
             $("#contentView").css("height", window.innerHeight-32);
             $("#settingsContentView").css("height", window.innerHeight-(92+20));
+            $("#newVersionPopoverContentView").css("height", window.innerHeight-(129+20));
+        }
+
+        $(window).resize(function() {
+            updateScrollableViews();
         });
 
         var isCmdKey=false;
+
+        $(window).load(function(){
+            updateScrollableViews();
+        });
+
         $(document).ready(function() {
-
-            $("#contentView").css("height", window.innerHeight-32);
-            $("#settingsContentView").css("height", window.innerHeight-(92+20));
-
 
             KeyboardJS.on('command', function() {
                 isCmdKey=true;
@@ -99,20 +109,27 @@
     </script>
 </head>
 <body ng-controller="SketchConsoleController" id="myBody" style="overflow: hidden;">
-    <new-version-popover ng-show="showChangelog" title="'A new version of Sketch DevTools is available!'" on-hide="showChangelog=false;" mode="'new-version'">></new-version-popover>
+    <new-version-popover ng-show="showChangelog" title="'A new version of Sketch DevTools is available!'" on-hide="showChangelog=false;" changelog="remoteChangelog">></new-version-popover>
     <settings-popover ng-show="showSettings" on-hide="showSettings=false;"></settings-popover>
     <toolbar on-clear="clear()" on-settings="showSettings=true" on-close="hideConsole()"></toolbar>
-
-
     <div class="container-fluid" style="padding-right: 0px; padding-left: 0px;">
-        <div class="console-content-view" id="contentView">
-            <a href="#" default-browser="http://github.com/turbobabr/sketch-devtools" ng-show="showLogo()">
-                <div class="background-logo">
-                    <img src="images/background-logo.png">
+        <div class="row">
+            <div class="{{ showScriptEditor ? 'col-lg-6' : 'col-lg-12'}}">
+                <div class="console-content-view" id="contentView">
+                    <a href="#" default-browser="http://github.com/turbobabr/sketch-devtools" ng-show="showLogo()">
+                        <div class="background-logo">
+                            <img src="images/background-logo.png">
+                        </div>
+                    </a>
+                    <consoleitem ng-repeat="item in items" item="item"></consoleitem>
                 </div>
-            </a>
-            <consoleitem ng-repeat="item in items" item="item"></consoleitem>
+            </div>
+
+            <div class="col-lg-6" ng-show="showScriptEditor">
+                <div style="height: 733px;" ui-ace="{ mode:'javascript', theme:'xcode', onLoad: aceLoaded }"></div>
+            </div>
         </div>
+
     </div>
 
 </body>

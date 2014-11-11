@@ -61,7 +61,8 @@ gulp.task('componentsJS', ['clean'], function() {
         "client-src/bower_components/moment/moment.js",
         "client-src/bower_components/underscore/underscore.js",
         "client-src/bower_components/mustache/mustache.js",
-        "client-src/bower_components/keyboardjs/keyboardjs.js"
+        "client-src/bower_components/keyboardjs/keyboardjs.js",
+        "client-src/bower_components/markdown/lib/markdown.js"
     ]).pipe(gulp.dest('dist/build/js'));
 });
 
@@ -76,6 +77,7 @@ gulp.task('index', ['clean'], function() {
         .pipe(replace("./bower_components/underscore/", "./js/"))
         .pipe(replace("./bower_components/mustache/", "./js/"))
         .pipe(replace("./bower_components/keyboardjs/", "./js/"))
+        .pipe(replace("./bower_components/markdown/lib", "./js/"))
         .pipe(replace("?ts=NO_CACHE","?ts="+(new Date().valueOf()).toString()))
         .pipe(gulp.dest('dist/build'));
 });

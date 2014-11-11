@@ -168,7 +168,6 @@
     for(int i=0;i<count;i++) {
         
         NSString* basePath=[pluginsRoot stringByAppendingString:[route componentsJoinedByString:@"/"]];
-        // NSString.sdt_resolvePath - resolves relative paths like "./module.js", "./../module.js", etc.
         NSString* resolvedPath=[relativeFilePath sdt_resolvePath:basePath];
         if([[NSFileManager defaultManager] fileExistsAtPath:resolvedPath]) {
             return resolvedPath;
@@ -296,13 +295,6 @@
                         NSInteger curLine=[collector sdt_numberOfLines];
                         
                         NSString* resolvedModulePath=[self resolveModulePath:path basePath:[base path]];
-                        // NSURL *importURL = [[base URLByDeletingLastPathComponent] URLByAppendingPathComponent:path];
-                        // NSURL *importURL = [NSURL fileURLWithPath:resolvedModulePath];
-                        
-                        /*
-                        NSError *outErr = nil;
-                        NSString *s = [NSString stringWithContentsOfURL:importURL encoding:NSUTF8StringEncoding error:&outErr];
-                         */
                         
                         if (resolvedModulePath) {
                             NSURL *importURL = [NSURL fileURLWithPath:resolvedModulePath];
@@ -313,8 +305,6 @@
                             SDTModule* subModule=[[SDTModule alloc] initWithScriptSource:subScriptSource baseURL:base parent:self startLine:curLine-1 url:importURL];
                             // subModule.url=importURL;
                             [self.imports addObject:subModule];
-                            
-                            // [SketchConsole reportValidImport:[importURL path]];
                             
                         }
                         else {

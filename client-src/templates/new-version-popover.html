@@ -4,17 +4,35 @@
             <h3 style="padding-right: 20px;">&nbsp;<img src="./images/logo_48x48.png">&nbsp;&nbsp;{{title}}<a href="#" ng-click="hidePopover()"><div class="settings-popover-close pull-right"><i class="fa fa-times"></i></div></a></h3>
             <hr>
         </div>
-        <div style="padding-left: 20px; overflow-x: hidden;overflow-y: auto;" id="settingsContentView">
+        <div style="padding-left: 20px; overflow-x: hidden;overflow-y: auto;" id="newVersionPopoverContentView">
+
             <div class="container-fluid">
-                <div class="row" ng-repeat="version in changelog.versions">
+                <div class="row">
+
                     <div class="div col-lg-12">
-                        <h4>Version {{version.version}} ({{version.releaseDate}})</h4>
+                        <small><span class="pull-right text-muted">Currently Installed Version: {{changelog.currentVersion}}</span></small>
+                        <h4>Version {{changelog.latestVersion.version}} ({{changelog.latestVersion.releaseDate}})</h4>
+                        <h5 class="text-muted">RELEASE NOTES</h5>
+                        <ul>
+                            <li ng-repeat="item in changelog.latestVersion.items" ng-bind-html="renderMarkdown(item)"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a class="text-muted" href="#" ng-click="showPrevReleases=!showPrevReleases"><small><i ng-class="!showPrevReleases ? 'fa fa-chevron-right' : 'fa fa-chevron-down'"></i></small> Previous versions release notes...</a>
+                <div class="row" ng-repeat="version in changelog.previousVersions" ng-show="showPrevReleases">
+                    <div class="div col-lg-12">
+                        <h4>Version {{version.version}} ({{version.releaseDate}}) - <span class="text-muted">{{daysPastSinceRelease(version.releaseDate)}}</span></h4>
                         <h5 class="text-muted">RELEASE NOTES</h5>
                         <ul>
                             <li ng-repeat="item in version.items" ng-bind-html="renderMarkdown(item)"></li>
                         </ul>
                     </div>
                 </div>
+
+                <hr>
+                <a href="#" default-browser="http://github.com/turbobabr/sketch-devtools#update" class="btn btn-success pull-right"><i class="fa fa-download"></i> <strong>GET UPDATE</strong></a>
+
             </div>
         </div>
     </div>

@@ -1,22 +1,34 @@
-var module = angular.module('SketchConsole', ['ui.bootstrap']);
+var module = angular.module('SketchConsole', ['ui.bootstrap','ui.ace']);
 
 module.controller('SketchConsoleController', function ($scope,$http) {
 
+    $scope.showChangelog = false;
 
     // Load remote changelog.
-    $http.get('https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/client-src/data/changelog.json').
-        success(function(data, status) {
-            $scope.remoteChangelog=data;
-
-            console.log("Remote changelog is loaded, with version: "+data.currentVersion);
+    $http.get('https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/client-src/data/changelog.json?ts='+(new Date().valueOf()).toString()).
+        success(function(remoteData) {
 
             $http.get('./data/changelog.json').
-                success(function(data, status) {
-                    $scope.localChangelog=data;
+                success(function(localData) {
+                    if(_.isNull(localData) || _.isUndefined(localData)) {
+                        return;
+                    }
 
-                    console.log("Local changelog is loaded, with version: "+data.currentVersion);
+                    if(remoteData.currentVersion!=localData.currentVersion) {
+                        $scope.remoteChangelog = {
+                            currentVersion: localData.currentVersion,
+                            // latestVersion: remoteData.versions[0],
+                            latestVersion: localData.versions[0],
+                            previousVersions: _.rest(remoteData.versions)
+                        };
+
+                        updateScrollableViews(); // Fixme: Dirty hack to update scrollable views viewports.
+                        $scope.showChangelog = true;
+
+                    }
                 });
         });
+
 
     $scope.items = [];
 
@@ -132,6 +144,51 @@ module.controller('SketchConsoleController', function ($scope,$http) {
 
     //  Options popup.
     $scope.showSettings = false;
-    $scope.showChangelog = true;
+
+    $scope.scriptSource = "";
+    $scope.showScriptEditor = false;
+
+    // ACE editor.
+    $scope.aceLoaded = function(_editor){
+        // Editor part
+        var _session = _editor.getSession();
+        var _renderer = _editor.renderer;
+
+        // Options
+        _editor.setReadOnly(false);
+        _session.setUndoManager(new ace.UndoManager());
+        _renderer.setShowGutter(true);
+
+        // Events
+        _editor.on("changeSession", function(){
+
+            // console.log("changeSession");
+
+        });
+        _session.on("change", function(){
+            // console.log("change!");
+        });
+
+        _editor.commands.addCommand({
+            name: 'runScript',
+            bindKey: { mac: 'Command-Enter'},
+            exec: function(editor) {
+                SketchDevTools.runScript(editor.getValue());
+            },
+            readOnly: false // false if this command should not apply in readOnly mode
+        });
+
+        _editor.commands.addCommand({
+            name: 'showHideEditor',
+            bindKey: { mac: 'Command-Shift-K'},
+            exec: function(editor) {
+                $scope.showScriptEditor=!$scope.showScriptEditor;
+            },
+            readOnly: false // false if this command should not apply in readOnly mode
+        });
+    };
+
+
+
 
 });

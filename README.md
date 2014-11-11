@@ -17,6 +17,25 @@ Currently the most valuable feature of DevTools is a built-in console that makes
 4. Install [Sketch DevTools Assistant](https://github.com/turbobabr/sketch-devtools-assistant) application.
 5. You are ready to go! :)
 
+## Update
+
+TODO: Text goes here.
+
+## Change Log
+
+#### v0.2.0: November 11, 2014
+
+- Bug Fix: Fixed bug with `@""` literal is not being processed correctly. [Issue #25](https://github.com/turbobabr/sketch-devtools/issues/25)
+- Bug Fix: Relative paths in `#import` statements are now processed with excatly the same way Sketch App does it. [Issue #20](https://github.com/turbobabr/sketch-devtools/issues/20)
+- Bug Fix: `Jump To Code` feature didn't recognize Sublime 2 during protocol handling routine. [Sketch DevTools Assistant: Issue #1](https://github.com/turbobabr/sketch-devtools-assistant/issues/1)
+- New Feature: Invalid `#import` statements are now reported as a nice looking error box.
+- New Feature: Notifications about new releases are now supported! [Issue #10](https://github.com/turbobabr/sketch-devtools/issues/10)
+
+#### v0.1.0: October 24, 2014
+
+- Initial release with a bunch of bugs! :)
+
+
 ## Usage
 
 Sketch DevTools is just a regular plugin that uses some rocket science to survive in this cruel world. Since it's just a plugin - there are some commands available:
@@ -159,11 +178,6 @@ Here is the list of some half-baked ideas and features I'm planning to include i
 - [ ] Symbols Explorer. A separate tab panel that contains a Sketch classes reference.
 - [ ] Custom script runner. The same thing as built-in Sketch custom script dialog but embedded right into DevTools panel.
 - [ ] Console prompt to quickly evaluate JS expressions.
-
-## Change Log
-
-#### v0.1.0: October 24, 2014
-- Initial release with a bunch of bugs! :)
 
 ## Feedback
 

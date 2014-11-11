@@ -9,22 +9,18 @@
             scope: {
                 "onHide": "&",
                 "title": "=",
-                "mode": "="
+                "mode": "=",
+                "changelog": "="
             },
             templateUrl: "./templates/new-version-popover.html",
             controller: function($scope,$sce) {
 
-                // Load changelog.
-                $http.get('./data/changelog.json').
-                    success(function(data, status) {
-                        $scope.changelog=data;
-                    }).
-                    error(function(data, status, headers, config) {
-                        // error logging goes here!.
-                    });
-
                 $scope.hidePopover = function() {
                     $scope.onHide();
+                };
+
+                $scope.daysPastSinceRelease = function(dateStr) {
+                    return moment(dateStr,"YYYY.MM.DD").fromNow();
                 };
 
                 $scope.renderMarkdown = function(contents) {
@@ -40,7 +36,7 @@
                         link.attr("href","#");
 
                         link.attr("onClick","SketchDevTools.openURL(\""+ref+"\");")
-                        console.log(ref);
+                        // console.log(ref);
                     });
 
                     // return $sce.trustAsHtml(html);
@@ -49,8 +45,6 @@
 
             },
             link: function(scope, element, attrs) {
-
-
             }
         };
     });
