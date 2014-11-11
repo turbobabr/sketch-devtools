@@ -41,6 +41,12 @@ gulp.task('plugin', ['clean'], function() {
         .pipe(gulp.dest('dist/build'));
 });
 
+gulp.task('changelog', ['clean'], function() {
+    return gulp.src([
+        "client-src/data/changelog.json"
+    ]).pipe(gulp.dest('dist/build/data'));
+});
+
 gulp.task('componentsCSS', ['clean'], function() {
     return gulp.src([
         "client-src/bower_components/bootstrap/dist/css/bootstrap.css",
@@ -82,7 +88,7 @@ gulp.task('index', ['clean'], function() {
         .pipe(gulp.dest('dist/build'));
 });
 
-gulp.task('zip',['frameworks','scripts','templates','styles','plugin','images','componentsCSS','componentsJS','index','fontAwesome'],function() {
+gulp.task('zip',['frameworks','scripts','templates','styles','plugin','images','componentsCSS','componentsJS','index','fontAwesome','changelog'],function() {
     return gulp.src('dist/build/**/*')
         .pipe(zip('Sketch DevTools.zip'))
         .pipe(gulp.dest('dist'));
