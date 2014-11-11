@@ -19,7 +19,19 @@ Currently the most valuable feature of DevTools is a built-in console that makes
 
 ## Update
 
-TODO: Text goes here.
+Starting from version 0.2.0, Sketch DevTools supports automatic notifications about new releases. As soon as new version is available you will see the following popover screen with detailed info about the new release:
+
+![New Version Notifications](https://raw.githubusercontent.com/turbobabr/sketch-devtools/master/docs/new_version_notification_popover.png)
+
+Unfortunately automatic updates are not supported yet, thus you have to update everything manually. Follow these steps to update your current version of Sketch DevTools to a new one:
+
+1. Reveal plugins folder in finder ('Sketch App Menu' -> 'Plugins' -> 'Reveal Plugins Folder...').
+2. Quit Sketch App.
+3. Find and remove `Sketch DevTools` folder in revealed plugins folder.
+4. [Download Sketch DevTools.zip archive file](https://github.com/turbobabr/sketch-devtools/blob/master/dist/Sketch%20DevTools.zip?raw=true).
+5. Copy downloaded zip file to the plugins folder and un-zip it.
+6. IMPORTANT: Reinstall [Sketch DevTools Assistant](https://github.com/turbobabr/sketch-devtools-assistant) application.
+7. Restart Sketch App
 
 ## Change Log
 
